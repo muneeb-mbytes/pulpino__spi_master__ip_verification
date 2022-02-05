@@ -6,11 +6,9 @@
 -  ....
 -  ....
 
-**Create the pull request to branch development_branch_v1**
-
-**Use @mention to assign the reviewer for this pull request**
-
-**Select the appropriate items in the pull reequest**
-- [ ] Milestone
-- [ ] Project
-- [ ] Reviewer
+**Make sure you do the following:** 
+- [ ] Create the pull request to branch development_branch_v1
+- [ ] Use @mention to assign this pull request
+- [ ] Select Milestone
+- [ ] Select Project
+- [ ] Select Reviewer

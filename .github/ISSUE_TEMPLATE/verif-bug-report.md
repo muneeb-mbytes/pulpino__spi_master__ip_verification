@@ -26,3 +26,8 @@ If applicable, add screenshots to help explain your problem.
 
 **Additional context**
 Add any other context about the problem here.
+
+**Add the required following items to the issue**
+1.  Projects
+2.  Milestone
+3.  Assignee

@@ -22,3 +22,8 @@ Add any other context or screenshots about the feature request here.
 **Additional lists of tasks to be accomplished**
 - [ ] task 1
 - [ ] task 2
+
+**Add the required following items to the issue**
+1.  Projects
+2.  Milestone
+3.  Assignee

@@ -10,7 +10,7 @@
 
 **Use @mention to assign the reviewer for this pull request**
 
-**Use appropriate milestone and projects names**
-- [ ] Milestone selected 
-- [ ] Project selected 
-- [ ] Reviewer mentioned
+**Select the appropriate items in the pull reequest**
+- [ ] Milestone
+- [ ] Project
+- [ ] Reviewer

@@ -1,1 +1,1 @@
-[pulpino_architecture_plan](https://drive.google.com/file/d/1VD2na-JNxaeqa0kW2ebIelFeS2zMd3X-/view?usp=sharing)
+[pulpino_architecture_plan](https://drive.google.com/file/d/1aU-pK6TuBKvtF9Mgx3Kl2zoVzGR5E8VY/view?usp=sharing)

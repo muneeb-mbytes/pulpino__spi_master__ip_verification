@@ -8,20 +8,20 @@
 // This package file includes the required define files
 //----------------------------------------------------------------------------------------------------------------------------
 
-`ifndef _EXAMPLE_REGISTER_DEFINES_PKG_INCLUDED_
-`define _EXAMPLE_REGISTER_DEFINES_PKG_INCLUDED_
+`ifndef _SPI_MASTER_DEFINES_PKG_INCLUDED_
+`define _SPI_MASTER_DEFINES_PKG_INCLUDED_
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Package: example_register_defines_pkg
+// Package: spi_master_defines_pkg
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-package example_register_defines_pkg;
+package spi_master_defines_pkg;
 
   import uvm_pkg::*;
   `include "uvm_macros.svh"
 
   `include "spi_master_defines.svh"
-endpackage: example_register_defines_pkg
+endpackage: spi_master_defines_pkg
 
 `endif
 

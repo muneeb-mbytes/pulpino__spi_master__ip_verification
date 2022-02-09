@@ -1,0 +1,10 @@
++incdir+../../src/hvl_top/master/
++incdir+../../src/hvl_top/test/master_sequences
+../../src/globals/apb_global_pkg.sv
+../../src/hvl_top/master/apb_master_pkg.sv
+../../src/hvl_top/test/master_sequences/apb_master_seq_pkg.sv
+../../src/hdl_top/apb_if/apb_if.sv
+../../src/hdl_top/master_agent_bfm/apb_master_driver_bfm.sv
+../../src/hdl_top/master_agent_bfm/apb_master_monitor_bfm.sv
+../../src/hdl_top/master_agent_bfm/apb_master_agent_bfm.sv
+../../src/hdl_top/hdl_top.sv

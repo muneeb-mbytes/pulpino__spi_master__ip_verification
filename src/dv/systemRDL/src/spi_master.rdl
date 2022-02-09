@@ -1,0 +1,404 @@
+//-----------------------------------------------------------------------------
+// User Defined Properties (UDP)
+//-----------------------------------------------------------------------------
+`include "defined_udps.rdl"
+
+//-----------------------------------------------------------------------------
+// Register block for SPI MASTER accessed vai PAB interface 
+//-----------------------------------------------------------------------------
+addrmap spi_master_apb_if {
+  name = "SPI Master Top";
+  desc = "SPI Master Registers";
+
+  lsb0;
+  littleendian;
+
+  map_name_p = "SPI_MASTER_MAP_ABP_IF";
+  base_address_p = 32'h1A10_2000;
+
+  default regwidth = 32;
+  default accesswidth = 32;
+
+  //hdl_path = ""; 
+
+  reg {
+    name = "SPI Status Register";
+    desc = "Defines the mode of operation";
+    regaccess_p = "RW";
+
+    field {
+      name = "Reserved12";
+      desc = "Reserved for further usage";
+
+      hw = na;
+      sw = r;
+      fieldwidth = 20;
+    } RESERVED12[31:12] = 20'h0;
+
+    field {
+      name = "Chip Select";
+      desc = "Specify the chip select signal that should be used for the next transfer";
+      //hdl_path_slice = "";
+
+      hw = r;
+      sw = rw;
+      fieldwidth = 4;
+    } CS[11:8] = 4'h0;
+
+    field {
+      name = "Reserved5";
+      desc = "Reserved for further usage";
+
+      hw = na;
+      sw = r;
+      fieldwidth = 3;
+    } RESERVED5[7:5] = 3'h0;
+
+    field {
+      name = "Software Reset";
+      desc = "Clear FIFOs and abort active transfers";
+      //hdl_path_slice = "";
+
+      hw = r;
+      sw = rw;
+      fieldwidth = 1;
+    } SRST[4:4] = 1'h0;
+
+    field {
+      name = "Quad Write Command";
+      desc = "Perform a write using Quad SPI mode";
+      //hdl_path_slice = "";
+
+      hw = r;
+      sw = rw;
+      fieldwidth = 1;
+    } QWR[3:3] = 1'h0; 
+
+    field {
+      name = "Quad Read Command";
+      desc = "Perform a read using Quad SPI mode";
+      //hdl_path_slice = "";
+
+      hw = r;
+      sw = rw;
+      fieldwidth = 1;
+    } QRD[2:2] = 1'h0; 
+
+    field {
+      name = "Write Command";
+      desc = "Perform a write using standard SPI mode";
+      //hdl_path_slice = "";
+
+      hw = r;
+      sw = rw;
+      fieldwidth = 1;
+    } WR[1:1] = 1'h0;
+
+    field {
+      name = "Read Command";
+      desc = "Perform a read using standard SPI mode";
+      //hdl_path_slice = "";
+
+      hw = r;
+      sw = rw;
+      fieldwidth = 1;
+    } RD[0:0] = 1'h0;
+
+  } status @0x0000;
+
+  reg {
+    name = "Clock Divider Register";
+    desc = "Defines the clock divider value";
+    regaccess_p = "RW";
+
+    field {
+      name = "Reserved8";
+      desc = "Reserved for further usage";
+
+      hw = na;
+      sw = r;
+      fieldwidth = 24;
+    } RESERVED8[31:8] = 24'h0;
+
+    field {
+      name = "Clock Divider";
+      desc = "Clock divider value used to divide the SOC clock for the SPI transfers.
+      This register should not be modified whil a transfer is in progress.";
+      //hdl_path_slice = "";
+
+      hw = r;
+      sw = rw;
+      fieldwidth = 8;
+    } CLKDIV[7:0] = 8'h0;
+
+  } clkdiv @0x0004;
+
+  reg {
+    name = "SPI Command Register";
+    desc = "Specifies the SPI command value";
+    regaccess_p = "RW";
+
+    field {
+      name = "SPI Command";
+      desc = "When performing a read or write transfer the SPI command is sent first before 
+      any data is read or written. The lenght of the SPI command can be controlled with the 
+      SPILEN register";
+      //hdl_path_slice = "";
+
+      hw = r;
+      sw = rw;
+      fieldwidth = 32;
+    } SPICMD[31:0] = 32'h0;
+
+  } spicmd @0x0008;
+
+  reg {
+    name = "SPI Address Register";
+    desc = "Specifies the SPI address value";
+    regaccess_p = "RW";
+
+    field {
+      name = "SPI Address";
+      desc = "When performing a read or write transfer the SPI command is sent first before 
+      any data is read or written, after this the SPI address is sent.
+      The lenght of the SPI command can be controlled with the SPILEN register";
+      //hdl_path_slice = "";
+
+      hw = r;
+      sw = rw;
+      fieldwidth = 32;
+    } SPIADR[31:0] = 32'h0;
+
+  } spiadr @0x000c;
+
+  reg {
+    name = "SPI Transfer Length Register";
+    desc = "Defines the number of bits to be sent or received over SPI interface";
+    regaccess_p = "RW";
+
+    field {
+      name = "SPI Data Length";
+      desc = "The number of bits read or written. Note that first the SPI command and address are
+      written to an SPI slave device.";
+      //hdl_path_slice = "";
+      
+      hw = r;
+      sw = rw;
+      fieldwidth = 16;
+    } DATALEN[31:16] = 16'h0;
+
+    field {
+      name = "Reserved14";
+      desc = "Reserved for further usage";
+
+      hw = na;
+      sw = r;
+      fieldwidth = 2;
+    } RESERVED14[15:14] = 2'h0;
+
+    field {
+      name = "SPI Address Length";
+      desc = "The number of bits of the SPI Address that should be sent.";
+      //hdl_path_slice = "";
+      
+      hw = r;
+      sw = rw;
+      fieldwidth = 6;
+    } ADDRLEN[13:8] = 6'h0;
+
+    field {
+      name = "Reserved6";
+      desc = "Reserved for further usage";
+
+      hw = na;
+      sw = r;
+      fieldwidth = 2;
+    } RESERVED6[7:6] = 2'h0;
+
+    field {
+      name = "SPI Command Length";
+      desc = "The number of bits of the SPI command that should be sent.";
+      //hdl_path_slice = "";
+      
+      hw = r;
+      sw = rw;
+      fieldwidth = 6;
+    } CMDLEN[5:0] = 6'h0;
+
+  } spilen @0x0010;
+
+  reg {
+    name = "SPI Dummy Cycles Register";
+    desc = "Defines the dummy cycles between each spi transfer";
+    regaccess_p = "RW";
+
+    field {
+      name = "Write Dummy Cycles";
+      desc = "Dummy cycles (nothing being written or read) between sending the 
+      SPI command + SPI address + writing the SPI data";
+      //hdl_path_slice = "";
+
+      hw = r;
+      sw = rw;
+      fieldwidth = 16;
+    } DUMMYWR[31:16] = 16'h0;
+
+    field {
+      name = "Read Dummy Cycles";
+      desc = "Dummy cycles (nothing being written or read) between sending the 
+      SPI command + SPI address + reading the SPI data";
+      //hdl_path_slice = "";
+
+      hw = r;
+      sw = rw;
+      fieldwidth = 16;
+    } DUMMYRD[15:0] = 16'h0;
+
+  } spidum @0x0014;
+
+  reg {
+    name = "SPI Transmit FIFO Register";
+    desc = "Used for storing the data that'll be written into the FIFO";
+    regaccess_p = "WO";
+
+    field {
+      name = "Transmit data";
+      desc = "Write data into the FIFO";
+      //hdl_path_slice = "";
+
+      hw = r;
+      sw = w;
+      fieldwidth = 32;
+    } TX[31:0] = 32'h0;
+
+  } txfifo @0x0018;
+
+  reg {
+    name = "SPI Receive FIFO Register";
+    desc = "Used for reading the data read from the FIFO";
+    regaccess_p = "RO";
+
+    field {
+      name = "Receive data";
+      desc = "Read data from the FIFO";
+      //hdl_path_slice = "";
+
+      hw = w;
+      sw = r;
+      fieldwidth = 32;
+    } RX[31:0] = 32'h0;
+
+  } rxfifo @0x0020;
+
+  reg {
+    name = "SPI Interrupt Configuration Register";
+    desc = "Defines the interrupt configuration for SPI module";
+    regaccess_p = "RW";
+
+    field {
+      name = "Interrupt Enable";
+      desc = "Used for enabling the interrupts. TODO: Fill this based on the better RTL understanding";
+      //hdl_path_slice = "";
+      
+      hw = r;
+      sw = rw;
+      fieldwidth = 1;
+    } EN[31:31] = 1'h0;
+
+    field {
+      name = "Count Enable";
+      desc = "Used for enabling the counters. TODO: Fill this based on the better RTL understanding";
+      //hdl_path_slice = "";
+      
+      hw = r;
+      sw = rw;
+      fieldwidth = 1;
+    } CNTEN[30:30] = 1'h0;
+
+    field {
+      name = "Reserved29";
+      desc = "Reserved bits for further usage.
+      It is 1bit wide based on RTL BUFFER_DEPTH=10";
+
+      hw = na;
+      sw = r;
+      fieldwidth = 1;
+    } RESERVED29[29:29] = 1'h0;
+
+    field {
+      name = "Counter Receive";
+      desc = "The value of the receive counter to be specified. TODO: Fill this based on the better RTL understanding
+      It is 5bits wide based on RTL BUFFER_DEPTH=10";
+      //hdl_path_slice = "";
+      
+      hw = r;
+      sw = rw;
+      fieldwidth = 5;
+    } CNTRX[28:24] = 5'h0;
+
+    field {
+      name = "Reserved21";
+      desc = "Reserved bits for further usage.
+      It is 3bits wide based on RTL BUFFER_DEPTH=10";
+
+      hw = na;
+      sw = r;
+      fieldwidth = 3;
+    } RESERVED21[23:21] = 3'h0;
+
+    field {
+      name = "Counter Transmit";
+      desc = "The value of the transmit counter to be specified. TODO: Fill this based on the better RTL understanding
+      It is 5bits wide based on RTL BUFFER_DEPTH=10";
+      //hdl_path_slice = "";
+      
+      hw = r;
+      sw = rw;
+      fieldwidth = 5;
+    } CNTTX[20:16] = 5'h0;
+
+    field {
+      name = "Reserved13";
+      desc = "Reserved bits for further usage.
+      It is 3bits wide based on RTL BUFFER_DEPTH=10";
+
+      hw = na;
+      sw = r;
+      fieldwidth = 3;
+    } RESERVED13[15:13] = 3'h0;
+
+    field {
+      name = "Receive Threshold";
+      desc = "The receive fifo threshold at which the event is generated. TODO: Fill this based on the better RTL understanding
+      It is 5bits wide based on RTL BUFFER_DEPTH=10";
+      //hdl_path_slice = "";
+      
+      hw = r;
+      sw = rw;
+      fieldwidth = 5;
+    } RHTX[12:8] = 5'h0;
+
+    field {
+      name = "Reserved5";
+      desc = "Reserved bits for further usage.
+      It is 3bits wide based on RTL BUFFER_DEPTH=10";
+
+      hw = na;
+      sw = r;
+      fieldwidth = 3;
+    } RESERVED5[7:5] = 3'h0;
+
+    field {
+      name = "Transmit Threshold";
+      desc = "The transmit fifo threshold at which the event is generated. TODO: Fill this based on the better RTL understanding
+      It is 5bits wide based on RTL BUFFER_DEPTH=10";
+      //hdl_path_slice = "";
+      
+      hw = r;
+      sw = rw;
+      fieldwidth = 5;
+    } THTX[4:0] = 5'h0;
+
+  } intcfg @0x0024;
+
+};

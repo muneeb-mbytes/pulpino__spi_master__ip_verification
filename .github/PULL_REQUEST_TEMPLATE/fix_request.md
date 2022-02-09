@@ -1,3 +1,6 @@
+- **Add the title for PR in the below format**
+[PR] :: title
+
 - **Fixes** #issue_number (mention the issue using the pound symbol followed by the issue number)
 
 

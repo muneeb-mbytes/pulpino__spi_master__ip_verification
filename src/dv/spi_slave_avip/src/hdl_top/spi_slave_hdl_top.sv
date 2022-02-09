@@ -1,12 +1,12 @@
-`ifndef HDL_TOP_INCLUDED_
-`define HDL_TOP_INCLUDED_
+`ifndef SPI_SLAVE_HDL_TOP_INCLUDED_
+`define SPI_SLAVE_HDL_TOP_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Module      : HDL Top
 // Description : Has a interface and slave agent bfm.
 //--------------------------------------------------------------------------------------------
 
-module hdl_top;
+module spi_slave_hdl_top;
 
   //-------------------------------------------------------
   // Clock Reset Initialization
@@ -15,10 +15,10 @@ module hdl_top;
   bit rst;
 
   //-------------------------------------------------------
-  // Display statement for HDL_TOP
+  // Display statement for spi_slave_hdl_top
   //-------------------------------------------------------
   initial begin
-    $display("HDL_TOP");
+    $display("spi_slave_hdl_top");
   end
 
   //-------------------------------------------------------
@@ -79,7 +79,7 @@ module hdl_top;
   //   `endif
   // end
 
-endmodule : hdl_top
+endmodule : spi_slave_hdl_top
 
 `endif
 

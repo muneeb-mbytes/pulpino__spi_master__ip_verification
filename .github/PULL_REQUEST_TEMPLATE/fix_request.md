@@ -9,6 +9,4 @@
 **Make sure you do the following:** 
 - [ ] Create the pull request to branch development_branch_v1
 - [ ] Use @mention to assign this pull request
-- [ ] Select Milestone
-- [ ] Select Project
 - [ ] Select Reviewer

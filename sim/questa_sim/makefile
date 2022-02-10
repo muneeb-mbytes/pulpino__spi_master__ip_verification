@@ -81,7 +81,8 @@ compile:
 	+cover \
 	+fcover \
 	-l pulpino_spi_master_ip_verification_compile.log \
-	-f ../pulpino_spi_master_ip_verification_compile.f 
+	-f ../rtl_compile.f \
+	-f ../verif_compile.f
 
 	# -s means silent mode
 	#  The command executed along with the output will be displayed on the terminal

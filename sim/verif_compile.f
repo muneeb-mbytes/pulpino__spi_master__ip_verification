@@ -8,7 +8,6 @@
 +incdir+../../src/dv/spi_slave_avip/src/hvl_top/test/slave_sequences
 +incdir+../../src/dv/spi_slave_avip/src/hdl_top/slave_agent_bfm
 +incdir+../../src/dv/spi_slave_avip/src/hdl_top/spi_interface
-+incdir+../../src/rtl/spi_master/
 ../../src/dv/apb_master_avip/src/globals/apb_global_pkg.sv
 ../../src/dv/apb_master_avip/src/hvl_top/master/apb_master_pkg.sv
 ../../src/dv/apb_master_avip/src/hvl_top/test/master_sequences/apb_master_seq_pkg.sv
@@ -17,13 +16,6 @@
 ../../src/dv/apb_master_avip/src/hdl_top/master_agent_bfm/apb_master_monitor_bfm.sv
 ../../src/dv/apb_master_avip/src/hdl_top/master_agent_bfm/apb_master_agent_bfm.sv
 ../../src/dv/apb_master_avip/src/hdl_top/apb_master_hdl_top.sv
-../../src/rtl/spi_master/apb_spi_master.sv
-../../src/rtl/spi_master/spi_master_apb_if.sv
-../../src/rtl/spi_master/spi_master_clkgen.sv
-../../src/rtl/spi_master/spi_master_controller.sv
-../../src/rtl/spi_master/spi_master_fifo.sv
-../../src/rtl/spi_master/spi_master_rx.sv
-../../src/rtl/spi_master/spi_master_tx.sv
 ../../src/dv/spi_slave_avip/src/globals/spi_globals_pkg.sv
 ../../src/dv/spi_slave_avip/src/hvl_top/slave/spi_slave_pkg.sv
 ../../src/dv/spi_slave_avip/src/hvl_top/test/slave_sequences/spi_slave_seq_pkg.sv

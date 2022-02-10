@@ -1,12 +1,11 @@
+`ifndef APB_MASTER_HDL_TOP_INCLUDED_
+`define APB_MASTER_HDL_TOP_INCLUDED_
+
 //--------------------------------------------------------------------------------------------
 // Module      : HDL Top
 // Description : Has a interface and slave agent bfm.
 //--------------------------------------------------------------------------------------------
-
-//-------------------------------------------------------
-// Including APB interface and apb_Slave Agent BFM Files
-//-------------------------------------------------------
-module hdl_top;
+module apb_master_hdl_top;
 
   import uvm_pkg::*;
   import apb_global_pkg::*;
@@ -19,10 +18,10 @@ module hdl_top;
   //bit rst;
 
   //-------------------------------------------------------
-  // Display statement for HDL_TOP
+  // Display statement for apb_master_hdl_top
   //-------------------------------------------------------
   initial begin
-    `uvm_info("UVM_INFO","HDL_TOP",UVM_LOW);
+    `uvm_info("UVM_INFO","apb_master_hdl_top",UVM_LOW);
     $display("HDL TOP");
   end
 
@@ -79,4 +78,6 @@ module hdl_top;
  //   end
  // endgenerate
 
-endmodule : hdl_top
+endmodule : apb_master_hdl_top
+
+`endif

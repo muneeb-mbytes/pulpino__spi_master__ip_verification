@@ -13,7 +13,7 @@ package spi_slave_global_pkg;
 
 parameter int NO_OF_SLAVES = 1;
   
-parameter int DATA_WIDTH = 8;
+parameter int DATA_WIDTH = 32;
 
 //parameter SLAVE_DRIVER_ACTIVE = 0;
 

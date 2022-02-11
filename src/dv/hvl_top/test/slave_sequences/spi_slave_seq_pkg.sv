@@ -19,7 +19,7 @@
 //-------------------------------------------------------
 // Importing the required packages
 //-------------------------------------------------------
- `include "slave_base_seq.sv"
+ `include "spi_slave_base_seq.sv"
  //`include "spi_fd_8b_slave_seq.sv"
  //`include "spi_fd_16b_slave_seq.sv"
  //`include "spi_fd_24b_slave_seq.sv"

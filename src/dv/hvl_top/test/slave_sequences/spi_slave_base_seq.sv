@@ -1,29 +1,29 @@
-`ifndef SLAVE_BASE_SEQ_INCLUDED_
-`define SLAVE_BASE_SEQ_INCLUDED_
+`ifndef SPI_SLAVE_BASE_SEQ_INCLUDED_
+`define SPI_SLAVE_BASE_SEQ_INCLUDED_
 
 //-------------------------------------------------------------------------------------------
-// Class: slave_base_base_sequence
-// slave sequence 
+// Class: spi_slave_base_base_sequence
+// spi_slave sequence 
 //--------------------------------------------------------------------------------------------
-class slave_base_seq extends uvm_sequence #(slave_tx);
+class spi_slave_base_seq extends uvm_sequence #(slave_tx);
   
   //factory registration
-  `uvm_object_utils(slave_base_seq)
+  `uvm_object_utils(spi_slave_base_seq)
 
   //-------------------------------------------------------
   // Externally defined Function
   //-------------------------------------------------------
-  extern function new(string name = "slave_base_seq");
-endclass : slave_base_seq
+  extern function new(string name = "spi_slave_base_seq");
+endclass : spi_slave_base_seq
 
 //-----------------------------------------------------------------------------
 // Constructor: new
-// Initializes the slave_base_sequence class object
+// Initializes the spi_slave_base_sequence class object
 //
 // Parameters:
 // name - instance name of the config_template
 //-----------------------------------------------------------------------------
-function slave_base_seq::new(string name = "slave_base_seq");
+function spi_slave_base_seq::new(string name = "spi_slave_base_seq");
   super.new(name);
 endfunction : new
 

@@ -33,6 +33,12 @@ module hdl_top;
   //Declaration of system reset
   bit preset_n;
 
+  bit [1:0]spi_mode;
+  bit csn1;
+  bit csn2;
+  bit csn3;
+  bit [1:0]events;
+
   //-------------------------------------------------------
   //Generation of system clock at frequency rate of 20ns
   //-------------------------------------------------------
@@ -75,11 +81,7 @@ module hdl_top;
   //-------------------------------------------------------
   // apb Master BFM Agent Instantiation
   //-------------------------------------------------------
-  apb_spi_master
-  #(
-      .BUFFER_DEPTH(10),
-      .APB_ADDR_WIDTH(12)  //APB slaves are 4KB by default
-  ) DUT
+  apb_spi_master DUT
   (
        .HCLK(apb_intf.pclk),
        .HRESETn(apb_intf.preset_n),
@@ -92,14 +94,14 @@ module hdl_top;
        .PREADY(apb_intf.pready),
        .PSLVERR(apb_intf.pslverr),
   
-       .events_o(spi_intf.events_o),
+       .events_o(events),
   
        .spi_clk(spi_intf.sclk),
        .spi_csn0(spi_intf.cs[0]),
-       .spi_csn1(spi_intf.cs[0]),
-       .spi_csn2(spi_intf.cs[0]),
-       .spi_csn3(spi_intf.cs[0]),
-       .spi_mode(spi_intf.mode),
+       .spi_csn1(csn1),
+       .spi_csn2(csn2),
+       .spi_csn3(csn3),
+       .spi_mode(mode),
        .spi_sdo0(spi_intf.mosi0),
        .spi_sdo1(spi_intf.mosi1),
        .spi_sdo2(spi_intf.mosi2),
@@ -110,6 +112,10 @@ module hdl_top;
        .spi_sdi3(spi_intf.miso3)
   );
 
+  //-------------------------------------------------------
+  // spi slave agent bfm Instantiation
+  //-------------------------------------------------------
+  slave_agent_bfm spi_agent_bfm_h(spi_intf);
 
 endmodule : hdl_top
 

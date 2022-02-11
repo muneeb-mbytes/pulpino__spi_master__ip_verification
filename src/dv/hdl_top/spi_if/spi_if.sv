@@ -67,9 +67,6 @@ interface spi_if(input pclk, input areset);
   // Master-in slave-out 3
   logic miso3;
 
-  logic [1:0]events_o;
-  logic [1:0]mode;
-
   //TEAM 3 commented below lines becasue modports 
   //and clocking blocks are not synthesizable
   

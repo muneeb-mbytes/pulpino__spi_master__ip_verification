@@ -1,0 +1,10 @@
+[submodule "apb_avip"]
+	path = apb_avip
+	url = git@github.com:muneeb-mbytes/apb_avip.git
+	branch = apb_mem_drv_sb_updated_branch
+[submodule "spi_avip"]
+	path = spi_avip
+	url = git@github.com:muneeb-mbytes/spi_avip.git
+	branch = phase1_development_branch
+[submodule "aspi_avip"]
+	branch = phase1_development_branch

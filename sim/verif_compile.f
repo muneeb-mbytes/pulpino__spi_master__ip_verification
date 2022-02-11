@@ -1,6 +1,9 @@
 +incdir+../../src/globals/
 +incdir+../../src/hvl_top/master/
 +incdir+../../src/hvl_top/test/sequences/master_sequences
++incdir+../../src/hvl_top/env/virtual_sequencer/
++incdir+../../src/hvl_top/test/virtual_sequences/
++incdir+../../src/hvl_top/env
 +incdir+../../src/hdl_top/master_agent_bfm
 +incdir+../../src/hdl_top/interface
 +incdir+../../src/hvl_top/slave

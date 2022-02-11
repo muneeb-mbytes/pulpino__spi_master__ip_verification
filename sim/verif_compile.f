@@ -1,14 +1,14 @@
 +incdir+../../src/globals/
 +incdir+../../src/hvl_top/master/
-+incdir+../../src/hvl_top/test/master_sequences
++incdir+../../src/hvl_top/test/sequences/master_sequences
 +incdir+../../src/hdl_top/master_agent_bfm
 +incdir+../../src/hdl_top/interface
 +incdir+../../src/hvl_top/slave
-+incdir+../../src/hvl_top/test/slave_sequences
++incdir+../../src/hvl_top/test/sequences/slave_sequences
 +incdir+../../src/hdl_top/slave_agent_bfm
 ../../src/globals/apb_global_pkg.sv
 ../../src/hvl_top/master/apb_master_pkg.sv
-../../src/hvl_top/test/master_sequences/apb_master_seq_pkg.sv
+../../src/hvl_top/test/sequences/master_sequences/apb_master_seq_pkg.sv
 ../../src/hdl_top/interface/apb_if.sv
 ../../src/hdl_top/master_agent_bfm/apb_master_driver_bfm.sv
 ../../src/hdl_top/master_agent_bfm/apb_master_monitor_bfm.sv
@@ -16,7 +16,7 @@
 ../../src/hdl_top/apb_master_hdl_top.sv
 ../../src/globals/spi_globals_pkg.sv
 ../../src/hvl_top/slave/spi_slave_pkg.sv
-../../src/hvl_top/test/slave_sequences/spi_slave_seq_pkg.sv
+../../src/hvl_top/test/sequences/slave_sequences/spi_slave_seq_pkg.sv
 ../../src/hdl_top/interface/spi_if.sv
 ../../src/hdl_top/slave_agent_bfm/slave_driver_bfm.sv
 ../../src/hdl_top/slave_agent_bfm/slave_monitor_bfm.sv

@@ -1,11 +1,11 @@
-`ifndef SPI_GLOBALS_PKG_INCLUDED_
-`define SPI_GLOBALS_PKG_INCLUDED_
+`ifndef SPI_SLAVE_GLOBAL_PKG_INCLUDED_
+`define SPI_SLAVE_GLOBAL_PKG_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
-// Package: spi_globals_pkg
+// Package: spi_slave_global_pkg
 // Used for storing enums, parameters and defines
 //--------------------------------------------------------------------------------------------
-package spi_globals_pkg;
+package spi_slave_global_pkg;
 
 // Define: NO_OF_SLAVES
 //
@@ -13,7 +13,7 @@ package spi_globals_pkg;
 
 parameter int NO_OF_SLAVES = 1;
   
-parameter int DATA_WIDTH = 8;
+parameter int DATA_WIDTH = 32;
 
 //parameter SLAVE_DRIVER_ACTIVE = 0;
 
@@ -141,6 +141,6 @@ typedef struct {
 
 } spi_transfer_cfg_s;
 
-endpackage: spi_globals_pkg
+endpackage: spi_slave_global_pkg
 
 `endif

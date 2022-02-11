@@ -7,7 +7,7 @@
 // to call the tasks and functions from monitor bfm to monitor proxy
 //--------------------------------------------------------------------------------------------
 
-import spi_globals_pkg::*;
+import spi_slave_global_pkg::*;
 interface slave_monitor_bfm(input pclk, input areset, 
                             input sclk, 
                             input cs, 

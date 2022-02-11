@@ -122,8 +122,7 @@ simulate:
 	# Use -novopt for no optimization - Makes the simulation slower
 	# vsim -pli finesim.so -coverage top
 	vsim -vopt \
-	work.apb_master_hdl_top \
-	work.spi_slave_hdl_top \
+	work.hdl_top \
 	-voptargs=+acc=npr \
 	-assertdebug \
 	+UVM_TESTNAME=$(test) \

@@ -2,7 +2,7 @@
 `define SPI_IF_INCLUDED_
 
 // Import spi_globals_pkg 
-import spi_globals_pkg::*;
+import spi_slave_global_pkg::*;
 
 //--------------------------------------------------------------------------------------------
 // Interface : spi_if
@@ -66,7 +66,6 @@ interface spi_if(input pclk, input areset);
   // Variable: miso0
   // Master-in slave-out 3
   logic miso3;
-
 
   //TEAM 3 commented below lines becasue modports 
   //and clocking blocks are not synthesizable

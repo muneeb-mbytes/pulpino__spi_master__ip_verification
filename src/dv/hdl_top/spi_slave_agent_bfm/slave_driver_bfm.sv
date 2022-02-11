@@ -9,7 +9,7 @@
 //-------------------------------------------------------
 // Importing SPI Global Package
 //-------------------------------------------------------
-import spi_globals_pkg::*;
+import spi_slave_global_pkg::*;
 
 interface slave_driver_bfm(input pclk, input areset, 
                            input sclk, 

@@ -1,11 +1,11 @@
-`ifndef APB_GLOBAL_PKG_INCLUDED_
-`define APB_GLOBAL_PKG_INCLUDED_
+`ifndef APB_MASTER_GLOBAL_PKG_INCLUDED_
+`define APB_MASTER_GLOBAL_PKG_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
-// Package : apb_global_pkg
+// Package : apb_master_global_pkg
 // Used for storing required enums, parameters and defines
 //--------------------------------------------------------------------------------------------
-package apb_global_pkg;
+package apb_master_global_pkg;
 
   //Parameter : NO_OF_SLAVES
   //Used to set number of slaves required
@@ -159,7 +159,6 @@ package apb_global_pkg;
     int slave_id;
   }apb_transfer_cfg_s;
 
-endpackage : apb_global_pkg
+endpackage : apb_master_global_pkg
 
 `endif
-

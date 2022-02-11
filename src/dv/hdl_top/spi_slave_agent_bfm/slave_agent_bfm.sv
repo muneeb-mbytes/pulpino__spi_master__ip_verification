@@ -16,7 +16,7 @@ module slave_agent_bfm(spi_if intf);
   //-------------------------------------------------------
   // Package : Importing SPI Global Package 
   //-------------------------------------------------------
-  import spi_globals_pkg::*;
+  import spi_slave_global_pkg::*;
 
   // Variable: is_active
   // Used for creating the agent in either passive or active mode

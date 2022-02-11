@@ -5,7 +5,7 @@
 // Interface : apb_if
 // Declaration of pin level signals for apb interface
 //--------------------------------------------------------------------------------------------
-import apb_global_pkg::*;
+import apb_master_global_pkg::*;
 
 interface apb_if (input pclk, input preset_n);
   

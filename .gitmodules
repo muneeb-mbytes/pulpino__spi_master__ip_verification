@@ -1,6 +1,6 @@
 [submodule "apb_avip"]
 	path = apb_avip
-	url = git@github.com:muneeb-mbytes/apb_avip.git
+	url = git@github.com:muneeb-mbytes/apb_avip/apb_mem_drv_sb_updated_branch.git
 	branch = apb_mem_drv_sb_updated_branch
 [submodule "spi_avip"]
 	path = spi_avip

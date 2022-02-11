@@ -5,8 +5,8 @@
 //  Class: slave_sequencer
 //  It send transactions to driver via tlm ports
 //--------------------------------------------------------------------------------------------
-class slave_sequencer extends uvm_sequencer#(slave_tx);
-  `uvm_component_utils(slave_sequencer)
+class spi_slave_sequencer extends uvm_sequencer#(slave_tx);
+  `uvm_component_utils(spi_slave_sequencer)
   
     // Variable: slave_agent_cfg_h;
     // Handle for slave agent configuration
@@ -15,7 +15,7 @@ class slave_sequencer extends uvm_sequencer#(slave_tx);
      //-------------------------------------------------------
      // Externally defined Tasks and Functions
      //-------------------------------------------------------
-     extern function new(string name = "slave_sequencer", uvm_component parent = null);
+     extern function new(string name = "spi_slave_sequencer", uvm_component parent = null);
   
 endclass : slave_sequencer
 
@@ -27,7 +27,7 @@ endclass : slave_sequencer
 //  name - slave_sequencer
 //  parent - parent under which this component is created
 //--------------------------------------------------------------------------------------------
-function slave_sequencer::new(string name = "slave_sequencer", uvm_component parent = null);
+function slave_sequencer::new(string name = "spi_slave_sequencer", uvm_component parent = null);
   super.new(name, parent);
 endfunction : new
 

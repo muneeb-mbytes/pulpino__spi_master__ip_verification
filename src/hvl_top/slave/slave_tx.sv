@@ -26,12 +26,12 @@ class slave_tx extends uvm_sequence_item;
   constraint miso_c { master_in_slave_out.size() > 0 ;
                       master_in_slave_out.size() < MAXIMUM_BITS/CHAR_LENGTH;}
 
-  constraint max_bits_miso{foreach(master_in_slave_out[i])
-                                    master_in_slave_out[i]%8 ==0;}
-  constraint dual_spi_bits_even{foreach(miso0[i])
-                              miso0[i]%2==0;}
-  constraint dual_spi_bits_odd{foreach(miso1[i])
-                              miso1[i]%2!=0;}
+ // constraint max_bits_miso{foreach(master_in_slave_out[i])
+ //                                   master_in_slave_out[i]%8 ==0;}
+ // constraint dual_spi_bits_even{foreach(miso0[i])
+ //                             miso0[i]%2==0;}
+ // constraint dual_spi_bits_odd{foreach(miso1[i])
+ //                             miso1[i]%2!=0;}
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------

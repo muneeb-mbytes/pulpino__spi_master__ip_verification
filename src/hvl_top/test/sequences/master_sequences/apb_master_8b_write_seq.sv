@@ -40,7 +40,7 @@ task apb_master_8b_write_seq::body();
   req.apb_master_agent_cfg_h = p_sequencer.apb_master_agent_cfg_h;
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
-                            req.paddr == address;
+                            req.paddr == 32'h1A102000;
                             req.transfer_size == BIT_8;
                             req.cont_write_read == cont_write_read;
                             req.pwrite == WRITE;}) begin

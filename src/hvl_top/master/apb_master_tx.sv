@@ -206,11 +206,11 @@ function void apb_master_tx::post_randomize();
   end
  
   // Randmoly chosing paddr value between a given range
-  if (!std::randomize(paddr) with { paddr inside {[apb_master_agent_cfg_h.master_min_addr_range_array[index]:apb_master_agent_cfg_h.master_max_addr_range_array[index]]};
-    paddr %4 == 0;
-  }) begin
-    `uvm_fatal("FATAL_STD_RANDOMIZATION_PADDR", $sformatf("Not able to randomize paddr"));
-  end
+ // if (!std::randomize(paddr) with { paddr inside {[apb_master_agent_cfg_h.master_min_addr_range_array[index]:apb_master_agent_cfg_h.master_max_addr_range_array[index]]};
+ //   paddr %4 == 0;
+ // }) begin
+ //   `uvm_fatal("FATAL_STD_RANDOMIZATION_PADDR", $sformatf("Not able to randomize paddr"));
+ // end
   
   //if(cont_write_read)begin
   //  if(pwrite == WRITE) begin

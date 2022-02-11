@@ -23,7 +23,7 @@ package spi_slave_pkg;
   `include "slave_agent_config.sv"
   `include "slave_spi_seq_item_converter.sv"
   `include "slave_spi_cfg_converter.sv"
-  `include "slave_sequencer.sv"
+  `include "spi_slave_sequencer.sv"
   `include "slave_driver_proxy.sv"
   `include "slave_monitor_proxy.sv"
   `include "slave_coverage.sv"

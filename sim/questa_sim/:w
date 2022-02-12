@@ -1,66 +1,35 @@
-`ifndef PULPINO_SPI_MASTER_ENV_CONFIG_INCLUDED_
-`define PULPINO_SPI_MASTER_ENV_CONFIG_INCLUDED_
++incdir+../../src/dv/globals/
++incdir+../../src/dv/hdl_top/
++incdir+../../src/dv/hvl_top/
++incdir+../../src/dv/hdl_top/apb_if
++incdir+../../src/dv/hdl_top/apb_master_agent_bfm
++incdir+../../src/dv/spi_slave_agent/
++incdir+../../src/dv/hvl_top/env/virtual_sequencer/
++incdir+../../src/dv/spi_slave_agent/hvl_top/test/slave_sequences
++incdir+../../src/dv/spi_slave_agent/hdl_top/slave_agent_bfm
++incdir+../../src/dv/spi_slave_agent/hdl_top/spi_if
++incdir+../../src/dv/apb_master_agent/
++incdir+../../src/dv/apb_master_agent/hvl_top/test/master_sequences
+../../src/dv/globals/apb_master_global_pkg.sv
+../../src/dv/globals/spi_slave_global_pkg.sv
+../../src/dv/hvl_top/apb_master_agent/apb_master_pkg.sv
+../../src/dv/hvl_top/spi_slave_agent/spi_slave_pkg.sv
+../../src/dv/hvl_top/test/master_sequences/apb_master_seq_pkg.sv
+../../src/dv/hvl_top/test/slave_sequences/spi_slave_seq_pkg.sv
+../../src/dv/hvl_top/env/pulpino_spi_master_ip_env_pkg.sv
+../../src/dv/hvl_top/test/virtual_sequences/pulpino_spi_master_ip_virtual_seq_pkg.sv
+../../src/dv/hvl_top/test/pulpino_spi_master_ip_test_pkg.sv
+../../src/dv/hdl_top/apb_if/apb_if.sv
+../../src/dv/hdl_top/spi_if/spi_if.sv
+../../src/dv/hdl_top/apb_master_agent_bfm/apb_master_agent_bfm.sv
+../../src/dv/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv
+../../src/dv/hdl_top/apb_master_agent_bfm/apb_master_monitor_bfm.sv
+../../src/dv/hdl_top/spi_slave_agent_bfm/slave_agent_bfm.sv
+../../src/dv/hdl_top/spi_slave_agent_bfm/slave_driver_bfm.sv
+../../src/dv/hdl_top/spi_slave_agent_bfm/slave_monitor_bfm.sv
+../../src/dv/hdl_top/apb_master_hdl_top.sv
+../../src/dv/hdl_top/spi_slave_hdl_top.sv
+../../src/dv/hdl_top/hdl_top.sv
+../../src/dv/hvl_top/hvl_top.sv
 
-//--------------------------------------------------------------------------------------------
-// Class: pulpino_spi_master_env_config
-// This class is used as configuration class for pulpino_spi_master_environment and its components
-//--------------------------------------------------------------------------------------------
-class pulpino_spi_master_env_config extends uvm_object;
-  `uvm_object_utils(pulpino_spi_master_env_config)
-  
-  // Variable: has_scoreboard
-  // Enables the scoreboard. Default value is 1
-  bit has_scoreboard = 1;
 
-  // Variable: has_virtual_sqr
-  // Enables the virtual sequencer. Default value is 1
-  bit has_virtual_seqr = 1;
-
-  // Variable: no_of_slaves
-  // Number of slaves connected to the SPI interface
-  int no_of_spi_slaves;
-
-  // Variable: master_agent_cfg_h
-  // Handle for master agent configuration
-  apb_master_agent_config apb_master_agent_cfg_h;
-
-  // Variable: slave_agent_cfg_h
-  // Dynamic array of slave agnet configuration handles
-  slave_agent_config spi_slave_agent_cfg_h[];
-
-  //-------------------------------------------------------
-  // Externally defined Tasks and Functions
-  //-------------------------------------------------------
-  extern function new(string name = "pulpino_spi_master_env_config");
-  extern function void do_print(uvm_printer printer);
-
-endclass : pulpino_spi_master_env_config
-
-//--------------------------------------------------------------------------------------------
-// Construct: new
-// Initialization of new memory
-//
-// Parameters:
-//  name - pulpino_spi_master_env_config
-//--------------------------------------------------------------------------------------------
-function pulpino_spi_master_env_config::new(string name = "pulpino_spi_master_env_config");
-  super.new(name);
-endfunction : new
-
-//--------------------------------------------------------------------------------------------
-// Function: do_print method
-// Print method can be added to display the data members values
-//
-// Parameters :
-// printer - uvm_printer
-//--------------------------------------------------------------------------------------------
-function void pulpino_spi_master_env_config::do_print(uvm_printer printer);
-  super.do_print(printer);
-  
-  printer.print_field ("has_scoreboard",    has_scoreboard,     $bits(has_scoreboard),    UVM_DEC);
-  printer.print_field ("has_virtual_seqr",  has_virtual_seqr,   $bits(has_virtual_seqr),  UVM_DEC);
-  printer.print_field ("no_of_spi_slaves",  no_of_spi_slaves,   $bits(no_of_spi_slaves),  UVM_DEC);
-
-endfunction : do_print
-
-`endif

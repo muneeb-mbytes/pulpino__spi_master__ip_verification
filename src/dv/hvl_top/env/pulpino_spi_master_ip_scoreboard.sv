@@ -80,10 +80,8 @@ task pulpino_spi_master_ip_scoreboard::run_phase(uvm_phase phase);
 
   super.run_phase(phase);
 
-  forever begin
  
   `uvm_info(get_type_name(),$sformatf("before calling master's analysis fifo get method"),UVM_HIGH)
- end
 
 endtask : run_phase
 

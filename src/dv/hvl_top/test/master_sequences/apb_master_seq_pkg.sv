@@ -19,7 +19,7 @@ package apb_master_seq_pkg;
   // Including required apb master seq files
   //-------------------------------------------------------
   `include "apb_master_base_seq.sv"
-  `include "apb_master_8b_write_seq.sv"
+  `include "apb_master_basic_write_seq.sv"
 
 endpackage : apb_master_seq_pkg
 

@@ -11,7 +11,7 @@ module hvl_top;
   // Package : Importing UVM Package and test Package
   //-------------------------------------------------------
   import uvm_pkg::*;
-  import pulpino_spi_master_ip_base_base_test_pkg::*;
+  import pulpino_spi_master_ip_test_pkg::*;
   
   //-------------------------------------------------------
   // calling run_test for simulation

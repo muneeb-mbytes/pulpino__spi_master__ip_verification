@@ -6,7 +6,7 @@
 // Description:
 // Includes all the files written to run the simulation
 //--------------------------------------------------------------------------------------------
-package pulpino_spi_master_ip_base_base_test_pkg;
+package pulpino_spi_master_ip_test_pkg;
 
   //-------------------------------------------------------
   // Import uvm package
@@ -30,7 +30,8 @@ package pulpino_spi_master_ip_base_base_test_pkg;
   // Including the base_test files
   //-------------------------------------------------------
   `include "pulpino_spi_master_ip_base_test.sv"
+  `include "pulpino_spi_master_ip_basic_write_test.sv"
 
-  endpackage : pulpino_spi_master_ip_base_base_test_pkg
+  endpackage : pulpino_spi_master_ip_test_pkg
 
 `endif

@@ -1,12 +1,12 @@
-`ifndef PULPINO_SPI_MASTER_ENV_CONFIG_INCLUDED_
-`define PULPINO_SPI_MASTER_ENV_CONFIG_INCLUDED_
+`ifndef PULPINO_SPI_MASTER_IP_ENV_CONFIG_INCLUDED_
+`define PULPINO_SPI_MASTER_IP_ENV_CONFIG_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
-// Class: pulpino_spi_master_env_config
+// Class: pulpino_spi_master_ip_env_config
 // This class is used as configuration class for pulpino_spi_master_environment and its components
 //--------------------------------------------------------------------------------------------
-class pulpino_spi_master_env_config extends uvm_object;
-  `uvm_object_utils(pulpino_spi_master_env_config)
+class pulpino_spi_master_ip_env_config extends uvm_object;
+  `uvm_object_utils(pulpino_spi_master_ip_env_config)
   
   // Variable: has_scoreboard
   // Enables the scoreboard. Default value is 1
@@ -18,7 +18,7 @@ class pulpino_spi_master_env_config extends uvm_object;
 
   // Variable: no_of_slaves
   // Number of slaves connected to the SPI interface
-  int no_of_spi_slaves;
+  int no_of_slaves;
 
   // Variable: master_agent_cfg_h
   // Handle for master agent configuration
@@ -31,19 +31,19 @@ class pulpino_spi_master_env_config extends uvm_object;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
-  extern function new(string name = "pulpino_spi_master_env_config");
+  extern function new(string name = "pulpino_spi_master_ip_env_config");
   extern function void do_print(uvm_printer printer);
 
-endclass : pulpino_spi_master_env_config
+endclass : pulpino_spi_master_ip_env_config
 
 //--------------------------------------------------------------------------------------------
 // Construct: new
 // Initialization of new memory
 //
 // Parameters:
-//  name - pulpino_spi_master_env_config
+//  name - pulpino_spi_master_ip_env_config
 //--------------------------------------------------------------------------------------------
-function pulpino_spi_master_env_config::new(string name = "pulpino_spi_master_env_config");
+function pulpino_spi_master_ip_env_config::new(string name = "pulpino_spi_master_ip_env_config");
   super.new(name);
 endfunction : new
 
@@ -54,7 +54,7 @@ endfunction : new
 // Parameters :
 // printer - uvm_printer
 //--------------------------------------------------------------------------------------------
-function void pulpino_spi_master_env_config::do_print(uvm_printer printer);
+function void pulpino_spi_master_ip_env_config::do_print(uvm_printer printer);
   super.do_print(printer);
   
   printer.print_field ("has_scoreboard",    has_scoreboard,     $bits(has_scoreboard),    UVM_DEC);

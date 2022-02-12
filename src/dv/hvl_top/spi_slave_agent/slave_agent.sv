@@ -94,7 +94,7 @@ function void slave_agent::connect_phase(uvm_phase phase);
   if(slave_agent_cfg_h.is_active == UVM_ACTIVE) begin
     slave_drv_proxy_h.slave_agent_cfg_h = slave_agent_cfg_h;
     slave_seqr_h.slave_agent_cfg_h = slave_agent_cfg_h;
-    slave_cov_h.slave_agent_cfg_h = slave_agent_cfg_h;
+    //slave_cov_h.slave_agent_cfg_h = slave_agent_cfg_h;
     
     // Connecting the ports
     slave_drv_proxy_h.seq_item_port.connect(slave_seqr_h.seq_item_export);

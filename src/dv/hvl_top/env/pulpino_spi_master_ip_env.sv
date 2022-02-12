@@ -67,7 +67,7 @@ function void apb_env::build_phase(uvm_phase phase);
   spi_slave_agent_cfg_h = new[apb_env_cfg_h.no_of_slaves];
   
   foreach(spi_slave_agent_cfg_h[i]) begin
-    if(!uvm_config_db #(spi_slave_agent_config)::get(this,"",$sformatf("spi_slave_agent_config[%0d]",i),spi_slave_agent_cfg_h[i])) begin
+    if(!uvm_config_db #(slave_agent_config)::get(this,"",$sformatf("spi_slave_agent_config[%0d]",i),spi_slave_agent_cfg_h[i])) begin
       `uvm_fatal("FATAL_SA_AGENT_CONFIG", $sformatf("Couldn't get the spi_slave_agent_config[%0d] from config_db",i))
     end
     //`uvm_info(get_type_name(),$sformatf("\nSLAVE_AGENT_CONFIG[%0d]\n%s",i,spi_slave_agent_cfg_h[i].sprint()),UVM_LOW);

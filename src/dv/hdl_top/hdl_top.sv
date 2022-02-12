@@ -32,7 +32,7 @@ module hdl_top;
   //Declaration of system reset
   bit preset_n;
 
-  bit [1:0]spi_mode;
+  bit spi_mode;
   bit csn1;
   bit csn2;
   bit csn3;

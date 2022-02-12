@@ -44,8 +44,8 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 function void pulpino_spi_master_ip_virtual_sequencer::build_phase(uvm_phase phase);
   super.build_phase(phase);
-  //apb_master_seqr_h = apb_master_sequencer::type_id::create("apb_master_seqr_h",this);
-  //spi_slave_seqr_h = apb_slave_sequencer::type_id::create("spi_slave_seqr_h",this);
+  apb_master_seqr_h = apb_master_sequencer::type_id::create("apb_master_seqr_h",this);
+  spi_slave_seqr_h = slave_sequencer::type_id::create("spi_slave_seqr_h",this);
 endfunction : build_phase
 
 `endif

@@ -13,11 +13,11 @@ class pulpino_spi_master_ip_env extends uvm_env;
   apb_master_agent apb_master_agent_h;
 
   //Variable : spi_slave_agent_h
-  //Declaring apb slave agent handle
+  //Declaring spi slave agent handle
   slave_agent spi_slave_agent_h[];
 
   //Variable : apb__scoreboard_h
-  //Declaring apb scoreboard handle
+  //Declaring pulpino_spi_master_ip scoreboard handle
   pulpino_spi_master_ip_scoreboard pulpino_spi_master_ip_scoreboard_h;
 
   //Variable : pulpino_spi_master_ip_virtual_seqr_h
@@ -29,7 +29,7 @@ class pulpino_spi_master_ip_env extends uvm_env;
   pulpino_spi_master_ip_env_config pulpino_spi_master_ip_env_config_h;  
   
   // Variable: spi_slave_agent_cfg_h;
-  // Handle for apb_slave agent configuration
+  // Handle for spi slave agent configuration
   slave_agent_config spi_slave_agent_cfg_h[];
 
   //-------------------------------------------------------
@@ -107,7 +107,7 @@ function void pulpino_spi_master_ip_env::connect_phase(uvm_phase phase);
   if(pulpino_spi_master_ip_env_config_h.has_virtual_seqr) begin
     pulpino_spi_master_ip_virtual_seqr_h.apb_master_seqr_h = apb_master_agent_h.apb_master_seqr_h;
     foreach(spi_slave_agent_h[i]) begin
-      pulpino_spi_master_ip_virtual_seqr_h.slave_seqr_h = spi_slave_agent_h[i].slave_seqr_h;
+      pulpino_spi_master_ip_virtual_seqr_h.spi_slave_seqr_h = spi_slave_agent_h[i].slave_seqr_h;
     end
   end
   

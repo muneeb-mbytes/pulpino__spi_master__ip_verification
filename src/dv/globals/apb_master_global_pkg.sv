@@ -22,7 +22,7 @@ package apb_master_global_pkg;
   //Parameter : ADDRESS_WIDTH
   //Used to set the address width to the address bus
   //Maximum Value is 32
-  parameter int ADDRESS_WIDTH = 32;
+  parameter int ADDRESS_WIDTH = 12;
 
   //Parameter : DATA_WIDTH
   //Used to set the data width 

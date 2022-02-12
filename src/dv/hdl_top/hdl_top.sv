@@ -22,7 +22,6 @@ module hdl_top;
   //-------------------------------------------------------
   initial begin
     `uvm_info("UVM_INFO","hdl_top",UVM_LOW);
-    $display("HDL TOP");
   end
 
   //Variable : pclk

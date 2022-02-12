@@ -24,7 +24,7 @@ package pulpino_spi_master_ip_env_pkg;
   //-------------------------------------------------------
   // Including the required files
   //-------------------------------------------------------
-  `include "pulpino_spi_master_ip_env_cfg.sv"
+  `include "pulpino_spi_master_ip_env_config.sv"
   `include "pulpino_spi_master_ip_virtual_sequencer.sv"
   `include "pulpino_spi_master_ip_scoreboard.sv"
   `include "pulpino_spi_master_ip_env.sv"

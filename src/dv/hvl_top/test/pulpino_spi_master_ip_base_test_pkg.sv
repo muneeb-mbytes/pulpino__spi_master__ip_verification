@@ -18,9 +18,9 @@ package pulpino_spi_master_ip_base_base_test_pkg;
   // Importing the required packages
   //-------------------------------------------------------
   import apb_master_global_pkg::*;
-  import apb_slave_global_pkg::*;
+  import spi_slave_global_pkg::*;
   import apb_master_pkg::*;
-  import apb_slave_pkg::*;
+  import spi_slave_pkg::*;
   import pulpino_spi_master_ip_env_pkg::*;
   import apb_master_seq_pkg::*;
   import spi_slave_seq_pkg::*;
@@ -29,14 +29,14 @@ package pulpino_spi_master_ip_base_base_test_pkg;
   //-------------------------------------------------------
   // Including the base_test files
   //-------------------------------------------------------
-  `include "apb_base_test.sv"
-  `include "apb_vd_vws_test.sv"
-  `include "apb_8b_write_test.sv"
-  `include "apb_8b_write_read_test.sv"
-  `include "apb_16b_write_test.sv"
-  `include "apb_24b_write_test.sv"
-  `include "apb_8b_read_test.sv"
-  `include "apb_32b_write_test.sv"
-endpackage : apb_base_test_pkg
+  `include "pulpino_spi_master_ip_base_test.sv"
+  //`include "apb_vd_vws_test.sv"
+  //`include "apb_8b_write_test.sv"
+  //`include "apb_8b_write_read_test.sv"
+  //`include "apb_16b_write_test.sv"
+  //`include "apb_24b_write_test.sv"
+  //`include "apb_8b_read_test.sv"
+  //`include "apb_32b_write_test.sv"
+endpackage : pulpino_spi_master_ip_base_base_test_pkg
 
 `endif

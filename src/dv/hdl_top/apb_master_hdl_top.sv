@@ -8,8 +8,8 @@
 module apb_master_hdl_top;
 
   import uvm_pkg::*;
-  import apb_global_pkg::*;
   `include "uvm_macros.svh"
+  import apb_master_global_pkg::*;
 
   //-------------------------------------------------------
   // Clock Reset Initialization

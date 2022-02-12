@@ -12,8 +12,8 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
   //-------------------------------------------------------
   `include "uvm_macros.svh"
   import uvm_pkg::*;
-  import apb_global_pkg::*;
-  import spi_global_pkg::*;
+  import apb_master_global_pkg::*;
+  import spi_slave_global_pkg::*;
   import pulpino_spi_master_ip_env_pkg::*;
   import apb_master_pkg::*;
   import spi_slave_pkg::*;

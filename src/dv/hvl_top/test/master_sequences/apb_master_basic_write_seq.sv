@@ -7,12 +7,15 @@
 //--------------------------------------------------------------------------------------------
 class apb_master_basic_write_seq extends apb_master_base_seq;
   `uvm_object_utils(apb_master_basic_write_seq)
+
+  string status_reg   = "STATUS_REG_SEQ"   ;
+  string clkdiv_reg   = "CLOCK_DIV_REG_SEQ";
+  string spi_len_reg  = "SPI_LEN_REG_SEQ"  ;
+  string spi_cmd_reg  = "SPI_CMD_REG_SEQ"  ;
+  string spi_addr_reg = "SPI_ADDR_REG_SEQ" ;
+  string dummy_reg    = "DUMMY_REG_SEQ"    ;
+  string interupt_reg = "INTERUPT_REG_SEQ" ;
   
-  //Variable : address
-  //Used to store the address to pass to the write and read sequence 
-  bit [ADDRESS_WIDTH-1:0]address;
-  
-  bit cont_write_read;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -48,7 +51,7 @@ task apb_master_basic_write_seq::body();
                             req.pwrite == WRITE;}) begin : STATUS_REG
     `uvm_fatal("APB","Rand failed");
   end
-  req.print();
+  `uvm_info(status_reg,$sformatf("status_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
 
@@ -61,7 +64,7 @@ task apb_master_basic_write_seq::body();
                             req.pwrite == WRITE;}) begin : CLOCK_DIV
     `uvm_fatal("APB","Rand failed");
   end
-  req.print();
+  `uvm_info(clkdiv_reg,$sformatf("clkdiv_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
   start_item(req);
@@ -73,7 +76,7 @@ task apb_master_basic_write_seq::body();
                             req.pwrite == WRITE;}) begin : SPICMD
     `uvm_fatal("APB","Rand failed");
   end
-  req.print();
+  `uvm_info(spi_cmd_reg,$sformatf("spi_cmd_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
 
@@ -86,7 +89,7 @@ task apb_master_basic_write_seq::body();
                             req.pwrite == WRITE;}) begin : SPIADDR
     `uvm_fatal("APB","Rand failed");
   end
-  req.print();
+  `uvm_info(spi_addr_reg,$sformatf("spi_addr_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
 
@@ -99,7 +102,7 @@ task apb_master_basic_write_seq::body();
                             req.pwrite == WRITE;}) begin : SPILEN
     `uvm_fatal("APB","Rand failed");
   end
-  req.print();
+  `uvm_info(spi_len_reg,$sformatf("spi_len_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
 
@@ -112,7 +115,7 @@ task apb_master_basic_write_seq::body();
                             req.pwrite == WRITE;}) begin : SPIDUM
     `uvm_fatal("APB","Rand failed");
   end
-  req.print();
+  `uvm_info(dummy_reg,$sformatf("dummy_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
 
@@ -125,7 +128,7 @@ task apb_master_basic_write_seq::body();
                             req.pwrite == WRITE;}) begin : INTCFG 
     `uvm_fatal("APB","Rand failed");
   end
-  req.print();
+  `uvm_info(interupt_reg,$sformatf("interupt_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
 endtask : body

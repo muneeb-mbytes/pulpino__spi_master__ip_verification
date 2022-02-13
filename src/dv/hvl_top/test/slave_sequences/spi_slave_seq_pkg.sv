@@ -20,7 +20,7 @@
 // Importing the required packages
 //-------------------------------------------------------
  `include "spi_slave_base_seq.sv"
- `include "spi_fd_8b_slave_seq.sv"
+ `include "spi_fd_basic_slave_seq.sv"
 
 endpackage :spi_slave_seq_pkg
 

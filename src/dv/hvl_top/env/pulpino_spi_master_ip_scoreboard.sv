@@ -12,9 +12,9 @@ class pulpino_spi_master_ip_scoreboard extends uvm_scoreboard;
   //Declaring handle for apb_master_tx
   apb_master_tx apb_master_tx_h;
 
-  //Variable : spi_slave_tx_h
+  //Variable : slave_tx_h
   //Declaring handle for spi_slaver_tx
-  slave_tx spi_slave_tx_h;
+  slave_tx slave_tx_h;
   
   //Variable : apb_master_analysis_fifo
   //Used to store the apb_master_data
@@ -23,15 +23,15 @@ class pulpino_spi_master_ip_scoreboard extends uvm_scoreboard;
   //Variable : spi_slave_analysis_fifo
   //Used to store the spi_slave_data
   uvm_tlm_analysis_fifo#(slave_tx) spi_slave_analysis_fifo;
-  //uvm_tlm_analysis_fifo#(spi_slave_tx) spi_slave_analysis_fifo[NO_OF_SLAVES];
+  //uvm_tlm_analysis_fifo#(slave_tx) spi_slave_analysis_fifo[NO_OF_SLAVES];
 
   //Variable : apb_master_tx_count
   //to keep track of number of transactions for master 
   int apb_master_tx_count = 0;
 
-  //Variable : spi_slave_tx_count
+  //Variable : slave_tx_count
   //to keep track of number of transactions for slave 
-  int spi_slave_tx_count = 0;
+  int slave_tx_count = 0;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -53,7 +53,7 @@ endclass : pulpino_spi_master_ip_scoreboard
 //  parent - parent under which this component is created
 //--------------------------------------------------------------------------------------------
 function pulpino_spi_master_ip_scoreboard::new(string name = "pulpino_spi_master_ip_scoreboard",uvm_component parent = null);
-  super.new(name,parent);
+super.new(name, parent);
   apb_master_analysis_fifo = new("apb_master_analysis_fifo",this);
   spi_slave_analysis_fifo = new("spi_slave_analysis_fifo",this);
 endfunction : new
@@ -80,10 +80,8 @@ task pulpino_spi_master_ip_scoreboard::run_phase(uvm_phase phase);
 
   super.run_phase(phase);
 
-  forever begin
  
   `uvm_info(get_type_name(),$sformatf("before calling master's analysis fifo get method"),UVM_HIGH)
- end
 
 endtask : run_phase
 

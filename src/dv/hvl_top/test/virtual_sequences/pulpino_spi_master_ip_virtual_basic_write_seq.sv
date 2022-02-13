@@ -13,9 +13,9 @@ class pulpino_spi_master_ip_virtual_basic_write_seq extends pulpino_spi_master_i
   //Instatiation of apb_master_8b_seq
   apb_master_basic_write_seq apb_master_basic_seq_h;
 
-  //Variable : spi_fd_8b_slave_seq_h 
-  //Instantiation of spi_fd_8b_slave_seq 
-  spi_fd_8b_slave_seq  spi_fd_8b_slave_seq_h;
+  //Variable : spi_fd_basic_slave_seq_h 
+  //Instantiation of spi_fd_basic_slave_seq 
+  spi_fd_basic_slave_seq  spi_fd_basic_slave_seq_h;
   
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -42,15 +42,20 @@ endfunction : new
 task pulpino_spi_master_ip_virtual_basic_write_seq::body();
   super.body();
   apb_master_basic_seq_h = apb_master_basic_write_seq::type_id::create("apb_master_basic_seq_h");
-  spi_fd_8b_slave_seq_h = spi_fd_8b_slave_seq::type_id::create("spi_fd_8b_slave_seq_h");
+  spi_fd_basic_slave_seq_h = spi_fd_basic_slave_seq::type_id::create("spi_fd_basic_slave_seq_h");
+
    fork
     forever begin
-      spi_fd_8b_slave_seq_h.start(p_sequencer.spi_slave_sequencer);
+      `uvm_info("slave_vseq",$sformatf("started slave vseq"),UVM_HIGH)
+      spi_fd_basic_slave_seq_h.start(p_sequencer.spi_slave_seqr_h);
+      `uvm_info("slave_vseq",$sformatf("ended slave vseq"),UVM_HIGH)
     end
   join_none
 
   repeat(5) begin
+    `uvm_info("master_vseq",$sformatf("started master vseq"),UVM_HIGH)
     apb_master_basic_seq_h.start(p_sequencer.apb_master_seqr_h);
+    `uvm_info("master_vseq",$sformatf("ended master vseq"),UVM_HIGH)
   end
  endtask : body
 

@@ -55,7 +55,7 @@ usage:
 	echo "make simulate test=<test_name> uvm_verbosity=<VERBOSITY_LEVEL>";
 	echo "";
 	echo "Example:":
-	echo "make simulate test=base_test uvm_verbosity=UVM_HIGH";
+	echo "make simulate test=pulpino_spi_master_ip_base_test uvm_verbosity=UVM_HIGH";
 	echo "";
 	echo "To run regression:"
 	echo "make regression testlist_name=<regression_testlist_name.list>";
@@ -93,7 +93,7 @@ compile:
 
 # Setting a default test as base_test
 ifndef test
-override test = base_test
+override test = pulpino_spi_master_ip_base_test
 endif
 
 # Setting the default uvm_verbosity to UVM_MEDIUM
@@ -122,7 +122,9 @@ simulate:
 	# Use -novopt for no optimization - Makes the simulation slower
 	# vsim -pli finesim.so -coverage top
 	vsim -vopt \
+	work.hvl_top \
 	work.hdl_top \
+	work.apb_spi_master \
 	-voptargs=+acc=npr \
 	-assertdebug \
 	+UVM_TESTNAME=$(test) \

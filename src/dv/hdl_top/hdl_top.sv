@@ -22,7 +22,6 @@ module hdl_top;
   //-------------------------------------------------------
   initial begin
     `uvm_info("UVM_INFO","hdl_top",UVM_LOW);
-    $display("HDL TOP");
   end
 
   //Variable : pclk
@@ -79,6 +78,11 @@ module hdl_top;
   spi_if spi_intf(pclk,preset_n);
 
   //-------------------------------------------------------
+  // spi slave agent bfm Instantiation
+  //-------------------------------------------------------
+  slave_agent_bfm spi_agent_bfm_h(spi_intf);
+
+  //-------------------------------------------------------
   // apb Master BFM Agent Instantiation
   //-------------------------------------------------------
   apb_spi_master DUT
@@ -97,11 +101,11 @@ module hdl_top;
        .events_o(events),
   
        .spi_clk(spi_intf.sclk),
-       .spi_csn0(spi_intf.cs[0]),
+       .spi_csn0(spi_intf.cs),
        .spi_csn1(csn1),
        .spi_csn2(csn2),
        .spi_csn3(csn3),
-       .spi_mode(mode),
+       .spi_mode(spi_mode),
        .spi_sdo0(spi_intf.mosi0),
        .spi_sdo1(spi_intf.mosi1),
        .spi_sdo2(spi_intf.mosi2),
@@ -112,11 +116,6 @@ module hdl_top;
        .spi_sdi3(spi_intf.miso3)
   );
 
-  //-------------------------------------------------------
-  // spi slave agent bfm Instantiation
-  //-------------------------------------------------------
-  slave_agent_bfm spi_agent_bfm_h(spi_intf);
-
-endmodule : hdl_top
+ endmodule : hdl_top
 
 `endif

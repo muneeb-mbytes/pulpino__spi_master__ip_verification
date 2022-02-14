@@ -31,6 +31,8 @@ package pulpino_spi_master_ip_test_pkg;
   //-------------------------------------------------------
   `include "pulpino_spi_master_ip_base_test.sv"
   `include "pulpino_spi_master_ip_basic_write_test.sv"
+  `include "pulpino_spi_master_ip_basic_read_test.sv"
+  `include "pulpino_spi_master_ip_rand_test.sv"
 
   endpackage : pulpino_spi_master_ip_test_pkg
 

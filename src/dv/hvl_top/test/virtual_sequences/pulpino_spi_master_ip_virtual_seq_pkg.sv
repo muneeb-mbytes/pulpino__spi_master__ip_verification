@@ -23,6 +23,8 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
   //-------------------------------------------------------
   `include "pulpino_spi_master_ip_virtual_base_seq.sv"
   `include "pulpino_spi_master_ip_virtual_basic_write_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_basic_read_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_rand_seq.sv"
 
 
   endpackage : pulpino_spi_master_ip_virtual_seq_pkg

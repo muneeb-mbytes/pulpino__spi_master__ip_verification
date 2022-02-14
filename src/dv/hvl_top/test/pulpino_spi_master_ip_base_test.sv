@@ -134,6 +134,7 @@ function void pulpino_spi_master_ip_base_test::setup_spi_slave_agent_config();
     pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].spi_mode     = operation_modes_e'(CPOL0_CPHA0);
     pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].shift_dir    = shift_direction_e'(LSB_FIRST);
     pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].has_coverage = 0;
+    pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].spi_type = SIMPLE_SPI;
 
     //pulpino_spi_master_ip_env_cfg_h.pulpino_spi_master_ip_slave_agent_cfg_h[i].min_address    = pulpino_spi_master_ip_env_cfg_h.apb_master_agent_cfg_h.master_min_addr_range_array[i];
     //pulpino_spi_master_ip_env_cfg_h.pulpino_spi_master_ip_slave_agent_cfg_h[i].max_address    = pulpino_spi_master_ip_env_cfg_h.apb_master_agent_cfg_h.master_max_addr_range_array[i];
@@ -146,7 +147,7 @@ function void pulpino_spi_master_ip_base_test::setup_spi_slave_agent_config();
     //pulpino_spi_master_ip_env_cfg_h.pulpino_spi_master_ip_slave_agent_cfg_h[i].has_coverage = 1; 
     uvm_config_db #(slave_agent_config)::set(this,$sformatf("*slave_agent_h[%0d]*",i),"slave_agent_config", pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i]);
     //uvm_config_db #(slave_agent_config)::set(this,$sformatf("*env*"),$sformatf("spi_slave_agent_config[%0d]",i),pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i]);
-   //`uvm_info(get_type_name(),$sformatf("\npulpino_spi_master_ip_SLAVE_CONFIG[%0d]\n%s",i,pulpino_spi_master_ip_env_cfg_h.pulpino_spi_master_ip_slave_agent_cfg_h[i].sprint()),UVM_LOW);
+   `uvm_info(get_type_name(),$sformatf("\npulpino_spi_master_ip_SLAVE_CONFIG[%0d]\n%s",i,pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].sprint()),UVM_LOW);
   end
 endfunction : setup_spi_slave_agent_config
 

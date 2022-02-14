@@ -11,6 +11,8 @@ class apb_master_basic_write_seq extends apb_master_base_seq;
   string status_reg   = "STATUS_REG_SEQ"   ;
   string clkdiv_reg   = "CLOCK_DIV_REG_SEQ";
   string spi_len_reg  = "SPI_LEN_REG_SEQ"  ;
+  string tx_fifo      = "TX_FIFO_SEQ"      ;
+  string rx_fifo      = "RX_FIFO_SEQ"      ;
   string spi_cmd_reg  = "SPI_CMD_REG_SEQ"  ;
   string spi_addr_reg = "SPI_ADDR_REG_SEQ" ;
   string dummy_reg    = "DUMMY_REG_SEQ"    ;
@@ -67,6 +69,7 @@ task apb_master_basic_write_seq::body();
   `uvm_info(clkdiv_reg,$sformatf("clkdiv_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
+
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2008;
@@ -108,6 +111,32 @@ task apb_master_basic_write_seq::body();
 
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
+                            req.paddr == 32'h1A10_2018;
+                            req.pwdata == 32'h0000_f01A;  
+                            req.transfer_size == BIT_32;
+                            req.cont_write_read == 0;
+                            req.pwrite == WRITE;}) begin : TXFIFO
+    `uvm_fatal("APB","Rand failed");
+  end
+  `uvm_info(tx_fifo,$sformatf("tx_fifo_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
+  finish_item(req);
+
+
+  start_item(req);
+  if(!req.randomize() with {req.pselx == SLAVE_0;
+                            req.paddr == 32'h1A10_2020;
+                            req.pwdata == 32'h0000_ff11;  
+                            req.transfer_size == BIT_32;
+                            req.cont_write_read == 0;
+                            req.pwrite == WRITE;}) begin : RXFIFO
+    `uvm_fatal("APB","Rand failed");
+  end
+  `uvm_info(rx_fifo,$sformatf("rx_fifo_reg_seq= \n %0p",req.sprint()),UVM_MEDIUM)
+  finish_item(req);
+
+
+  start_item(req);
+  if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2014;
                             req.pwdata == 32'h0000_0000;  
                             req.transfer_size == BIT_32;
@@ -122,7 +151,7 @@ task apb_master_basic_write_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2024;
-                            req.pwdata == 32'hC404_0202;  
+                            req.pwdata == 32'hCA0A_0A0A;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 0;
                             req.pwrite == WRITE;}) begin : INTCFG 

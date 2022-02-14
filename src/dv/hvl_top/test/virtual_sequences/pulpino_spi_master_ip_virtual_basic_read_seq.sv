@@ -12,6 +12,7 @@ class pulpino_spi_master_ip_virtual_basic_read_seq extends pulpino_spi_master_ip
   //Variable : apb_master_8b_seq_h
   //Instatiation of apb_master_8b_seq
   apb_master_basic_read_seq apb_master_basic_read_seq_h;
+  apb_master_std_read_seq apb_master_std_read_seq_h;
 
   //Variable : spi_fd_basic_slave_seq_h 
   //Instantiation of spi_fd_basic_slave_seq 
@@ -42,6 +43,7 @@ endfunction : new
 task pulpino_spi_master_ip_virtual_basic_read_seq::body();
   super.body();
   apb_master_basic_read_seq_h = apb_master_basic_read_seq::type_id::create("apb_master_basic_read_seq_h");
+  apb_master_std_read_seq_h = apb_master_std_read_seq::type_id::create("apb_master_std_read_seq_h");
   spi_fd_basic_slave_seq_h = spi_fd_basic_slave_seq::type_id::create("spi_fd_basic_slave_seq_h");
 
    fork
@@ -55,6 +57,7 @@ task pulpino_spi_master_ip_virtual_basic_read_seq::body();
   repeat(5) begin
     `uvm_info("master_vseq",$sformatf("started master vseq"),UVM_HIGH)
     apb_master_basic_read_seq_h.start(p_sequencer.apb_master_seqr_h);
+    apb_master_std_read_seq_h.start(p_sequencer.apb_master_seqr_h);
     `uvm_info("master_vseq",$sformatf("ended master vseq"),UVM_HIGH)
   end
  endtask : body

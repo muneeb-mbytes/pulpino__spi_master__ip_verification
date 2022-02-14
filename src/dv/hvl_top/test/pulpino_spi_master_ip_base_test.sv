@@ -128,7 +128,7 @@ function void pulpino_spi_master_ip_base_test::setup_spi_slave_agent_config();
   pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h = new[pulpino_spi_master_ip_env_cfg_h.no_of_spi_slaves];
   
   foreach(pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i]) begin
-    pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i] = slave_agent_config::type_id::create($sformatf("slave_agent_config[%0d]",i));
+    pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i] = spi_slave_agent_config::type_id::create($sformatf("slave_agent_config[%0d]",i));
     pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].slave_id     = i;
     pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].is_active    = uvm_active_passive_enum'(UVM_ACTIVE);
     pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].spi_mode     = operation_modes_e'(CPOL0_CPHA0);
@@ -145,7 +145,7 @@ function void pulpino_spi_master_ip_base_test::setup_spi_slave_agent_config();
     //  pulpino_spi_master_ip_env_cfg_h.pulpino_spi_master_ip_slave_agent_cfg_h[i].is_active  = uvm_active_passive_enum'(UVM_PASSIVE);
     //end
     //pulpino_spi_master_ip_env_cfg_h.pulpino_spi_master_ip_slave_agent_cfg_h[i].has_coverage = 1; 
-    uvm_config_db #(slave_agent_config)::set(this,$sformatf("*slave_agent_h[%0d]*",i),"slave_agent_config", pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i]);
+    uvm_config_db #(spi_slave_agent_config)::set(this,$sformatf("*spi_slave_agent_h[%0d]*",i),"spi_slave_agent_config", pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i]);
     //uvm_config_db #(slave_agent_config)::set(this,$sformatf("*env*"),$sformatf("spi_slave_agent_config[%0d]",i),pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i]);
    `uvm_info(get_type_name(),$sformatf("\npulpino_spi_master_ip_SLAVE_CONFIG[%0d]\n%s",i,pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].sprint()),UVM_LOW);
   end

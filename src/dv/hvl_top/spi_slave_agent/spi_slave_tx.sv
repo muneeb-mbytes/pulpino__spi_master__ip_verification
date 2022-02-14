@@ -1,12 +1,12 @@
-`ifndef SLAVE_TX_INCLUDED_
-`define SLAVE_TX_INCLUDED_
+`ifndef SPI_SLAVE_TX_INCLUDED_
+`define SPI_SLAVE_TX_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
-//  Class: slave_tx
+//  Class: spi_slave_tx
 //  It's a transaction class that holds the SPI data items for generating the stimulus
 //--------------------------------------------------------------------------------------------
-class slave_tx extends uvm_sequence_item;
-  `uvm_object_utils(slave_tx)
+class spi_slave_tx extends uvm_sequence_item;
+  `uvm_object_utils(spi_slave_tx)
 
   //-------------------------------------------------------
   // Instantiating SPI signals
@@ -35,24 +35,24 @@ class slave_tx extends uvm_sequence_item;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
-  extern function new(string name = "slave_tx");
+  extern function new(string name = "spi_slave_tx");
   extern function void do_copy(uvm_object rhs);
   extern function bit do_compare(uvm_object rhs, uvm_comparer comparer);
   extern function void do_print(uvm_printer printer);
 
-endclass : slave_tx
+endclass : spi_slave_tx
 
 //--------------------------------------------------------------------------------------------
 //  Construct: new
 //  initializes the class object
 //  Parameters: 
-//  instance name of the slave template
-//  Constructs the slave_tx object
+//  instance name of the spi_slave template
+//  Constructs the spi_slave_tx object
 //  
 //  Parameters:
-//  name - slave_tx
+//  name - spi_slave_tx
 //--------------------------------------------------------------------------------------------
-function slave_tx::new(string name = "slave_tx");
+function spi_slave_tx::new(string name = "spi_slave_tx");
   super.new(name);  
 endfunction : new
 
@@ -60,8 +60,8 @@ endfunction : new
 //do_copy method
 //--------------------------------------------------------------------------------------------
 
-function void slave_tx::do_copy (uvm_object rhs);
-  slave_tx rhs_;
+function void spi_slave_tx::do_copy (uvm_object rhs);
+  spi_slave_tx rhs_;
 
   if(!$cast(rhs_,rhs)) begin
     `uvm_fatal("do_copy","cast of the rhs object failed")
@@ -78,8 +78,8 @@ endfunction : do_copy
  //-------------------------------------------------------
  //  do_compare method
  //-------------------------------------------------------
-function bit slave_tx::do_compare (uvm_object rhs,uvm_comparer comparer);
-  slave_tx rhs_;
+function bit spi_slave_tx::do_compare (uvm_object rhs,uvm_comparer comparer);
+  spi_slave_tx rhs_;
   if(!$cast(rhs_,rhs)) begin
     `uvm_fatal("do_compare","cast of the rhs object failed")
      return 0;
@@ -95,7 +95,7 @@ endfunction : do_compare
 // Function: do_print method
 // Print method can be added to display the data members values
 //--------------------------------------------------------------------------------------------
-function void slave_tx::do_print(uvm_printer printer);
+function void spi_slave_tx::do_print(uvm_printer printer);
   super.do_print(printer);
   foreach(master_in_slave_out[i]) begin
     printer.print_field($sformatf("master_in_slave_out[%0d]",i),this.master_in_slave_out[i],8,UVM_HEX);

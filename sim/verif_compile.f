@@ -20,9 +20,9 @@
 ../../src/dv/hdl_top/apb_master_agent_bfm/apb_master_agent_bfm.sv
 ../../src/dv/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv
 ../../src/dv/hdl_top/apb_master_agent_bfm/apb_master_monitor_bfm.sv
-../../src/dv/hdl_top/spi_slave_agent_bfm/slave_agent_bfm.sv
-../../src/dv/hdl_top/spi_slave_agent_bfm/slave_driver_bfm.sv
-../../src/dv/hdl_top/spi_slave_agent_bfm/slave_monitor_bfm.sv
+../../src/dv/hdl_top/spi_slave_agent_bfm/spi_slave_agent_bfm.sv
+../../src/dv/hdl_top/spi_slave_agent_bfm/spi_slave_driver_bfm.sv
+../../src/dv/hdl_top/spi_slave_agent_bfm/spi_slave_monitor_bfm.sv
 ../../src/dv/hdl_top/hdl_top.sv
 ../../src/dv/hvl_top/hvl_top.sv
 

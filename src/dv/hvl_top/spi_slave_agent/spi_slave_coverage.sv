@@ -1,26 +1,26 @@
-`ifndef SLAVE_COVERAGE_INCLUDED_
-`define SLAVE_COVERAGE_INCLUDED_
+`ifndef SPI_SLAVE_COVERAGE_INCLUDED_
+`define SPI_SLAVE_COVERAGE_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
-//  Class: slave_coverage
-// slave_coverage determines the how much code is covered for better functionality of the TB.
+//  Class: spi_slave_coverage
+// spi_slave_coverage determines the how much code is covered for better functionality of the TB.
 //--------------------------------------------------------------------------------------------
-class slave_coverage extends uvm_subscriber#(slave_tx);
-  `uvm_component_utils(slave_coverage)
+class spi_slave_coverage extends uvm_subscriber#(spi_slave_tx);
+  `uvm_component_utils(spi_slave_coverage)
 
-  //creating handle for slave transaction coverage
-  slave_tx slave_tx_cov_data;
+  //creating handle for spi_slave transaction coverage
+  spi_slave_tx spi_slave_tx_cov_data;
 
   // Variable: master_agent_cfg_h
   // Declaring handle for master agent configuration class 
-  slave_agent_config slave_agent_cfg_h;
+  spi_slave_agent_config spi_slave_agent_cfg_h;
 
   //-------------------------------------------------------
   // Covergroup
   // // TODO(mshariff): Add comments 
   // Covergroup consists of the various coverpoints based on the no. of the variables used to improve the coverage.
   //-------------------------------------------------------
-  covergroup slave_covergroup with function sample (slave_agent_config cfg, slave_tx packet);
+  covergroup spi_slave_covergroup with function sample (spi_slave_agent_config cfg, spi_slave_tx packet);
   option.per_instance = 1;
 
     // Mode of the operation
@@ -74,12 +74,12 @@ class slave_coverage extends uvm_subscriber#(slave_tx);
 //    //--------------------------------------------------------------------------------------------
 //   
      // Cross of the OPERATION_MODE with mosi and miso data 
-     OPERATION_MODE_X_MASTER_OUT_SLAVE_IN : cross OPERATION_MODE_CP,MOSI_DATA_TRANSFER_CP;
-     OPERATION_MODE_X_MASTER_IN_SLAVE_OUT : cross OPERATION_MODE_CP,MISO_DATA_TRANSFER_CP;
+     OPERATION_MODE_X_MASTER_OUT_slave_IN : cross OPERATION_MODE_CP,MOSI_DATA_TRANSFER_CP;
+     OPERATION_MODE_X_MASTER_IN_slave_OUT : cross OPERATION_MODE_CP,MISO_DATA_TRANSFER_CP;
 
      // Cross of the SHIFT_DIRECTION with mosi and miso data 
-     SHIFT_DIRECTION_X_MASTER_OUT_SLAVE_IN : cross SHIFT_DIRECTION_CP,MOSI_DATA_TRANSFER_CP;
-     SHIFT_DIRECTION_X_MASTER_IN_SLAVE_OUT : cross SHIFT_DIRECTION_CP,MISO_DATA_TRANSFER_CP;
+     SHIFT_DIRECTION_X_MASTER_OUT_slave_IN : cross SHIFT_DIRECTION_CP,MOSI_DATA_TRANSFER_CP;
+     SHIFT_DIRECTION_X_MASTER_IN_slave_OUT : cross SHIFT_DIRECTION_CP,MISO_DATA_TRANSFER_CP;
 //
 //    // Cross of the SHIFT_DIRECTION with and the CS,DATA_WIDTH,master_out_slave_in,master_in_slave_out
 //        
@@ -88,19 +88,19 @@ class slave_coverage extends uvm_subscriber#(slave_tx);
 //    // SHIFT_DIRECTION x master_out_slave_in = cross SHIFT_DIRECTION,master_out_slave_in;
 //    //SHIFT_DIRECTION x master_in_slave_out = cross SHIFT_DIRECTION,master_in_slave_out;
 //
-//    // Cross of the NO_OF_SLAVES with and the CS,DATA_WIDTH,master_out_slave_in,master_in_slave_out
-//    //NO_OF_SLAVES x CS = cross NO_OF_SLAVES,CS;
-//    //NO_OF_SLAVES x DATA_WIDTH = cross NO_OF_SLAVES,DATA_WIDTH;
-//    // NO_OF_SLAVES x master_out_slave_in = cross NO_OF_SLAVES,master_out_slave_in;
-//    // NO_OF_SLAVES x master_in_slave_out = cross NO_OF_SLAVES,master_in_slave_out;
+//    // Cross of the NO_OF_slaveS with and the CS,DATA_WIDTH,master_out_slave_in,master_in_slave_out
+//    //NO_OF_slaveS x CS = cross NO_OF_slaveS,CS;
+//    //NO_OF_slaveS x DATA_WIDTH = cross NO_OF_slaveS,DATA_WIDTH;
+//    // NO_OF_slaveS x master_out_slave_in = cross NO_OF_slaveS,master_out_slave_in;
+//    // NO_OF_slaveS x master_in_slave_out = cross NO_OF_slaveS,master_in_slave_out;
 //
 //
 //
   
-  endgroup :slave_covergroup
-  // Variable: slave_cg
-  // Handle for slave covergroup
-  //slave_coverage slave_cg;
+  endgroup :spi_slave_covergroup
+  // Variable: spi_slave_cg
+  // Handle for spi_slave covergroup
+  //spi_slave_coverage spi_slave_cg;
 
   // TODO(mshariff):
   //
@@ -134,28 +134,28 @@ class slave_coverage extends uvm_subscriber#(slave_tx);
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
-  extern function new(string name = "slave_coverage", uvm_component parent = null);
+  extern function new(string name = "spi_slave_coverage", uvm_component parent = null);
   //extern virtual function void build_phase(uvm_phase phase);
   //extern virtual function void connect_phase(uvm_phase phase);
   //extern virtual function void end_of_elaboration_phase(uvm_phase phase);
   //extern virtual function void start_of_simulation_phase(uvm_phase phase);
   //extern virtual task run_phase(uvm_phase phase);
-  extern virtual function void write(slave_tx t);
+  extern virtual function void write(spi_slave_tx t);
   extern virtual function void report_phase(uvm_phase phase);
 
-endclass : slave_coverage
+endclass : spi_slave_coverage
 
 //--------------------------------------------------------------------------------------------
 // Construct: new
 //
 // Parameters:
-//  name - slave_coverage
+//  name - spi_slave_coverage
 //  parent - parent under which this component is created
 //--------------------------------------------------------------------------------------------
-function slave_coverage::new(string name = "slave_coverage", uvm_component parent = null);
+function spi_slave_coverage::new(string name = "spi_slave_coverage", uvm_component parent = null);
   super.new(name, parent);
   // TODO(mshariff): Create the covergroup
-   slave_covergroup = new(); 
+   spi_slave_covergroup = new(); 
 endfunction : new
 
 //--------------------------------------------------------------------------------------------
@@ -165,7 +165,7 @@ endfunction : new
 // Parameters:
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
-/*function void slave_coverage::build_phase(uvm_phase phase);
+/*function void spi_slave_coverage::build_phase(uvm_phase phase);
   super.build_phase(phase);
 endfunction : build_phase
 
@@ -176,7 +176,7 @@ endfunction : build_phase
 // Parameters:
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
-function void slave_coverage::connect_phase(uvm_phase phase);
+function void spi_slave_coverage::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
 endfunction : connect_phase
 
@@ -187,7 +187,7 @@ endfunction : connect_phase
 // Parameters:
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
-function void slave_coverage::end_of_elaboration_phase(uvm_phase phase);
+function void spi_slave_coverage::end_of_elaboration_phase(uvm_phase phase);
   super.end_of_elaboration_phase(phase);
 endfunction  : end_of_elaboration_phase
 
@@ -198,7 +198,7 @@ endfunction  : end_of_elaboration_phase
 // Parameters:
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
-function void slave_coverage::start_of_simulation_phase(uvm_phase phase);
+function void spi_slave_coverage::start_of_simulation_phase(uvm_phase phase);
   super.start_of_simulation_phase(phase);
 endfunction : start_of_simulation_phase
 
@@ -209,9 +209,9 @@ endfunction : start_of_simulation_phase
 // Parameters:
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
-task slave_coverage::run_phase(uvm_phase phase);
+task spi_slave_coverage::run_phase(uvm_phase phase);
 
-  phase.raise_objection(this, "slave_coverage");
+  phase.raise_objection(this, "spi_slave_coverage");
 
   super.run_phase(phase);
 
@@ -227,19 +227,19 @@ endtask : run_phase
 // Function: write
 // // TODO(mshariff): Add comments
 //--------------------------------------------------------------------------------------------
-function void slave_coverage::write(slave_tx t);
+function void spi_slave_coverage::write(spi_slave_tx t);
   // TODO(mshariff): 
-  // cg.sample(slave_agent_cfg_h, slave_tx_cov_data);     
-    slave_covergroup.sample(slave_agent_cfg_h,t);     
+  // cg.sample(spi_slave_agent_cfg_h, spi_slave_tx_cov_data);     
+    spi_slave_covergroup.sample(spi_slave_agent_cfg_h,t);     
 endfunction: write
 
 //--------------------------------------------------------------------------------------------
 // Function: report_phase
 // Used for reporting the coverage instance percentage values
 //--------------------------------------------------------------------------------------------
-function void slave_coverage::report_phase(uvm_phase phase);
-  `uvm_info(get_type_name(), $sformatf("Slave Agent Coverage = %0.2f %%",
-                                       slave_covergroup.get_coverage()), UVM_NONE);
+function void spi_slave_coverage::report_phase(uvm_phase phase);
+  `uvm_info(get_type_name(), $sformatf("spi_slave Agent Coverage = %0.2f %%",
+                                       spi_slave_covergroup.get_coverage()), UVM_NONE);
 endfunction: report_phase
 `endif
 

@@ -28,6 +28,14 @@ class pulpino_spi_master_ip_env extends uvm_env;
   //Declaring handle for pulpino_spi_master_ip_env_config_object
   pulpino_spi_master_ip_env_config pulpino_spi_master_ip_env_config_h;  
   
+  // Variable: apb_master_coll_h;
+  // Handle for apb master collector
+  apb_master_collector apb_master_coll_h;
+
+  // Variable: spi_slave_coll_h;
+  // Handle for spi slave collector
+  spi_slave_collector spi_slave_coll_h;
+
   // Variable: spi_slave_agent_cfg_h;
   // Handle for spi slave agent configuration
   //slave_agent_config spi_slave_agent_cfg_h[];
@@ -94,6 +102,9 @@ function void pulpino_spi_master_ip_env::build_phase(uvm_phase phase);
   //  spi_slave_agent_h[i].slave_agent_cfg_h = spi_slave_agent_cfg_h[i];
   //end
 
+  apb_master_coll_h = apb_master_collector::type_id::create("apb_master_coll_h",this);
+  spi_slave_coll_h  = spi_slave_collector::type_id::create("spi_slave_coll_h",this);
+
 endfunction : build_phase
 
 //--------------------------------------------------------------------------------------------
@@ -112,13 +123,17 @@ function void pulpino_spi_master_ip_env::connect_phase(uvm_phase phase);
     end
   end
   
-  apb_master_agent_h.apb_master_mon_proxy_h.apb_master_analysis_port.connect(pulpino_spi_master_ip_scoreboard_h.apb_master_analysis_fifo.analysis_export);
+  apb_master_coll_h.apb_master_coll_analysis_port.connect(pulpino_spi_master_ip_scoreboard_h.apb_master_analysis_fifo.analysis_export);
+  spi_slave_coll_h.spi_slave_coll_analysis_port.connect(pulpino_spi_master_ip_scoreboard_h.spi_slave_analysis_fifo.analysis_export);
+
+  //apb_master_agent_h.apb_master_mon_proxy_h.apb_master_analysis_port.connect(pulpino_spi_master_ip_scoreboard_h.apb_master_analysis_fifo.analysis_export);
   
-  foreach(spi_slave_agent_h[i]) begin
-    spi_slave_agent_h[i].slave_mon_proxy_h.slave_analysis_port.connect(pulpino_spi_master_ip_scoreboard_h.spi_slave_analysis_fifo.analysis_export);
-  end
+  //foreach(spi_slave_agent_h[i]) begin
+  //  spi_slave_agent_h[i].slave_mon_proxy_h.slave_analysis_port.connect(pulpino_spi_master_ip_scoreboard_h.spi_slave_analysis_fifo.analysis_export);
+  //end
   
   endfunction : connect_phase
 
 `endif
+
 

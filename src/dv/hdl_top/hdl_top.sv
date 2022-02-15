@@ -78,11 +78,6 @@ module hdl_top;
   spi_if spi_intf(pclk,preset_n);
 
   //-------------------------------------------------------
-  // spi slave agent bfm Instantiation
-  //-------------------------------------------------------
-  slave_agent_bfm spi_agent_bfm_h(spi_intf);
-
-  //-------------------------------------------------------
   // apb Master BFM Agent Instantiation
   //-------------------------------------------------------
   apb_spi_master DUT
@@ -116,6 +111,11 @@ module hdl_top;
        .spi_sdi3(spi_intf.miso3)
   );
 
- endmodule : hdl_top
+  //-------------------------------------------------------
+  // spi slave agent bfm Instantiation
+  //-------------------------------------------------------
+  spi_slave_agent_bfm spi_agent_bfm_h(spi_intf);
+
+endmodule : hdl_top
 
 `endif

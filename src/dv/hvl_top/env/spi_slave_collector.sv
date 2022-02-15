@@ -8,7 +8,7 @@
 class spi_slave_collector extends uvm_component;
   `uvm_component_utils(spi_slave_collector)
 
-  uvm_analysis_port#(slave_tx) spi_slave_coll_analysis_port;
+  uvm_analysis_port#(spi_slave_tx) spi_slave_coll_analysis_port;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions

@@ -1,40 +1,40 @@
-`ifndef SLAVE_SPI_CFG_CONVERTER_INCLUDED_
-`define SLAVE_SPI_CFG_CONVERTER_INCLUDED_
+`ifndef SPI_SLAVE_CFG_CONVERTER_INCLUDED_
+`define SPI_SLAVE_CFG_CONVERTER_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
-// Class: slave_spi_cfg_converter
+// Class: spi_slave_cfg_converter
 // Description:
-// class for converting slave_cfg configurations into struct configurations
+// class for converting spi_slave_cfg configurations into struct configurations
 //--------------------------------------------------------------------------------------------
-class slave_spi_cfg_converter extends uvm_object;
-  `uvm_object_utils(slave_spi_cfg_converter)
+class spi_slave_cfg_converter extends uvm_object;
+  `uvm_object_utils(spi_slave_cfg_converter)
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
-  extern function new(string name = "slave_spi_cfg_converter");
-  extern static function void from_class(input slave_agent_config input_conv_h ,
+  extern function new(string name = "spi_slave_cfg_converter");
+  extern static function void from_class(input spi_slave_agent_config input_conv_h ,
                                          output spi_transfer_cfg_s output_conv);
   extern function void do_print(uvm_printer printer);
 
-endclass : slave_spi_cfg_converter
+endclass : spi_slave_cfg_converter
 
 //--------------------------------------------------------------------------------------------
 // Construct: new
 //
 // Parameters:
-//  name - slave_spi_cfg_converter
+//  name - spi_slave_cfg_converter
 //--------------------------------------------------------------------------------------------
-function slave_spi_cfg_converter::new(string name = "slave_spi_cfg_converter");
+function spi_slave_cfg_converter::new(string name = "spi_slave_cfg_converter");
   super.new(name);
 endfunction : new
 
 
 //--------------------------------------------------------------------------------------------
 // function: from_class
-// converting slave_cfg configurations into structure configurations
+// converting spi_slave_cfg configurations into structure configurations
 //--------------------------------------------------------------------------------------------
-function void slave_spi_cfg_converter::from_class(input slave_agent_config input_conv_h ,
+function void spi_slave_cfg_converter::from_class(input spi_slave_agent_config input_conv_h ,
                                                   output spi_transfer_cfg_s output_conv);
 
   {output_conv.cpol, output_conv.cpha} = operation_modes_e'(input_conv_h.spi_mode);
@@ -46,7 +46,7 @@ endfunction: from_class
 // Function: do_print method
 // Print method can be added to display the data members values
 //--------------------------------------------------------------------------------------------
-function void slave_spi_cfg_converter::do_print(uvm_printer printer);
+function void spi_slave_cfg_converter::do_print(uvm_printer printer);
 
   spi_transfer_cfg_s spi_st;
   super.do_print(printer);

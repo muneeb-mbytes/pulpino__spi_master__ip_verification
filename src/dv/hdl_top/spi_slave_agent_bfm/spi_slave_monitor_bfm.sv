@@ -1,5 +1,5 @@
-`ifndef SLAVE_MONITOR_BFM_INCLUDED_
-`define SLAVE_MONITOR_BFM_INCLUDED_
+`ifndef SPI_SLAVE_MONITOR_BFM_INCLUDED_
+`define SPI_SLAVE_MONITOR_BFM_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Inteface : Slave Monitor BFM
@@ -8,7 +8,7 @@
 //--------------------------------------------------------------------------------------------
 
 import spi_slave_global_pkg::*;
-interface slave_monitor_bfm(input pclk, input areset, 
+interface spi_slave_monitor_bfm(input pclk, input areset, 
                             input sclk, 
                             input cs, 
                             input mosi0, mosi1, mosi2, mosi3,
@@ -27,9 +27,9 @@ interface slave_monitor_bfm(input pclk, input areset,
   //-------------------------------------------------------
   import spi_slave_pkg::*;
 
-  //Variable : slave_monitor_proxy_h
+  //Variable : spi_slave_mon_proxy_h
   // Creating the handle for proxy driver
-  slave_monitor_proxy slave_monitor_proxy_h;
+  spi_slave_monitor_proxy spi_slave_mon_proxy_h;
 
   initial begin
     $display("Slave Monitor BFM");
@@ -41,9 +41,9 @@ interface slave_monitor_bfm(input pclk, input areset,
   //-------------------------------------------------------
   task wait_for_system_reset();
     @(negedge areset);
-    `uvm_info("SLAVE_MONITOR_BFM", $sformatf("System reset detected"), UVM_HIGH);
+    `uvm_info("spi_slave_monitor_bfm", $sformatf("System reset detected"), UVM_HIGH);
     @(posedge areset);
-    `uvm_info("SLAVE_MONITOR_BFM", $sformatf("System reset deactivated"), UVM_HIGH);
+    `uvm_info("spi_slave_monitor_bfm", $sformatf("System reset deactivated"), UVM_HIGH);
   endtask: wait_for_system_reset
 
   //-------------------------------------------------------
@@ -57,7 +57,7 @@ interface slave_monitor_bfm(input pclk, input areset,
       @(negedge pclk);
     end
 
-    `uvm_info("SLAVE_MONITOR_BFM", $sformatf("IDLE condition has been detected"), UVM_NONE);
+    `uvm_info("spi_slave_monitor_bfm", $sformatf("IDLE condition has been detected"), UVM_NONE);
   endtask: wait_for_idle_state
 
   //-------------------------------------------------------
@@ -74,7 +74,7 @@ interface slave_monitor_bfm(input pclk, input areset,
       cs_local = {cs_local[0], cs};
     end while(cs_local != NEGEDGE);
 
-    `uvm_info("SLAVE_MONITOR_BFM", $sformatf("Transfer start is detected"), UVM_NONE);
+    `uvm_info("spi_slave_monitor_bfm", $sformatf("Transfer start is detected"), UVM_NONE);
   endtask: wait_for_transfer_start
 
   //-------------------------------------------------------
@@ -98,7 +98,7 @@ interface slave_monitor_bfm(input pclk, input areset,
       // Stop the transfer when the CS is active-high
       cs_local = {cs_local[0], cs};
       if(cs_local == POSEDGE) begin
-        `uvm_info("SLAVE_MONITOR_BFM", $sformatf("End of Transfer Detected"), UVM_NONE);
+        `uvm_info("spi_slave_monitor_bfm", $sformatf("End of Transfer Detected"), UVM_NONE);
         end_of_transfer = 1;
         return;
       end
@@ -106,7 +106,7 @@ interface slave_monitor_bfm(input pclk, input areset,
     end while(! ((sclk_local == POSEDGE) || (sclk_local == NEGEDGE)) );
 
     sclk_edge_value = edge_detect_e'(sclk_local);
-    `uvm_info("SLAVE_MONITOR_BFM", $sformatf("SCLK %s detected", sclk_edge_value.name()), UVM_FULL);
+    `uvm_info("spi_slave_monitor_bfm", $sformatf("SCLK %s detected", sclk_edge_value.name()), UVM_FULL);
   
   endtask: detect_sclk
 
@@ -187,6 +187,6 @@ interface slave_monitor_bfm(input pclk, input areset,
     
   endtask: sample_data
 
-endinterface : slave_monitor_bfm
+endinterface : spi_slave_monitor_bfm
 
 `endif

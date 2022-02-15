@@ -1,8 +1,8 @@
-`ifndef SLAVE_DRIVER_BFM_INCLUDED_
-`define SLAVE_DRIVER_BFM_INCLUDED_
+`ifndef SPI_SLAVE_DRIVER_BFM_INCLUDED_
+`define SPI_SLAVE_DRIVER_BFM_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
-// Interface : slave_driver_bfm
+// Interface : spi_slave_driver_bfm
 // Used as the HDL driver for SPI
 // It connects with the HVL driver_proxy for driving the stimulus
 //--------------------------------------------------------------------------------------------
@@ -11,7 +11,7 @@
 //-------------------------------------------------------
 import spi_slave_global_pkg::*;
 
-interface slave_driver_bfm(input pclk, input areset, 
+interface spi_slave_driver_bfm(input pclk, input areset, 
                            input sclk, 
                            input cs, 
                            input mosi0, mosi1, mosi2, mosi3, 
@@ -31,9 +31,9 @@ interface slave_driver_bfm(input pclk, input areset,
   //--------------------------------------------------------------------------------------------
   // virtual spi_if v_intf;
   
-  // Variable : slave_driver_proxy
+  // Variable : spi_slave_driver_proxy
   // Creating the handle for proxy driver
-  slave_driver_proxy slave_drv_proxy_h;
+  spi_slave_driver_proxy spi_slave_drv_proxy_h;
   
   initial begin
     $display("Slave Driver BFM");
@@ -45,9 +45,9 @@ interface slave_driver_bfm(input pclk, input areset,
   //-------------------------------------------------------
   task wait_for_system_reset();
     @(negedge areset);
-    `uvm_info("SLAVE_DRIVER_BFM", $sformatf("System reset detected"), UVM_HIGH);
+    `uvm_info("spi_slave_driver_bfm", $sformatf("System reset detected"), UVM_HIGH);
     @(posedge areset);
-    `uvm_info("SLAVE_DRIVER_BFM", $sformatf("System reset deactivated"), UVM_HIGH);
+    `uvm_info("spi_slave_driver_bfm", $sformatf("System reset deactivated"), UVM_HIGH);
   endtask: wait_for_system_reset
 
   //-------------------------------------------------------
@@ -61,7 +61,7 @@ interface slave_driver_bfm(input pclk, input areset,
       @(negedge pclk);
     end
 
-    `uvm_info("SLAVE_DRIVER_BFM", $sformatf("IDLE condition has been detected"), UVM_NONE);
+    `uvm_info("spi_slave_driver_bfm", $sformatf("IDLE condition has been detected"), UVM_NONE);
   endtask: wait_for_idle_state
 
   //-------------------------------------------------------
@@ -78,7 +78,7 @@ interface slave_driver_bfm(input pclk, input areset,
       cs_local = {cs_local[0], cs};
     end while(cs_local != NEGEDGE);
 
-    `uvm_info("SLAVE_DRIVER_BFM", $sformatf("Transfer start is detected"), UVM_NONE);
+    `uvm_info("spi_slave_driver_bfm", $sformatf("Transfer start is detected"), UVM_NONE);
   endtask: wait_for_transfer_start
 
   //-------------------------------------------------------
@@ -91,7 +91,7 @@ interface slave_driver_bfm(input pclk, input areset,
     // reseting the no_of_miso_bits inorder to get the required count of miso data
     data_packet.no_of_miso_bits_transfer = 0;
 
-    `uvm_info("DEBUG MOSI CPHA SLAVE_DRIVER_BFM",$sformatf("miso(8bits)=8'h%0x",data_packet.master_in_slave_out[0]),UVM_HIGH)
+    `uvm_info("DEBUG MOSI CPHA spi_slave_driver_bfm",$sformatf("miso(8bits)=8'h%0x",data_packet.master_in_slave_out[0]),UVM_HIGH)
 
     // Driving of MISO data and sampling of MOSI data 
     // with respect to master's SCLK
@@ -113,8 +113,8 @@ interface slave_driver_bfm(input pclk, input areset,
           if(end_of_transfer) break; 
           miso0 <= data_packet.master_in_slave_out[row_no][bit_no];
           data_packet.no_of_miso_bits_transfer++;
-          `uvm_info("DEBUG MOSI0 SLAVE_DRIVER_BFM",$sformatf("miso=\n %0p",miso0),UVM_HIGH)
-          `uvm_info("DEBUG MISO TRANSFER COUNT SLAVE_DRIVER_BFM",$sformatf("miso count=\n %0p",
+          `uvm_info("DEBUG MOSI0 spi_slave_driver_bfm",$sformatf("miso=\n %0p",miso0),UVM_HIGH)
+          `uvm_info("DEBUG MISO TRANSFER COUNT spi_slave_driver_bfm",$sformatf("miso count=\n %0p",
           data_packet.no_of_miso_bits_transfer),UVM_HIGH)
 
           // Sampling MOSI at negedge of sclk for CPOL=0 and CPHA=0  OR
@@ -183,7 +183,7 @@ interface slave_driver_bfm(input pclk, input areset,
       // Stop the transfer when the CS is active-high
       cs_local = {cs_local[0], cs};
       if(cs_local == POSEDGE) begin
-        `uvm_info("SLAVE_DRIVER_BFM", $sformatf("End of Transfer Detected"), UVM_NONE);
+        `uvm_info("spi_slave_driver_bfm", $sformatf("End of Transfer Detected"), UVM_NONE);
         end_of_transfer = 1;
         return;
       end
@@ -191,11 +191,11 @@ interface slave_driver_bfm(input pclk, input areset,
     end while(! ((sclk_local == POSEDGE) || (sclk_local == NEGEDGE)) );
 
     sclk_edge_value = edge_detect_e'(sclk_local);
-    `uvm_info("SLAVE_DRIVER_BFM", $sformatf("SCLK %s detected", sclk_edge_value.name()), UVM_FULL);
+    `uvm_info("spi_slave_driver_bfm", $sformatf("SCLK %s detected", sclk_edge_value.name()), UVM_FULL);
   
   endtask: detect_sclk
 
-endinterface : slave_driver_bfm
+endinterface : spi_slave_driver_bfm
 
 `endif
 

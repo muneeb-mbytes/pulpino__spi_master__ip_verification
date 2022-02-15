@@ -1,11 +1,11 @@
-`ifndef SLAVE_AGENT_BFM_INCLUDED_
-`define SLAVE_AGENT_BFM_INCLUDED_
+`ifndef SPI_SLAVE_AGENT_BFM_INCLUDED_
+`define SPI_SLAVE_AGENT_BFM_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Module : Slave Agent BFM 
 // This module is used as the configuration class for slave agent bfm and its components
 //--------------------------------------------------------------------------------------------
-module slave_agent_bfm(spi_if intf);
+module spi_slave_agent_bfm(spi_if intf);
 
   //-------------------------------------------------------
   // Package : Importing Uvm Package and Test Package
@@ -25,7 +25,7 @@ module slave_agent_bfm(spi_if intf);
   //-------------------------------------------------------
   // Slave driver bfm instantiation
   //-------------------------------------------------------
-  slave_driver_bfm slave_drv_bfm_h (.pclk(intf.pclk),
+  spi_slave_driver_bfm spi_slave_drv_bfm_h (.pclk(intf.pclk),
                                     .areset(intf.areset),
                                     .sclk(intf.sclk),
                                     // TODO(mshariff): Need to modify it for more slaves
@@ -43,7 +43,7 @@ module slave_agent_bfm(spi_if intf);
   //-------------------------------------------------------
   // Slave monitor bfm instantiation
   //-------------------------------------------------------
-  slave_monitor_bfm slave_mon_bfm_h (.pclk(intf.pclk),
+  spi_slave_monitor_bfm spi_slave_mon_bfm_h (.pclk(intf.pclk),
                                      .areset(intf.areset),
                                      .sclk(intf.sclk),
                                      .cs(intf.cs[0]),
@@ -62,24 +62,24 @@ module slave_agent_bfm(spi_if intf);
   //-------------------------------------------------------
   initial begin
 
-//  if (SLAVE_AGENT_ACTIVE == 1'b1) begin
-//    slave_agent_bfm_h.is_active = UVM_ACTIVE;
-    //if(slave_agent_bfm_h.is_active == UVM_ACTIVE) 
-      uvm_config_db#(virtual slave_driver_bfm)::set(null,"*", "slave_driver_bfm", slave_drv_bfm_h); 
+//  if (spi_slave_agent_ACTIVE == 1'b1) begin
+//    spi_slave_agent_bfm_h.is_active = UVM_ACTIVE;
+    //if(spi_slave_agent_bfm_h.is_active == UVM_ACTIVE) 
+      uvm_config_db#(virtual spi_slave_driver_bfm)::set(null,"*", "spi_slave_driver_bfm", spi_slave_drv_bfm_h); 
 //    end
 
-//  else if (SLAVE_AGENT_ACTIVE == 1'b0) begin
-//    slave_agent_bfm_h.is_active = UVM_PASSIVE;
-    //else if(slave_agent_bfm_h.is_active == UVM_PASSIVE)
-      uvm_config_db #(virtual slave_monitor_bfm)::set(null,"*", "slave_monitor_bfm", slave_mon_bfm_h); 
+//  else if (spi_slave_agent_ACTIVE == 1'b0) begin
+//    spi_slave_agent_bfm_h.is_active = UVM_PASSIVE;
+    //else if(spi_slave_agent_bfm_h.is_active == UVM_PASSIVE)
+      uvm_config_db #(virtual spi_slave_monitor_bfm)::set(null,"*", "spi_slave_monitor_bfm", spi_slave_mon_bfm_h); 
 //    end
 
   end
 
   initial begin
-    $display("Slave Agent BFM");
+    $display("spi_Slave Agent BFM");
   end
 
-endmodule : slave_agent_bfm
+endmodule : spi_slave_agent_bfm
 
 `endif

@@ -201,12 +201,26 @@ endfunction : check_phase
 function void pulpino_spi_master_ip_scoreboard::report_phase(uvm_phase phase);
   super.report_phase(phase);
   `uvm_info("scoreboard",$sformatf("--\n--------------------------------------------------Scoreboard Report-----------------------------------------------"),UVM_HIGH);
+
+  `uvm_info (get_type_name(),$sformatf("Scoreboard Report Phase is Starting"),UVM_HIGH); 
   
+  //Total number of packets received from the Master
+  `uvm_info (get_type_name(),$sformatf("No. of transactions from master:%0d", apb_master_tx_count),UVM_HIGH);
+
+  //Total number of packets received from the Slave
+  `uvm_info (get_type_name(),$sformatf("No. of transactions from slave:%0d", spi_slave_tx_count),UVM_HIGH);
+  
+  //Number of master_pwdata comparisions passed
+  `uvm_info (get_type_name(),$sformatf("Total no. of byte_data_cmp_verified_master_pwdata_slave_mosi_count:%0d",
+             byte_data_cmp_verified_master_pwdata_slave_mosi_count),UVM_HIGH);
+
+  //Number of master_pwdata compariosn failed
+  `uvm_info (get_type_name(),$sformatf("Total no. of byte_data_cmp_failed_master_pwdata_slave_mosi_count:%0d",
+             byte_data_cmp_failed_master_pwdata_slave_mosi_count),UVM_HIGH);
 
   `uvm_info("scoreboard",$sformatf("--\n--------------------------------------------------End of Scoreboard Report-----------------------------------------------"),UVM_HIGH);
+
 endfunction : report_phase
-
-
 
 `endif
 

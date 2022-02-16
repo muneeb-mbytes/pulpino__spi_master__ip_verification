@@ -31,7 +31,15 @@ class pulpino_spi_master_ip_scoreboard extends uvm_scoreboard;
 
   //Variable : slave_tx_count
   //to keep track of number of transactions for slave 
-  int slave_tx_count = 0;
+  int spi_slave_tx_count = 0;
+
+  //Variable byte_data_cmp_verified_master_pwdata_slave_mosi_count
+  //to keep track of number of byte wise compared verified master_tx_data
+  int byte_data_cmp_verified_master_pwdata_slave_mosi_count = 0;
+
+  //Variable byte_data_cmp_failed_master_pwdata_slave_mosi_count
+  //to keep track of number of byte wise compared failed master_tx_data
+  int byte_data_cmp_failed_master_pwdata_slave_mosi_count = 0;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -79,9 +87,47 @@ endfunction : build_phase
 task pulpino_spi_master_ip_scoreboard::run_phase(uvm_phase phase);
 
   super.run_phase(phase);
-
  
+  forever begin
+
   `uvm_info(get_type_name(),$sformatf("before calling master's analysis fifo get method"),UVM_HIGH)
+  apb_master_analysis_fifo.get(apb_master_tx_h);
+  apb_master_tx_count++;
+
+
+  `uvm_info(get_type_name(),$sformatf("after calling master's analysis fifo get method"),UVM_HIGH) 
+  `uvm_info(get_type_name(),$sformatf("printing apb_master_tx_h, \n %s",apb_master_tx_h.sprint()),UVM_HIGH)
+  `uvm_info(get_type_name(),$sformatf("before calling slave's analysis_fifo"),UVM_HIGH)
+
+  spi_slave_analysis_fifo.get(spi_slave_tx_h);
+  spi_slave_tx_count++;
+
+  `uvm_info(get_type_name(),$sformatf("after calling slave's analysis fifo get method"),UVM_HIGH) 
+  `uvm_info(get_type_name(),$sformatf("printing spi_slave_tx_h, \n %s",spi_slave_tx_h.sprint()),UVM_HIGH)
+
+   //-------------------------------------------------------
+  //Data comparision for master
+  //-------------------------------------------------------
+
+  `uvm_info(get_type_name(),$sformatf("--\n-----------------------------------------------SCOREBOARDCOMPARISIONS--------------------------------------------------"),UVM_HIGH)
+
+   //Verifying pwdata in master and slave 
+   foreach(spi_slave_tx_h.master_out_slave_in[i])
+   if(apb_master_tx_h.pwdata[i] == spi_slave_tx_h.master_out_slave_in[i]) begin
+     `uvm_info(get_type_name(),$sformatf("apb_pwdata from apb_master and master_out_slave_in from spi_slave is equal"),UVM_HIGH);
+     //`uvm_info("SB_PWDATA_MATCHED WITH MOSI0", $sformatf("Master PWDATA = 'h%0x and Slave
+     //           master_out_slave_in['h%0x] = 'h%0x",apb_master_tx_h.pwdata,i,spi_slave_tx_h.master_out_slave_in[i]), UVM_HIGH); 
+
+     byte_data_cmp_verified_master_pwdata_slave_mosi_count++;
+   end
+
+    else begin
+    `uvm_info(get_type_name(),$sformatf("apb_pwdata from apb_master and master_out_slave_in from slave is not equal"),UVM_HIGH);
+    //`uvm_info("SB_PWDATA_MISMATCHED WITH MOSI0", $sformatf("Master PWDATA = 'h%0x and Slave
+    //            master_out_slave_in['h%0x] = 'h%0x",apb_master_tx_h.pwdata,i,spi_slave_tx_h.master_out_slave_in[i]), UVM_HIGH); 
+    byte_data_cmp_failed_master_pwdata_slave_mosi_count++;
+  end
+end
 
 endtask : run_phase
 

@@ -90,7 +90,7 @@
 
   constraint pselx_c2 { pselx >0 && pselx < 2**NO_OF_SLAVES; }
 
-  constraint pwdata_c3 { soft pwdata inside {[0:100]}; }
+  //constraint pwdata_c3 { soft pwdata inside {[0:100]}; }
 
   //This constraint is used to decide the pwdata size based om transfer size
   constraint transfer_size_c4 {if(transfer_size == BIT_8)

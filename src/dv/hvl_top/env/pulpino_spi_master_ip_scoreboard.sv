@@ -141,7 +141,53 @@ endtask : run_phase
 //--------------------------------------------------------------------------------------------
 function void pulpino_spi_master_ip_scoreboard::check_phase(uvm_phase phase);
   super.check_phase(phase);
-  `uvm_info(get_type_name(),$sformatf("--\n----------------------------------------------END OF SCOREBOARD CHECK PHASE---------------------------------------"),UVM_HIGH) 
+
+  `uvm_info(get_type_name(),$sformatf (" Scoreboard Check Phase is Starting"),UVM_HIGH);
+
+  // Check if the comparisions counter is NON-zero
+  // A non-zero value indicates that the comparisions never happened and throw error
+  
+  if (( byte_data_cmp_verified_master_pwdata_slave_mosi_count!= 0)&&( byte_data_cmp_failed_master_pwdata_slave_mosi_count== 0)) begin
+	  `uvm_info (get_type_name(), $sformatf ("all mosi comparisions are succesful"),UVM_HIGH);
+  end
+  else begin
+    `uvm_info (get_type_name(), $sformatf (" byte_data_cmp_verified_master_pwdata_slave_mosi_count:%0d",
+                                             byte_data_cmp_verified_master_pwdata_slave_mosi_count),UVM_HIGH);
+	  `uvm_info (get_type_name(), $sformatf (" byte_data_cmp_failed_master_pwdata_slave_mosi_count: %0d", 
+                                             byte_data_cmp_failed_master_pwdata_slave_mosi_count),UVM_HIGH);
+    `uvm_error (get_type_name(), $sformatf ("comparisions of mosi not happened"));
+  end
+    
+  //Check if apb master packets received are same as spi slave packets received
+  // To Make sure that we have equal number of apb master and spi slave packets
+  if (apb_master_tx_count == spi_slave_tx_count ) begin
+    `uvm_info (get_type_name(), $sformatf ("master and slave have equal no. of transactions"),UVM_HIGH);
+  end
+  else begin
+    `uvm_info (get_type_name(), $sformatf ("apb_master_tx_count : %0d",apb_master_tx_count ),UVM_HIGH);
+    `uvm_info (get_type_name(), $sformatf ("spi_slave_tx_count : %0d",spi_slave_tx_count ),UVM_HIGH);
+    `uvm_error (get_type_name(), $sformatf ("apb master and spi slave doesnot have same no. of transactions"));
+  end 
+  
+  //Analyis fifos must be zero - This will indicate that all the packets have been compared
+  //This is to make sure that we have taken all packets from both FIFOs and made the
+  //comparisions
+   
+  if (apb_master_analysis_fifo.size() == 0)begin
+     `uvm_info (get_type_name(), $sformatf ("apb master analysis FIFO is empty"),UVM_HIGH);
+  end
+  else begin
+     `uvm_info (get_type_name(), $sformatf ("apb master_analysis_fifo:%0d",apb_master_analysis_fifo.size() ),UVM_HIGH);
+     `uvm_error (get_type_name(), $sformatf ("apb master analysis FIFO is not empty"));
+  end
+  if (spi_slave_analysis_fifo.size()== 0)begin
+     `uvm_info (get_type_name(), $sformatf ("Spi slave analysis FIFO is empty"),UVM_HIGH);
+  end
+  else begin
+     `uvm_info (get_type_name(), $sformatf ("spi slave_analysis_fifo:%0d",spi_slave_analysis_fifo.size()),UVM_HIGH);
+     `uvm_error (get_type_name(),$sformatf ("Spi slave analysis FIFO is not empty"));
+   end
+
 endfunction : check_phase
   
 

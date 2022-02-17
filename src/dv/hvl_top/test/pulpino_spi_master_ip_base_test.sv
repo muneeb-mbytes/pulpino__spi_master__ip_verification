@@ -162,7 +162,7 @@ endfunction : setup_spi_slave_agent_config
 function void pulpino_spi_master_ip_base_test::end_of_elaboration_phase(uvm_phase phase);
   super.end_of_elaboration_phase(phase);
   uvm_top.print_topology();
-   uvm_test_done.set_drain_time(this,3000ns);
+   uvm_test_done.set_drain_time(this,7000ns);
 endfunction  : end_of_elaboration_phase
 
 

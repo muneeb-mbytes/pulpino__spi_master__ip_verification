@@ -24,6 +24,21 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
   `include "pulpino_spi_master_ip_virtual_base_seq.sv"
   `include "pulpino_spi_master_ip_virtual_basic_write_seq.sv"
   `include "pulpino_spi_master_ip_virtual_basic_read_seq.sv"
+
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_0_cmd_0_addr_32_data_length_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_0_cmd_32_addr_32_data_length_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_32_cmd_32_addr_32_data_length_seq.sv"
+
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_0_dummy_write_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_1_dummy_write_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_2_dummy_write_seq.sv"
+
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_even_clkdiv_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_odd_clkdiv_seq.sv"
+
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_thtx_rhtx_cnttx_cntrx_value_2_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_thtx_rhtx_cnttx_cntrx_value_4_seq.sv"
+
   `include "pulpino_spi_master_ip_virtual_rand_seq.sv"
 
 

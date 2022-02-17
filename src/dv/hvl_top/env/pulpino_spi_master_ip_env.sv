@@ -123,6 +123,11 @@ function void pulpino_spi_master_ip_env::connect_phase(uvm_phase phase);
     end
   end
   
+  apb_master_agent_h.apb_master_mon_proxy_h.apb_master_analysis_port.connect(apb_master_coll_h.apb_master_coll_imp_port);
+  foreach(spi_slave_agent_h[i]) begin
+    spi_slave_agent_h[i].spi_slave_mon_proxy_h.spi_slave_analysis_port.connect(spi_slave_coll_h.spi_slave_coll_imp_port);
+  end
+
   apb_master_coll_h.apb_master_coll_analysis_port.connect(pulpino_spi_master_ip_scoreboard_h.apb_master_analysis_fifo.analysis_export);
   spi_slave_coll_h.spi_slave_coll_analysis_port.connect(pulpino_spi_master_ip_scoreboard_h.spi_slave_analysis_fifo.analysis_export);
 

@@ -9,6 +9,7 @@ class apb_master_collector extends uvm_component;
   `uvm_component_utils(apb_master_collector)
 
   uvm_analysis_port#(apb_master_tx) apb_master_coll_analysis_port;
+  uvm_analysis_imp#(apb_master_tx, apb_master_collector) apb_master_coll_imp_port;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -19,6 +20,7 @@ class apb_master_collector extends uvm_component;
   extern virtual function void end_of_elaboration_phase(uvm_phase phase);
   extern virtual function void start_of_simulation_phase(uvm_phase phase);
   extern virtual task run_phase(uvm_phase phase);
+  extern function void write(apb_master_tx t);
 
 endclass : apb_master_collector
 
@@ -33,6 +35,7 @@ function apb_master_collector::new(string name = "apb_master_collector",
                                  uvm_component parent = null);
   super.new(name, parent);
   apb_master_coll_analysis_port = new("apb_master_coll_analysis_port",this);
+  apb_master_coll_imp_port = new("apb_master_coll_imp_port",this);
 endfunction : new
 
 //--------------------------------------------------------------------------------------------
@@ -92,12 +95,23 @@ task apb_master_collector::run_phase(uvm_phase phase);
 
   super.run_phase(phase);
 
-  // Work here
-  // ...
 
   phase.drop_objection(this);
 
 endtask : run_phase
+
+//--------------------------------------------------------------------------------------------
+// Function : write
+// Parameters : 
+// t  - apb_master_tx
+//--------------------------------------------------------------------------------------------
+function void apb_master_collector::write(apb_master_tx t);
+
+ `uvm_info(get_type_name(),$sformatf("Req print = %0s",t.sprint()),UVM_HIGH) 
+
+ apb_master_coll_analysis_port.write(t);
+
+endfunction : write
 
 `endif
 

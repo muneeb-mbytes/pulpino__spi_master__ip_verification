@@ -9,6 +9,7 @@ class spi_slave_collector extends uvm_component;
   `uvm_component_utils(spi_slave_collector)
 
   uvm_analysis_port#(spi_slave_tx) spi_slave_coll_analysis_port;
+  uvm_analysis_imp#(spi_slave_tx, spi_slave_collector) spi_slave_coll_imp_port;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -19,6 +20,7 @@ class spi_slave_collector extends uvm_component;
   extern virtual function void end_of_elaboration_phase(uvm_phase phase);
   extern virtual function void start_of_simulation_phase(uvm_phase phase);
   extern virtual task run_phase(uvm_phase phase);
+  extern function void write(spi_slave_tx t);
 
 endclass : spi_slave_collector
 
@@ -33,6 +35,7 @@ function spi_slave_collector::new(string name = "spi_slave_collector",
                                  uvm_component parent = null);
   super.new(name, parent);
   spi_slave_coll_analysis_port = new("spi_slave_coll_analysis_port",this);
+  spi_slave_coll_imp_port = new("spi_slave_coll_imp_port",this);
 endfunction : new
 
 //--------------------------------------------------------------------------------------------
@@ -98,6 +101,19 @@ task spi_slave_collector::run_phase(uvm_phase phase);
   phase.drop_objection(this);
 
 endtask : run_phase
+
+//--------------------------------------------------------------------------------------------
+// Function : write
+// Parameters : 
+// t  - spi_slave_tx
+//--------------------------------------------------------------------------------------------
+function void spi_slave_collector::write(spi_slave_tx t);
+
+ `uvm_info(get_type_name(),$sformatf("Req print = %0s",t.sprint()),UVM_HIGH) 
+ spi_slave_coll_analysis_port.write(t);
+
+endfunction : write
+
 
 `endif
 

@@ -150,7 +150,7 @@ task apb_master_basic_write_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2024;
-                            req.pwdata == 32'hCA2f_2f2f;  
+                            req.pwdata == 32'hDF1F_1F1F;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 0;
                             req.pwrite == WRITE;}) begin : INTCFG 
@@ -158,6 +158,19 @@ task apb_master_basic_write_seq::body();
   end
   `uvm_info(interupt_reg,$sformatf("interupt_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
+  
+  
+//  start_item(req);
+//  if(!req.randomize() with {req.pselx == SLAVE_0;
+//                            req.paddr == 32'h1A10_2000;
+//                            req.pwdata == 32'h0000_0012;  
+//                            req.transfer_size == BIT_32;
+//                            req.cont_write_read == 0;
+//                            req.pwrite == WRITE;}) begin : STATUS_REG_SRST
+//    `uvm_fatal("APB","Rand failed");
+//  end
+//  `uvm_info(status_reg,$sformatf("status_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
+//  finish_item(req);
 
 endtask : body
 

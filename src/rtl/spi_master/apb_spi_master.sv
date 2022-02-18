@@ -376,4 +376,11 @@ module apb_spi_master
         .spi_sdi3               ( spi_sdi3               )
     );
 
+    //bind spi_master_fifo fifo_assertions( .clk_i(clk_i        ),
+    //                                      .rst_ni(rst_ni      ),
+    //                                      .clr_i(clr_i        ),
+    //                                      .elements(elements  ),
+    //                                    );  
+
+
 endmodule

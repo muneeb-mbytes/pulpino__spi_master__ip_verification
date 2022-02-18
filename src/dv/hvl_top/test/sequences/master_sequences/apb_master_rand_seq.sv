@@ -153,6 +153,7 @@ task apb_master_rand_seq::body();
   `uvm_info(rx_fifo,$sformatf("rx_fifo_reg_seq= \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
+
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2024;

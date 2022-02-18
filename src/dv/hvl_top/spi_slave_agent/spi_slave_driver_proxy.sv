@@ -131,7 +131,9 @@ task spi_slave_driver_proxy::run_phase(uvm_phase phase);
     spi_slave_seq_item_converter::from_class(req, struct_packet); 
     spi_slave_cfg_converter::from_class(spi_slave_agent_cfg_h, struct_cfg); 
 
+    `uvm_info("slave_proxy_debug",$sformatf("inside slave_driver_proxy"),UVM_HIGH)
     drive_to_bfm(struct_packet, struct_cfg);
+    `uvm_info("slave_proxy_debug",$sformatf("outside slave_driver_proxy"),UVM_HIGH)
 
     spi_slave_seq_item_converter::to_class(struct_packet, req);
     `uvm_info(get_type_name(),$sformatf("Received packet from spi_slave DRIVER BFM : , \n %s",

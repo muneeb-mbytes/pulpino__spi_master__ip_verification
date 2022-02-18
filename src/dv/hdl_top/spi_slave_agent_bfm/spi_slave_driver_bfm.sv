@@ -113,7 +113,7 @@ interface spi_slave_driver_bfm(input pclk, input areset,
           if(end_of_transfer) break; 
           miso0 <= data_packet.master_in_slave_out[row_no][bit_no];
           data_packet.no_of_miso_bits_transfer++;
-          `uvm_info("DEBUG MOSI0 spi_slave_driver_bfm",$sformatf("miso=\n %0p",miso0),UVM_HIGH)
+          `uvm_info("DEBUG MISO0 spi_slave_driver_bfm",$sformatf("miso=\n %0p",miso0),UVM_HIGH)
           `uvm_info("DEBUG MISO TRANSFER COUNT spi_slave_driver_bfm",$sformatf("miso count=\n %0p",
           data_packet.no_of_miso_bits_transfer),UVM_HIGH)
 
@@ -122,6 +122,7 @@ interface spi_slave_driver_bfm(input pclk, input areset,
           detect_sclk();
           if(end_of_transfer) break; 
           data_packet.master_out_slave_in[row_no][bit_no] = mosi0;
+          `uvm_info("DEBUG MOSI0 spi_slave_driver_bfm",$sformatf("mosi=\n %0p",mosi0),UVM_HIGH)
           data_packet.no_of_mosi_bits_transfer++;
         end
         else begin : CPHA_IS_1

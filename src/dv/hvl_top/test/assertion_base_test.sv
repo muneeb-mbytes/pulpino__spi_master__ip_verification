@@ -23,10 +23,6 @@ class assertion_base_test extends pulpino_spi_master_ip_base_test;
   //-------------------------------------------------------
   extern function new(string name = "assertion_base_test", uvm_component parent = null);
   extern virtual function void build_phase(uvm_phase phase);
-  extern virtual function void setup_env_cfg();
-  extern virtual function void setup_master_agent_cfg();
-  extern virtual function void setup_slave_agent_cfg();
-  extern virtual function void end_of_elaboration_phase(uvm_phase phase);
   extern virtual task run_phase(uvm_phase phase);
 
 endclass : assertion_base_test
@@ -43,7 +39,7 @@ function assertion_base_test::new(string name = "assertion_base_test",uvm_compon
   super.new(name, parent);
 endfunction : new
 
-/--------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
 // Function: build_phase
 //  Create required ports
 //
@@ -52,10 +48,6 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 function void assertion_base_test::build_phase(uvm_phase phase);
   super.build_phase(phase);
-  // Setup the environemnt cfg 
-  setup_env_cfg();
-  // Create the environment
-  pulpino_spi_master_ip_env_h = pulpino_spi_master_ip_env::type_id::create("pulpino_spi_master_ip_env_h",this);
 endfunction : build_phase
 
 //--------------------------------------------------------------------------------------------

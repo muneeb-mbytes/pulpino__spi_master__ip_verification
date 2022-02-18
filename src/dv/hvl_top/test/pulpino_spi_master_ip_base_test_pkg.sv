@@ -30,6 +30,7 @@ package pulpino_spi_master_ip_base_base_test_pkg;
   // Including the base_test files
   //-------------------------------------------------------
   `include "pulpino_spi_master_ip_base_test.sv"
+  `include "assertion_base_test.sv"
   //`include "apb_vd_vws_test.sv"
   //`include "apb_8b_write_test.sv"
   //`include "apb_8b_write_read_test.sv"

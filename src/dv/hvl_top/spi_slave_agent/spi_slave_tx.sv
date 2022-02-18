@@ -14,10 +14,12 @@ class spi_slave_tx extends uvm_sequence_item;
   rand bit [CHAR_LENGTH-1:0]master_in_slave_out[];
 
   bit [CHAR_LENGTH-1:0] master_out_slave_in[];
+
 //  rand bit [CHAR_LENGTH/2-1:0]miso0[];
 //  rand bit [CHAR_LENGTH/2-1:0]miso1[];
 //       bit [CHAR_LENGTH/2-1:0]mosi0[];
 //       bit [CHAR_LENGTH/2-1:0]mosi1[];
+
 
   //--------------------------------------------------------------------------------------------
   // Constraints for SPI
@@ -32,6 +34,7 @@ class spi_slave_tx extends uvm_sequence_item;
 //                              miso0[i]%2==0;}
 //  constraint dual_spi_bits_odd{foreach(miso1[i])
 //                              miso1[i]%2!=0;}
+
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -115,6 +118,7 @@ function void spi_slave_tx::do_print(uvm_printer printer);
 //  foreach(mosi1[i]) begin
 //    printer.print_field($sformatf("mosi1[%0d]",i),this.mosi1[i],4,UVM_HEX);
 //  end
+
 endfunction : do_print
 
 `endif

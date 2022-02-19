@@ -122,17 +122,17 @@ task apb_master_std_read_seq::body();
   finish_item(req);
 
 
-  start_item(req);
-  if(!req.randomize() with {req.pselx == SLAVE_0;
-                            req.paddr == 32'h1A10_2018;
-                          //  req.pwdata == 32'hf101_00Af;  
-                            req.transfer_size == BIT_32;
-                            req.cont_write_read == 1;
-                            req.pwrite == READ;}) begin : TXFIFO
-    `uvm_fatal("APB","Rand failed");
-  end
-  `uvm_info(tx_fifo,$sformatf("tx_fifo_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
-  finish_item(req);
+//  start_item(req);
+//  if(!req.randomize() with {req.pselx == SLAVE_0;
+//                            req.paddr == 32'h1A10_2018;
+//                          //  req.pwdata == 32'hf101_00Af;  
+//                            req.transfer_size == BIT_32;
+//                            req.cont_write_read == 1;
+//                            req.pwrite == READ;}) begin : TXFIFO
+//    `uvm_fatal("APB","Rand failed");
+//  end
+//  `uvm_info(tx_fifo,$sformatf("tx_fifo_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
+//  finish_item(req);
 
 
   start_item(req);

@@ -26,7 +26,7 @@ class pulpino_spi_master_ip_env_config extends uvm_object;
 
   // Variable: spi_slave_agent_cfg_h
   // Dynamic array of slave agnet configuration handles
-  spi_slave_agent_config spi_slave_agent_cfg_h[];
+  slave_agent_config spi_slave_agent_cfg_h[];
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions

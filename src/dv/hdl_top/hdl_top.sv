@@ -114,7 +114,7 @@ module hdl_top;
   //-------------------------------------------------------
   // spi slave agent bfm Instantiation
   //-------------------------------------------------------
-  spi_slave_agent_bfm spi_agent_bfm_h(spi_intf);
+  slave_agent_bfm spi_agent_bfm_h(spi_intf);
 
 endmodule : hdl_top
 

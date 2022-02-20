@@ -14,7 +14,7 @@
  `include "uvm_macros.svh"
   import uvm_pkg::*;
   import spi_slave_pkg::*;
-  import spi_slave_global_pkg::*;
+  import spi_globals_pkg::*;
 
 //-------------------------------------------------------
 // Importing the required packages

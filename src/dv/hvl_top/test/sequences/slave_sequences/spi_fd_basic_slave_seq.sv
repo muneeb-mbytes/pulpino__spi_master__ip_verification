@@ -35,7 +35,7 @@ endfunction : new
 //based on the request from driver task will drive the transaction
 //-----------------------------------------------------------------------------
 task spi_fd_basic_slave_seq::body(); 
-  req=spi_slave_tx::type_id::create("req");
+  req=slave_tx::type_id::create("req");
     start_item(req);
     `uvm_info("slave_seq",$sformatf("started slave seq"),UVM_HIGH)
     if(!req.randomize() with { req.master_in_slave_out.size()==4;})begin

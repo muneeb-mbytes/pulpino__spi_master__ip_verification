@@ -14,7 +14,7 @@ class pulpino_spi_master_ip_scoreboard extends uvm_scoreboard;
 
   //Variable : spi_slave_tx_h
   //Declaring handle for spi_slaver_tx
-  spi_slave_tx spi_slave_tx_h;
+  slave_tx spi_slave_tx_h;
   
   //Variable : apb_master_analysis_fifo
   //Used to store the apb_master_data
@@ -22,7 +22,7 @@ class pulpino_spi_master_ip_scoreboard extends uvm_scoreboard;
 
   //Variable : spi_slave_analysis_fifo
   //Used to store the spi_slave_data
-  uvm_tlm_analysis_fifo#(spi_slave_tx) spi_slave_analysis_fifo;
+  uvm_tlm_analysis_fifo#(slave_tx) spi_slave_analysis_fifo;
   //uvm_tlm_analysis_fifo#(slave_tx) spi_slave_analysis_fifo[NO_OF_SLAVES];
 
   //Variable : apb_master_tx_count

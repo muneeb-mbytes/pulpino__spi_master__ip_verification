@@ -16,8 +16,8 @@ package pulpino_spi_master_ip_env_pkg;
   //-------------------------------------------------------
   // Importing the required packages
   //-------------------------------------------------------
-  import apb_master_global_pkg::*;
-  import spi_slave_global_pkg::*;
+  import apb_global_pkg::*;
+  import spi_globals_pkg::*;
   import apb_master_pkg::*;
   import spi_slave_pkg::*;
 

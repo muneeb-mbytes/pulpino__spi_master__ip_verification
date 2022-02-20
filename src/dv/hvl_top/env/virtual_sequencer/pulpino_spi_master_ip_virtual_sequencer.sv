@@ -14,7 +14,7 @@ class pulpino_spi_master_ip_virtual_sequencer extends uvm_sequencer#(uvm_sequenc
 
   // Variable: slave_seqr_h
   // Declaring slave sequencer handle
-  spi_slave_sequencer spi_slave_seqr_h;
+  slave_sequencer spi_slave_seqr_h;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions

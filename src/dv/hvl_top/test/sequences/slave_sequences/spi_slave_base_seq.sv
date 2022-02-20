@@ -5,7 +5,7 @@
 // Class: spi_slave_base_base_sequence
 // spi_slave sequence 
 //--------------------------------------------------------------------------------------------
-class spi_slave_base_seq extends uvm_sequence #(spi_slave_tx);
+class spi_slave_base_seq extends uvm_sequence #(slave_tx);
   
   //factory registration
   `uvm_object_utils(spi_slave_base_seq)

@@ -1,5 +1,5 @@
 [submodule "apb_avip"]
-	path = src/rtl/apb_avip
+	path = src/dv/apb_avip
 	url = git@github.com:muneeb-mbytes/apb_avip.git
 [submodule "spi_avip"]
 	path = src/dv/spi_avip

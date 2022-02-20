@@ -1,0 +1,6 @@
+[submodule "apb_avip"]
+	path = src/rtl/apb_avip
+	url = git@github.com:muneeb-mbytes/apb_avip.git
+[submodule "spi_avip"]
+	path = src/dv/spi_avip
+	url = git@github.com:muneeb-mbytes/spi_avip.git

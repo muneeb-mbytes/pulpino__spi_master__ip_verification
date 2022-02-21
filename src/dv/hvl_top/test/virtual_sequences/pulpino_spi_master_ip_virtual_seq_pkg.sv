@@ -31,6 +31,7 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
   `include "pulpino_spi_master_ip_virtual_std_mode_write_0_cmd_0_addr_32_data_length_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_write_0_cmd_32_addr_32_data_length_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_write_32_cmd_32_addr_32_data_length_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_8_cmd_8_addr_32_data_length_seq.sv"
 
   `include "pulpino_spi_master_ip_virtual_std_mode_write_0_dummy_write_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_write_1_dummy_write_seq.sv"
@@ -46,6 +47,18 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
 
   // Register virtual sequences
   `include "virtual_simple_reg_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_basic_write_mask_reg_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_basic_write_read_reg_seq.sv"
+  `include "pulpino_spi_master_ip_basic_write_reg_seq.sv"
+
+  `include "pulpino_spi_master_ip_virtual_std_mode_read_0_dummy_read_reg_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_read_1_dummy_read_reg_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_read_2_dummy_read_reg_seq.sv"
+
+  `include "pulpino_spi_master_ip_virtual_std_mode_read_even_clkdiv_reg_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_read_odd_clkdiv_reg_seq.sv"
+
+  `include "pulpino_spi_master_ip_virtual_std_mode_read_thtx_rhtx_cnttx_cntrx_value_2_seq.sv"
 
   endpackage : pulpino_spi_master_ip_virtual_seq_pkg
 

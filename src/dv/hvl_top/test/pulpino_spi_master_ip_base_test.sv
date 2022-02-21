@@ -18,6 +18,10 @@ class pulpino_spi_master_ip_base_test extends uvm_test;
   //Declaring a handle for env_cfg_h
   pulpino_spi_master_ip_env_config pulpino_spi_master_ip_env_cfg_h;
 
+  // Variable: spi_master_reg_block
+  // Registers block for spi master module
+  spi_master_apb_if spi_master_reg_block;
+
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -80,6 +84,12 @@ function void pulpino_spi_master_ip_base_test::setup_pulpino_spi_master_ip_env_c
   uvm_config_db#(pulpino_spi_master_ip_env_config)::set(this,"*","pulpino_spi_master_ip_env_config",pulpino_spi_master_ip_env_cfg_h);
   //`uvm_info(get_type_name(),$sformatf("\npulpino_spi_master_ip_ENV_CONFIG\n%s",pulpino_spi_master_ip_env_cfg_h.sprint()),UVM_LOW);
 
+  // Creation of RAL
+  spi_master_reg_block = spi_master_apb_if::type_id::create("spi_master_reg_block");
+  spi_master_reg_block.build();
+  spi_master_reg_block.lock_model();
+
+  pulpino_spi_master_ip_env_cfg_h.spi_master_reg_block = this.spi_master_reg_block;
 endfunction : setup_pulpino_spi_master_ip_env_config
 
 //--------------------------------------------------------------------------------------------

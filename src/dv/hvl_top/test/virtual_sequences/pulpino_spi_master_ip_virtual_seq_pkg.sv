@@ -18,11 +18,13 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
   import apb_master_seq_pkg::*;
   import spi_slave_seq_pkg::*;
   import pulpino_spi_master_ip_env_pkg::*;
+  import apb_reg_seq_pkg::*;
 
   //-------------------------------------------------------
   // Including required apb master seq files
   //-------------------------------------------------------
   `include "pulpino_spi_master_ip_virtual_base_seq.sv"
+  
   `include "pulpino_spi_master_ip_virtual_basic_write_seq.sv"
   `include "pulpino_spi_master_ip_virtual_basic_read_seq.sv"
 
@@ -42,6 +44,8 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
 
   `include "pulpino_spi_master_ip_virtual_rand_seq.sv"
 
+  // Register virtual sequences
+  `include "virtual_simple_reg_seq.sv"
 
   endpackage : pulpino_spi_master_ip_virtual_seq_pkg
 

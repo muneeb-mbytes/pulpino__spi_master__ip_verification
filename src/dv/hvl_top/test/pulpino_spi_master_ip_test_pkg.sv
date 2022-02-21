@@ -22,6 +22,8 @@ package pulpino_spi_master_ip_test_pkg;
   import apb_master_pkg::*;
   import spi_slave_pkg::*;
   import pulpino_spi_master_ip_env_pkg::*;
+  import spi_master_uvm_pkg::*;
+  import spi_master_defines_pkg::*;
   import apb_master_seq_pkg::*;
   import spi_slave_seq_pkg::*;
   import pulpino_spi_master_ip_virtual_seq_pkg::*;
@@ -48,6 +50,11 @@ package pulpino_spi_master_ip_test_pkg;
   `include "pulpino_spi_master_ip_std_mode_write_thtx_rhtx_cnttx_cntrx_value_4_test.sv"
 
   `include "pulpino_spi_master_ip_rand_test.sv"
+
+  //-------------------------------------------------------
+  // Register tests
+  //-------------------------------------------------------
+  `include "apb_simple_reg_test.sv"
 
   endpackage : pulpino_spi_master_ip_test_pkg
 

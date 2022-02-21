@@ -91,14 +91,29 @@ endfunction : start_of_simulation_phase
 //--------------------------------------------------------------------------------------------
 task apb_master_collector::run_phase(uvm_phase phase);
 
-  phase.raise_objection(this, "apb_master_collector");
+  //phase.raise_objection(this, "apb_master_collector");
+  
+  apb_master_tx apb_tx;
 
+  `uvm_info(get_type_name(), $sformatf("Inside the master_monitor_proxy"), UVM_LOW);
+  apb_tx = apb_master_tx::type_id::create("master_tx");
+  
   super.run_phase(phase);
+  
+//  forever begin
+//    if (apb_tx.paddr == )
+//  end
 
-
-  phase.drop_objection(this);
+  //phase.drop_objection(this);
 
 endtask : run_phase
+
+
+//task reference_model (input ral_ptr output spi_slave_tx spi_tx);
+//  
+//
+//endtask : reference_model
+
 
 //--------------------------------------------------------------------------------------------
 // Function : write
@@ -107,9 +122,20 @@ endtask : run_phase
 //--------------------------------------------------------------------------------------------
 function void apb_master_collector::write(apb_master_tx t);
 
- `uvm_info(get_type_name(),$sformatf("Req print = %0s",t.sprint()),UVM_HIGH) 
+  uvm_reg rg;
+  uvm_reg_bus_op rw;
 
- apb_master_coll_analysis_port.write(t);
+  //adapter.bus2reg(t,rw);
+  //rg = map.get_reg_by_offset(rw.addr,(rw.kind == UVM_WRITE));
+
+  //`uvm_info(get_type_name(), $sformatf("rg = %0h", rg),UVM_HIGH)
+  //`uvm_info(get_type_name(), $sformatf("rw = %0h", rw),UVM_HIGH)
+
+  //if () begin
+  //end
+  
+  `uvm_info(get_type_name(),$sformatf("Req print = %0s",t.sprint()),UVM_HIGH)
+  apb_master_coll_analysis_port.write(t);
 
 endfunction : write
 

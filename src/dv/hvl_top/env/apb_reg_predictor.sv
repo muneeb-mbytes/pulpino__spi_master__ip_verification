@@ -37,12 +37,16 @@ function void apb_reg_predictor::write(BUSTYPE tr);
   // Calling the parent function
   super.write(tr);
 
-  // MSHA: // Getting the register handle
-  // MSHA: adapter.bus2reg(tr,rw);
-  // MSHA: rg = map.get_reg_by_offset(rw.addr,(rw.kind == UVM_READ));
+  // Getting the register handle
+  adapter.bus2reg(tr,rw);
+  //$display("rw.addr = %0x", rw.addr);
+  //$display("rw.data = %0x", rw.data);
+  //$display("rw.kind = %0s", rw.kind.name());
 
-  // MSHA: // Sampling the coverage
-  // MSHA: rg.sample_values();
+  rg = map.get_reg_by_offset(rw.addr,(rw.kind == UVM_WRITE));
+
+  // Sampling the coverage
+  rg.sample_values();
     
 endfunction: write
 

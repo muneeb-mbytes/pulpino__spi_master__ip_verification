@@ -85,9 +85,19 @@ function void pulpino_spi_master_ip_base_test::setup_pulpino_spi_master_ip_env_c
   //`uvm_info(get_type_name(),$sformatf("\npulpino_spi_master_ip_ENV_CONFIG\n%s",pulpino_spi_master_ip_env_cfg_h.sprint()),UVM_LOW);
 
   // Creation of RAL
-  spi_master_reg_block = spi_master_apb_if::type_id::create("spi_master_reg_block");
-  spi_master_reg_block.build();
-  spi_master_reg_block.lock_model();
+  if(spi_master_reg_block == null) 
+  begin
+    uvm_reg::include_coverage("*",UVM_CVR_ALL);
+
+    spi_master_reg_block = spi_master_apb_if::type_id::create("spi_master_reg_block");
+    spi_master_reg_block.build();
+
+    // Enables sampling of coverage
+    spi_master_reg_block.set_coverage(UVM_CVR_ALL);
+
+    spi_master_reg_block.lock_model();
+  end
+
 
   pulpino_spi_master_ip_env_cfg_h.spi_master_reg_block = this.spi_master_reg_block;
 endfunction : setup_pulpino_spi_master_ip_env_config

@@ -154,10 +154,13 @@ interface apb_master_driver_bfm (input  bit   pclk,
     penable   <= 1'b1;
     
     `uvm_info("DEBUG_NADEEM",$sformatf("pready=%0d",pready), UVM_HIGH);
-    if(pready == 0) begin
       detect_wait_state(data_packet);
-    end
-    `uvm_info("DEBUG_MSHA",$sformatf("wait_apb_access_state=%0d and state=%0d",state.name(),state), UVM_NONE);
+    // MSHA: if(pready == 0) begin
+    // MSHA:   detect_wait_state(data_packet);
+    // MSHA: end
+    // MSHA: `uvm_info("DEBUG_MSHA",$sformatf("wait_apb_access_state=%0d and state=%0d",state.name(),state), UVM_NONE);
+
+
   endtask: waiting_in_access_state
 
   //--------------------------------------------------------------------------------------------
@@ -169,12 +172,13 @@ interface apb_master_driver_bfm (input  bit   pclk,
   //--------------------------------------------------------------------------------------------
   task detect_wait_state(inout apb_transfer_char_s data_packet);
    
-    @(posedge pclk);
-    `uvm_info(name,$sformatf("DETECT_WAIT_STATE"),UVM_HIGH);
+     @(posedge pclk);
+     `uvm_info(name,$sformatf("DETECT_WAIT_STATE"),UVM_HIGH);
 
     while(pready==0) begin
       `uvm_info(name,"WAIT_STATE_DETECTED",UVM_HIGH);
       @(posedge pclk);
+      state=WAIT_STATE;
       data_packet.no_of_wait_states++;
     end
 
@@ -185,7 +189,11 @@ interface apb_master_driver_bfm (input  bit   pclk,
     end
 
     data_packet.pslverr = pslverr;
-    state=WAIT_STATE;
+
+    // TODO(mshariff): Add logic for making it work for ACCESS to SETUP phase
+    state=IDLE;
+    penable <= 1'b0;
+    pselx <= 'b0;
 
 //     `uvm_info("DEBUG_MSHA", $sformatf("drive_apb_access state = %0s and state = %0d",
 //                                      state.name(), state), UVM_NONE);

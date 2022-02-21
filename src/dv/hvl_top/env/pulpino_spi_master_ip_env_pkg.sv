@@ -20,11 +20,14 @@ package pulpino_spi_master_ip_env_pkg;
   import spi_slave_global_pkg::*;
   import apb_master_pkg::*;
   import spi_slave_pkg::*;
+  import spi_master_defines_pkg::*;
+  import spi_master_uvm_pkg::*;
 
   //-------------------------------------------------------
   // Including the required files
   //-------------------------------------------------------
   `include "pulpino_spi_master_ip_env_config.sv"
+  `include "apb_reg_predictor.sv"
   `include "pulpino_spi_master_ip_virtual_sequencer.sv"
   `include "pulpino_spi_master_ip_scoreboard.sv"
   `include "apb_master_collector.sv"

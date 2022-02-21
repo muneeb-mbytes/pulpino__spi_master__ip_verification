@@ -36,6 +36,11 @@ class pulpino_spi_master_ip_env extends uvm_env;
   // Handle for spi slave collector
   spi_slave_collector spi_slave_coll_h;
 
+  // Variable: apb_reg_predictor_h
+  // Handle for apb_reg_predictor#(apb_master_tx)
+  typedef apb_reg_predictor#(apb_master_tx) apb_reg_predictor_t;
+  apb_reg_predictor_t apb_reg_predictor_h;
+
   // Variable: spi_slave_agent_cfg_h;
   // Handle for spi slave agent configuration
   //spi_slave_agent_config spi_slave_agent_cfg_h[];
@@ -105,6 +110,7 @@ function void pulpino_spi_master_ip_env::build_phase(uvm_phase phase);
   apb_master_coll_h = apb_master_collector::type_id::create("apb_master_coll_h",this);
   spi_slave_coll_h  = spi_slave_collector::type_id::create("spi_slave_coll_h",this);
 
+  apb_reg_predictor_h = apb_reg_predictor_t::type_id::create("apb_reg_predictor_h", this);
 endfunction : build_phase
 
 //--------------------------------------------------------------------------------------------
@@ -121,6 +127,8 @@ function void pulpino_spi_master_ip_env::connect_phase(uvm_phase phase);
     foreach(spi_slave_agent_h[i]) begin
       pulpino_spi_master_ip_virtual_seqr_h.spi_slave_seqr_h = spi_slave_agent_h[i].spi_slave_seqr_h;
     end
+
+    pulpino_spi_master_ip_virtual_seqr_h.env_config_h = pulpino_spi_master_ip_env_config_h; 
   end
   
   apb_master_agent_h.apb_master_mon_proxy_h.apb_master_analysis_port.connect(apb_master_coll_h.apb_master_coll_imp_port);
@@ -136,6 +144,18 @@ function void pulpino_spi_master_ip_env::connect_phase(uvm_phase phase);
   //foreach(spi_slave_agent_h[i]) begin
   //  spi_slave_agent_h[i].slave_mon_proxy_h.slave_analysis_port.connect(pulpino_spi_master_ip_scoreboard_h.spi_slave_analysis_fifo.analysis_export);
   //end
+
+  // RAL connections
+  if ( pulpino_spi_master_ip_env_config_h.spi_master_reg_block.get_parent() == null ) begin // if the top-level env
+     pulpino_spi_master_ip_env_config_h.spi_master_reg_block.default_map.set_sequencer( 
+                                                  .sequencer( apb_master_agent_h.apb_master_seqr_h ),
+                                                  .adapter( apb_master_agent_h.apb_reg_adapter_h ) );
+  end
+  pulpino_spi_master_ip_env_config_h.spi_master_reg_block.default_map.set_auto_predict( .on( 0 ) );
+  apb_reg_predictor_h.map  = pulpino_spi_master_ip_env_config_h.spi_master_reg_block.default_map;
+  apb_reg_predictor_h.adapter = apb_master_agent_h.apb_reg_adapter_h;
+  apb_master_agent_h.apb_master_mon_proxy_h.apb_master_analysis_port.connect( apb_reg_predictor_h.bus_in );
+
   
   endfunction : connect_phase
 

@@ -53,7 +53,8 @@ task apb_master_rand_reg_seq::body();
     cs_value = SLAVE_0;
     `uvm_info(get_type_name(), $sformatf("Write :: Register cs_value = %0b",cs_value), UVM_LOW)
     
-    wdata = spi_master_reg_block.STATUS.randomize();
+    wdata  = $urandom();
+    //wdata = spi_master_reg_block.randomize(STATUS);
 
  //   // Setting a value 
  //   wdata = (wdata & (~ `MASK_STATUS_CS)) | (cs_value << `POS_STATUS_CS);
@@ -92,7 +93,8 @@ task apb_master_rand_reg_seq::body();
     bit [7:0] clkdiv_value;
     clkdiv_value = 8'd8;
     wdata = 0;
-    wdata = spi_master_reg_block.CLKDIV.randomize();
+    wdata  = $urandom();
+    //wdata = spi_master_reg_block.randomize();
     //wdata = (wdata & (~ `MASK_CLKDIV_CLKDIV)) | (clkdiv_value << `POS_CLKDIV_CLKDIV);
   end
 
@@ -127,7 +129,8 @@ task apb_master_rand_reg_seq::body();
     bit [31:0] spi_cmd;
     spi_cmd = 32'hffff_ffff;
     wdata = 0;
-    wdata = spi_master_reg_block.SPICMD.randomize;
+    wdata  = $urandom();
+    //wdata = spi_master_reg_block.randomize();
    // wdata = (wdata & (~ `MASK_SPICMD_SPICMD)) | (spi_cmd << `POS_SPICMD_SPICMD);
   end
 
@@ -161,7 +164,9 @@ task apb_master_rand_reg_seq::body();
     bit [31:0] spi_adr;
     spi_adr = 32'hffff_ffff;
     wdata = 0;
-    wdata = (wdata & (~ `MASK_SPIADR_SPIADR)) | (spi_adr << `POS_SPIADR_SPIADR);
+    wdata  = $urandom();
+    //wdata = spi_master_reg_block.randomize();
+    //wdata = (wdata & (~ `MASK_SPIADR_SPIADR)) | (spi_adr << `POS_SPIADR_SPIADR);
   end
   
   //Writing into the SPI_ADDR Register
@@ -201,14 +206,16 @@ task apb_master_rand_reg_seq::body();
     addr_length = 6'h1f;
     data_length = 16'hffff;
 
+    wdata  = $urandom();
+    //wdata = spi_master_reg_block.randomize();
     `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register addr_length = %0h",addr_length), UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register data_length = %0h",data_length), UVM_LOW)
 
     // Clearing and writing the required feilds
-    wdata = (wdata & (~`MASK_SPILEN_DATALEN)) | (data_length << `POS_SPILEN_DATALEN) ;
-    wdata = (wdata & (~`MASK_SPILEN_ADDRLEN)) | (addr_length << `POS_SPILEN_ADDRLEN);
-    wdata = (wdata & (~`MASK_SPILEN_CMDLEN))  | (cmd_length << `POS_SPILEN_CMDLEN)  ;
+    //wdata = (wdata & (~`MASK_SPILEN_DATALEN)) | (data_length << `POS_SPILEN_DATALEN) ;
+    //wdata = (wdata & (~`MASK_SPILEN_ADDRLEN)) | (addr_length << `POS_SPILEN_ADDRLEN);
+    //wdata = (wdata & (~`MASK_SPILEN_CMDLEN))  | (cmd_length << `POS_SPILEN_CMDLEN)  ;
 
     //setting the required feilds
     //wdata = wdata | (data_length << `POS_SPILEN_CMDLEN) | (addr_length << `POS_SPILEN_ADDRLEN) |
@@ -248,6 +255,9 @@ task apb_master_rand_reg_seq::body();
     bit [15:0] dummy_wr;
     bit [15:0]  dummy_rd;
 
+    wdata = 0;
+    wdata  = $urandom();
+    //wdata = spi_master_reg_block.randomize();
     dummy_wr = 16'hffff;
     dummy_rd = 16'hffff;
 
@@ -255,7 +265,7 @@ task apb_master_rand_reg_seq::body();
     `uvm_info(get_type_name(), $sformatf("Write :: Register dummy_rd = %0h",dummy_rd)  , UVM_LOW)
 
     // Clearing the required bits
-    wdata = wdata & (~`MASK_SPIDUM_DUMMYWR) & (~`MASK_SPIDUM_DUMMYRD) ;
+    //wdata = wdata & (~`MASK_SPIDUM_DUMMYWR) & (~`MASK_SPIDUM_DUMMYRD) ;
 
     //setting the required feilds
     //wdata = wdata | (dummy_wr << `POS_SPIDUM_DUMMYWR) | (dummy_rd << `POS_SPIDUM_DUMMYRD);
@@ -293,10 +303,13 @@ task apb_master_rand_reg_seq::body();
 
     tx_fifo = 32'hffff_f01a;
 
+    wdata = 0;
+    wdata  = $urandom();
+   // wdata = spi_master_reg_block.randomize();
     `uvm_info(get_type_name(), $sformatf("Write :: Register tx_fifo = %0h",tx_fifo) , UVM_LOW)
 
     // Clearing the required bits
-    wdata = (wdata & (~`MASK_TXFIFO_TX)) | (tx_fifo << `POS_TXFIFO_TX) ;
+    //wdata = (wdata & (~`MASK_TXFIFO_TX)) | (tx_fifo << `POS_TXFIFO_TX) ;
   
   end
 
@@ -335,19 +348,22 @@ task apb_master_rand_reg_seq::body();
     bit [4:0] cnttx_value = 5'h4;
     bit [4:0] cntrx_value = 5'h4;
 
+    wdata  = $urandom();
+  //  wdata = spi_master_reg_block.randomize();
+
     `uvm_info(get_type_name(), $sformatf("Write :: Register thtx_value = %0h",thtx_value), UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register rhtx_value = %0h",rhtx_value), UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register cnttx_value = %0h",cnttx_value), UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register cntrx_value = %0h",cntrx_value), UVM_LOW)
 
     // Setting a value 
-    wdata = (wdata & (~ `MASK_INTCFG_THTX))  | (thtx_value   << `POS_INTCFG_THTX);
-    wdata = (wdata & (~ `MASK_INTCFG_RHTX))  | (rhtx_value   << `POS_INTCFG_RHTX);
-    wdata = (wdata & (~ `MASK_INTCFG_CNTTX)) | (cnttx_value << `POS_INTCFG_CNTTX);
-    wdata = (wdata & (~ `MASK_INTCFG_CNTRX)) | (cntrx_value << `POS_INTCFG_CNTRX);
+   // wdata = (wdata & (~ `MASK_INTCFG_THTX))  | (thtx_value   << `POS_INTCFG_THTX);
+   // wdata = (wdata & (~ `MASK_INTCFG_RHTX))  | (rhtx_value   << `POS_INTCFG_RHTX);
+   // wdata = (wdata & (~ `MASK_INTCFG_CNTTX)) | (cnttx_value << `POS_INTCFG_CNTTX);
+   // wdata = (wdata & (~ `MASK_INTCFG_CNTRX)) | (cntrx_value << `POS_INTCFG_CNTRX);
 
-    // Setting the required bits
-    wdata = wdata | `MASK_INTCFG_CNTEN | `MASK_INTCFG_EN ; 
+   // // Setting the required bits
+   // wdata = wdata | `MASK_INTCFG_CNTEN | `MASK_INTCFG_EN ; 
 
   end
  

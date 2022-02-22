@@ -31,12 +31,19 @@ package apb_reg_seq_pkg;
   `include "apb_master_basic_write_mask_reg_seq.sv"
   `include "apb_master_basic_write_read_reg_seq.sv"
   `include "apb_master_basic_write_reg_seq.sv"
+
   `include "apb_master_std_mode_read_0_dummy_read_reg_seq.sv"
   `include "apb_master_std_mode_read_1_dummy_read_reg_seq.sv"
   `include "apb_master_std_mode_read_2_dummy_read_reg_seq.sv"
+
   `include "apb_master_std_mode_read_even_clkdiv_reg_seq.sv"
   `include "apb_master_std_mode_read_odd_clkdiv_reg_seq.sv"
+
   `include "apb_master_std_mode_read_thtx_rhtx_cnttx_cntrx_value_2_reg_seq.sv"
+
+  `include "apb_master_std_mode_write_0_cmd_0_addr_32_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_write_0_cmd_32_addr_32_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq.sv"
 
 endpackage : apb_reg_seq_pkg
 

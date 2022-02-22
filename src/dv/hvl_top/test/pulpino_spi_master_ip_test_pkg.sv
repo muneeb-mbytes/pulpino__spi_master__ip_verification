@@ -70,6 +70,11 @@ package pulpino_spi_master_ip_test_pkg;
 
   `include "pulpino_spi_master_ip_std_mode_read_thtx_rhtx_cnttx_cntrx_value_2_test.sv"
 
+  `include "pulpino_spi_master_ip_std_mode_write_0_cmd_0_addr_32_data_length_reg_test.sv"
+  `include "pulpino_spi_master_ip_std_mode_write_0_cmd_32_addr_32_data_length_reg_test.sv"
+  `include "pulpino_spi_master_ip_std_mode_write_32_cmd_32_addr_32_data_length_reg_test.sv"
+  
+
   endpackage : pulpino_spi_master_ip_test_pkg
 
 `endif

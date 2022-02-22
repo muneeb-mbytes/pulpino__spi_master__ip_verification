@@ -1,27 +1,28 @@
-`ifndef APB_MASTER_BASIC_WRITE_READ_REG_SEQ_INCLUDE_
-`define APB_MASTER_BASIC_WRITE_READ_REG_SEQ_INCLUDE_
+`ifndef APB_MASTER_STD_MODE_WRITE_8_CMD_8_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDE_
+`define APB_MASTER_STD_MODE_WRITE_8_CMD_8_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDE_
 
 //--------------------------------------------------------------------------------------------
-// Class: apb_master_basic_write_read_reg_seq
+// Class: apb_master_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq
 // Extends the apb_master_base_seq and randomises the req item
 //--------------------------------------------------------------------------------------------
-class apb_master_basic_write_read_reg_seq extends apb_master_base_reg_seq;
-  `uvm_object_utils(apb_master_basic_write_read_reg_seq)
+class apb_master_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq extends apb_master_base_reg_seq;
+  `uvm_object_utils(apb_master_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq)
 
+   
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
-  extern function new(string name ="apb_master_basic_write_read_reg_seq");
+  extern function new(string name ="apb_master_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq");
   extern task body();
-  endclass : apb_master_basic_write_read_reg_seq
+  endclass : apb_master_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq
 
 //--------------------------------------------------------------------------------------------
 // Construct: new
 //
 // Parameters:
-//  name - apb_master_basic_write_read_reg_seq
+//  name - apb_master_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq
 //--------------------------------------------------------------------------------------------
-function apb_master_basic_write_read_reg_seq::new(string name="apb_master_basic_write_read_reg_seq");
+function apb_master_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq::new(string name="apb_master_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq");
   super.new(name);
 endfunction : new
 
@@ -29,8 +30,8 @@ endfunction : new
 // Task : body
 // Creates the req of type master transaction and randomises the req.
 //--------------------------------------------------------------------------------------------
-task apb_master_basic_write_read_reg_seq::body();
- //super.body();
+task apb_master_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq::body();
+
  spi_master_apb_if spi_master_reg_block;
   uvm_reg_map spi_reg_map;
 
@@ -51,13 +52,14 @@ task apb_master_basic_write_read_reg_seq::body();
     bit [3:0] cs_value;
     cs_value = SLAVE_0;
     `uvm_info(get_type_name(), $sformatf("Write :: Register cs_value = %0b",cs_value), UVM_LOW)
-
+ 
     // Setting a value 
     wdata = (wdata & (~ `MASK_STATUS_CS)) | (cs_value << `POS_STATUS_CS);
     // Setting the required bits
-    wdata = wdata | `MASK_STATUS_WR | `MASK_STATUS_RD; 
+    wdata = wdata | `MASK_STATUS_WR; 
     // Clearing the required bits
-    wdata = wdata & (~`MASK_STATUS_QRD) & (~`MASK_STATUS_QWR);
+    wdata = wdata & (~`MASK_STATUS_QRD) & (~`MASK_STATUS_QWR) & (~`MASK_STATUS_RD) & (~ `MASK_STATUS_SRST);
+
   end
 
   spi_master_reg_block.STATUS.write(.status(status)      ,
@@ -70,24 +72,12 @@ task apb_master_basic_write_read_reg_seq::body();
   `uvm_info("STATUS_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
   spi_master_reg_block.STATUS.get_full_name(),wdata),UVM_HIGH)
 
-//  // Reading from the Status Register
-//  spi_master_reg_block.STATUS.read(.status(status)       ,
-//                                    .value(rdata)        ,
-//                                    .path(UVM_FRONTDOOR) ,
-//                                    .map(spi_reg_map)    ,
-//                                    .parent(this)
-//                                  );                     
-//
-//  `uvm_info("STATUS_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
-//  spi_master_reg_block.STATUS.get_full_name(),rdata),UVM_HIGH)
- 
-
   //-------------------------------------------------------
   // CLKDIV Register                                        
   //-------------------------------------------------------
   begin
     bit [7:0] clkdiv_value;
-    clkdiv_value = 8'd1;
+    clkdiv_value = 8'd2;
     wdata = 0;
     wdata = (wdata & (~ `MASK_CLKDIV_CLKDIV)) | (clkdiv_value << `POS_CLKDIV_CLKDIV);
   end
@@ -154,7 +144,7 @@ task apb_master_basic_write_read_reg_seq::body();
   
   begin
     bit [31:0] spi_adr;
-    spi_adr = 32'hffff_ffff;
+    spi_adr = 32'hf00a_ffff;
     wdata = 0;
     wdata = (wdata & (~ `MASK_SPIADR_SPIADR)) | (spi_adr << `POS_SPIADR_SPIADR);
   end
@@ -192,9 +182,9 @@ task apb_master_basic_write_read_reg_seq::body();
     bit [5:0] cmd_length;
     bit [5:0] addr_length;
     bit [15:0] data_length;
-    cmd_length  = 6'h8;
+    cmd_length  = 6'h8; //32 
     addr_length = 6'h8;
-    data_length = 16'h0020;
+    data_length = 16'h20;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register addr_length = %0h",addr_length), UVM_LOW)
@@ -241,10 +231,10 @@ task apb_master_basic_write_read_reg_seq::body();
   begin
 
     bit [15:0] dummy_wr;
-    bit [15:0]  dummy_rd;
+    bit [15:0] dummy_rd;
 
-    dummy_wr = 16'hffff;
-    dummy_rd = 16'hffff;
+    dummy_wr = 16'h0001;
+    dummy_rd = 16'h0000;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register dummy_wr  = %0h",dummy_wr) , UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register dummy_rd = %0h",dummy_rd)  , UVM_LOW)
@@ -253,7 +243,7 @@ task apb_master_basic_write_read_reg_seq::body();
     wdata = wdata & (~`MASK_SPIDUM_DUMMYWR) & (~`MASK_SPIDUM_DUMMYRD) ;
 
     //setting the required feilds
-    //wdata = wdata | (dummy_wr << `POS_SPIDUM_DUMMYWR) | (dummy_rd << `POS_SPIDUM_DUMMYRD);
+    wdata = wdata | (dummy_wr << `POS_SPIDUM_DUMMYWR);
 
   end
 

@@ -42,6 +42,8 @@ package apb_reg_seq_pkg;
   `include "apb_master_std_mode_read_thtx_rhtx_cnttx_cntrx_value_2_reg_seq.sv"
 
   `include "apb_master_std_mode_write_0_cmd_0_addr_32_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq.sv"
   `include "apb_master_std_mode_write_0_cmd_32_addr_32_data_length_reg_seq.sv"
   `include "apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq.sv"
 

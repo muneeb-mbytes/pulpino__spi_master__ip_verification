@@ -11,6 +11,8 @@ class apb_master_collector extends uvm_component;
   uvm_analysis_port#(apb_master_tx) apb_master_coll_analysis_port;
   uvm_analysis_imp#(apb_master_tx, apb_master_collector) apb_master_coll_imp_port;
 
+  uvm_reg_map map;
+
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -90,29 +92,9 @@ endfunction : start_of_simulation_phase
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
 task apb_master_collector::run_phase(uvm_phase phase);
-
-  //phase.raise_objection(this, "apb_master_collector");
   
-  apb_master_tx apb_tx;
-
-  `uvm_info(get_type_name(), $sformatf("Inside the master_monitor_proxy"), UVM_LOW);
-  apb_tx = apb_master_tx::type_id::create("master_tx");
-  
-  super.run_phase(phase);
-  
-//  forever begin
-//    if (apb_tx.paddr == )
-//  end
-
-  //phase.drop_objection(this);
 
 endtask : run_phase
-
-
-//task reference_model (input ral_ptr output spi_slave_tx spi_tx);
-//  
-//
-//endtask : reference_model
 
 
 //--------------------------------------------------------------------------------------------
@@ -123,13 +105,19 @@ endtask : run_phase
 function void apb_master_collector::write(apb_master_tx t);
 
   uvm_reg rg;
-  uvm_reg_bus_op rw;
+  uvm_reg_data_t rg_data;
+  uvm_status_e rg_status;
+  //uvm_reg_bus_op rw;
 
-  //adapter.bus2reg(t,rw);
-  //rg = map.get_reg_by_offset(rw.addr,(rw.kind == UVM_WRITE));
+  rg = map.get_reg_by_offset(t.paddr,t.pwrite);
 
-  //`uvm_info(get_type_name(), $sformatf("rg = %0h", rg),UVM_HIGH)
-  //`uvm_info(get_type_name(), $sformatf("rw = %0h", rw),UVM_HIGH)
+  `uvm_info(get_type_name(), $sformatf("rg_name = %0s", rg.get_name()),UVM_HIGH)
+  `uvm_info(get_type_name(), $sformatf("rg_address = %0h", rg.get_address()),UVM_HIGH)
+  //`uvm_info(get_type_name(), $sformatf("rg_status = %0h", rg_status),UVM_HIGH)
+  `uvm_info(get_type_name(), $sformatf("rg_data = %0h", rg.get()),UVM_HIGH)
+  `uvm_info(get_type_name(), $sformatf("map_name = %0p", map.get_full_name()),UVM_HIGH)
+  `uvm_info(get_type_name(), $sformatf("map_value = %0p", map),UVM_HIGH) 
+  
 
   //if () begin
   //end

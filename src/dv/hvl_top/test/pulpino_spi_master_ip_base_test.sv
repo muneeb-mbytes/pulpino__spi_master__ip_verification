@@ -93,7 +93,7 @@ function void pulpino_spi_master_ip_base_test::setup_pulpino_spi_master_ip_env_c
     spi_master_reg_block.build();
 
     // Enables sampling of coverage
-    spi_master_reg_block.set_coverage(UVM_CVR_ALL);
+    void'(spi_master_reg_block.set_coverage(UVM_CVR_ALL));
 
     spi_master_reg_block.lock_model();
   end

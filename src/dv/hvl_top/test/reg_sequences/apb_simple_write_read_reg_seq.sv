@@ -101,69 +101,6 @@ task apb_simple_write_read_reg_seq::body();
                                         spi_master_reg_block.CLKDIV.get_full_name(),
                                         rdata), UVM_HIGH);                                   
 
-begin
-    bit [31:0] spi_cmd;
-    spi_cmd = 32'hffff_ffff;
-    wdata = 0;
-    wdata = (wdata & (~ `MASK_SPICMD_SPICMD)) | (spi_cmd << `POS_SPICMD_SPICMD);
-  end
-
-  //Writing into the SPICMD Register
-  spi_master_reg_block.SPICMD.write(.status(status)      ,
-                                    .value(wdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
-
-  `uvm_info("SPI_CMD_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
-  spi_master_reg_block.SPICMD.get_full_name(),wdata),UVM_HIGH)
-
-//  // Reading from the SPICMD Register
-//  spi_master_reg_block.SPICMD.read(.status(status)       ,
-//                                    .value(rdata)        ,
-//                                    .path(UVM_FRONTDOOR) ,
-//                                    .map(spi_reg_map)    ,
-//                                    .parent(this)
-//                                  );                     
-//
-//  `uvm_info("SPI_CMD_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
-//  spi_master_reg_block.SPICMD.get_full_name(),rdata),UVM_HIGH)
-
-  //-------------------------------------------------------
-  // SPIADDR
-  //-------------------------------------------------------
-  
-  begin
-    bit [31:0] spi_adr;
-    spi_adr = 32'hffff_ffff;
-    wdata = 0;
-    wdata = (wdata & (~ `MASK_SPIADR_SPIADR)) | (spi_adr << `POS_SPIADR_SPIADR);
-  end
-  
-  //Writing into the SPI_ADDR Register
-  spi_master_reg_block.SPIADR.write(.status(status)      ,
-                                    .value(wdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
-
-  `uvm_info("SPI_ADDR_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
-  spi_master_reg_block.SPIADR.get_full_name(),wdata),UVM_HIGH)
-
-//  // Reading from the SPI_ADDR Register
-//  spi_master_reg_block.SPIADR.read(.status(status)       ,
-//                                    .value(rdata)        ,
-//                                    .path(UVM_FRONTDOOR) ,
-//                                    .map(spi_reg_map)    ,
-//                                    .parent(this)
-//                                  );                     
-//
-//  `uvm_info("SPI_ADDR_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
-//  spi_master_reg_block.SPIADR.get_full_name(),rdata),UVM_HIGH)
-
-
   //-------------------------------------------------------
   // SPI LEN Register                                        
   //-------------------------------------------------------
@@ -214,6 +151,70 @@ begin
 //
 //  `uvm_info("SPI_LEN_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
 //  spi_master_reg_block.SPILEN.get_full_name(),rdata),UVM_HIGH)
+
+begin
+    bit [31:0] spi_cmd;
+    spi_cmd = 32'hffff_ffab;
+    wdata = 0;
+    wdata = (wdata & (~ `MASK_SPICMD_SPICMD)) | (spi_cmd << `POS_SPICMD_SPICMD);
+  end
+
+  //Writing into the SPICMD Register
+  spi_master_reg_block.SPICMD.write(.status(status)      ,
+                                    .value(wdata)        ,
+                                    .path(UVM_FRONTDOOR) ,
+                                    .map(spi_reg_map)    ,
+                                    .parent(this)
+                                  );                     
+
+  `uvm_info("SPI_CMD_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
+  spi_master_reg_block.SPICMD.get_full_name(),wdata),UVM_HIGH)
+
+//  // Reading from the SPICMD Register
+//  spi_master_reg_block.SPICMD.read(.status(status)       ,
+//                                    .value(rdata)        ,
+//                                    .path(UVM_FRONTDOOR) ,
+//                                    .map(spi_reg_map)    ,
+//                                    .parent(this)
+//                                  );                     
+//
+//  `uvm_info("SPI_CMD_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
+//  spi_master_reg_block.SPICMD.get_full_name(),rdata),UVM_HIGH)
+
+  //-------------------------------------------------------
+  // SPIADDR
+  //-------------------------------------------------------
+  
+  begin
+    bit [31:0] spi_adr;
+    spi_adr = 32'hffff_ffcd;
+    wdata = 0;
+    wdata = (wdata & (~ `MASK_SPIADR_SPIADR)) | (spi_adr << `POS_SPIADR_SPIADR);
+  end
+  
+  //Writing into the SPI_ADDR Register
+  spi_master_reg_block.SPIADR.write(.status(status)      ,
+                                    .value(wdata)        ,
+                                    .path(UVM_FRONTDOOR) ,
+                                    .map(spi_reg_map)    ,
+                                    .parent(this)
+                                  );                     
+
+  `uvm_info("SPI_ADDR_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
+  spi_master_reg_block.SPIADR.get_full_name(),wdata),UVM_HIGH)
+
+//  // Reading from the SPI_ADDR Register
+//  spi_master_reg_block.SPIADR.read(.status(status)       ,
+//                                    .value(rdata)        ,
+//                                    .path(UVM_FRONTDOOR) ,
+//                                    .map(spi_reg_map)    ,
+//                                    .parent(this)
+//                                  );                     
+//
+//  `uvm_info("SPI_ADDR_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
+//  spi_master_reg_block.SPIADR.get_full_name(),rdata),UVM_HIGH)
+
+
 
  //-------------------------------------------------------
  // DUMMY REGISTER
@@ -268,7 +269,7 @@ begin
 
     bit [31:0] tx_fifo;
 
-    tx_fifo = 32'hffff_f01a;
+    tx_fifo = 32'hdead_beef;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register tx_fifo = %0h",tx_fifo) , UVM_LOW)
 

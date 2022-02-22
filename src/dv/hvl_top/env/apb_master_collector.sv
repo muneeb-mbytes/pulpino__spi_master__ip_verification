@@ -14,11 +14,15 @@ class apb_master_collector extends uvm_component;
   uvm_reg_map map;
 
   bit [31:0]spi_length;
+  bit [5:0]cmd_len;
+  bit [5:0]addr_len;
+  bit [15:0]mosi_data_len;
   bit [31:0]cmd;
   bit [31:0]addr;
   bit [31:0]mosi_data;
   bit [1:0]flag;
   bit [96:0]data;
+  int j;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -29,7 +33,6 @@ class apb_master_collector extends uvm_component;
   extern virtual function void end_of_elaboration_phase(uvm_phase phase);
   extern virtual function void start_of_simulation_phase(uvm_phase phase);
   extern virtual task run_phase(uvm_phase phase);
-  extern virtual function void reg_access(apb_master_tx t);
   extern virtual function void write(apb_master_tx t);
 
 endclass : apb_master_collector
@@ -125,58 +128,85 @@ function void apb_master_collector::write(apb_master_tx t);
   `uvm_info(get_type_name(), $sformatf("map_name = %0p", map.get_full_name()),UVM_HIGH)
   `uvm_info(get_type_name(), $sformatf("map_value = %0p", map),UVM_HIGH) 
 
-  if(rg.get_name == "STATUS") begin
-    cmd = rg.get();  
-    `uvm_info(get_type_name(), $sformatf("spi_len = %0h", rg.get()),UVM_HIGH)
-  end
-
-  if(rg.get_name == "CLKDIV") begin
-    addr = rg.get();  
-    `uvm_info(get_type_name(), $sformatf("spi_len = %0h", rg.get()),UVM_HIGH)
-  end
-
   if(rg.get_name == "SPILEN") begin
     spi_length = rg.get();  
-    `uvm_info(get_type_name(), $sformatf("spi_len = %0h", rg.get()),UVM_HIGH)
+    `uvm_info(get_type_name(), $sformatf("spi_length = %0h", spi_length),UVM_HIGH)
+    cmd_len = spi_length[5:0];
+    addr_len = spi_length[13:8];
+    mosi_data_len = spi_length[31:16];
   end
 
   if(rg.get_name == "SPICMD") begin
-    cmd = rg.get();  
+    
+    bit [31:0]cmd_local;
+
+    j =  addr_len + mosi_data_len ;
+
+    cmd_local = rg.get();
+    `uvm_info(get_type_name(), $sformatf("cmd_local = %0h", cmd_local),UVM_HIGH)
+
+    `uvm_info(get_type_name(), $sformatf("spi_len[5:0] = %0h", spi_length[5:0]),UVM_HIGH)
+    for(int i=0; i<spi_length[5:0]; i++) begin
+      cmd[i] = cmd_local[i];
+      data[j+i] = cmd_local[i];
+      //`uvm_info(get_type_name(), $sformatf("cmd[%0d] = %0h",i, cmd[i]),UVM_HIGH)
+      //`uvm_info(get_type_name(), $sformatf("cmd_local[%0d] = %0h",i, cmd_local[i]),UVM_HIGH)
+    end
+
     flag = flag + 1;
-    `uvm_info(get_type_name(), $sformatf("cmd = %0h", rg.get()),UVM_HIGH)
+
+    `uvm_info(get_type_name(), $sformatf("cmd_data = %0h", cmd),UVM_HIGH)
+  
   end
   
   if(rg.get_name == "SPIADR") begin
-    addr = rg.get();  
+    
+    bit [31:0]addr_local;
+
+    j =  mosi_data_len ;
+
+    addr_local = rg.get();
+    `uvm_info(get_type_name(), $sformatf("addr_local = %0h", addr_local),UVM_HIGH)
+
+    `uvm_info(get_type_name(), $sformatf("spi_len[13:8] = %0h", spi_length[13:8]),UVM_HIGH)
+    for(int i=0; i<spi_length[13:8]; i++) begin
+      addr[i] = addr_local[i];
+      data[j+i] = addr_local[i];
+      //`uvm_info(get_type_name(), $sformatf("addr[%0d] = %0h",i, addr[i]),UVM_HIGH)
+      //`uvm_info(get_type_name(), $sformatf("addr_local[%0d] = %0h",i, addr_local[i]),UVM_HIGH)
+    end
+    //addr = rg.get();  
     flag = flag + 1;
-    `uvm_info(get_type_name(), $sformatf("addr = %0h", rg.get()),UVM_HIGH)
+    `uvm_info(get_type_name(), $sformatf("addr_data = %0h", addr),UVM_HIGH)
   end
 
   if(rg.get_name == "TXFIFO") begin
-    mosi_data = rg.get(); 
+
+    bit [31:0]mosi_data_local;
+
+    j = 0;
+
+    mosi_data_local = rg.get();
+    `uvm_info(get_type_name(), $sformatf("mosi_data_local = %0h", mosi_data_local),UVM_HIGH)
+
+    `uvm_info(get_type_name(), $sformatf("spi_len[16:31] = %0h", spi_length[31:16]),UVM_HIGH)
+    for(int i=0; i<spi_length[31:16]; i++) begin
+      mosi_data[i] = mosi_data_local[i];
+      data[j+i] = mosi_data_local[i];
+    end
+    //mosi_data = rg.get(); 
     flag = flag + 1;
-    `uvm_info(get_type_name(), $sformatf("mosi_data = %0h", rg.get()),UVM_HIGH)
+    `uvm_info(get_type_name(), $sformatf("mosi_data = %0h", mosi_data),UVM_HIGH)
   end
 
-  `uvm_info(get_type_name(),$sformatf("Req print = %0s",t.sprint()),UVM_HIGH)
-
   if(flag == 'd3) begin
-    data = {cmd,addr,mosi_data};
     `uvm_info(get_type_name(),$sformatf("final_data=%0h",data),UVM_HIGH)
     apb_master_coll_analysis_port.write(data);
   end
 
-  //pulpino_spi_master_tx_packet::spi_tx_packet();
-
-  //apb_master_coll_analysis_port.write(t);
+  `uvm_info(get_type_name(),$sformatf("Req print = %0s",t.sprint()),UVM_HIGH)
 
 endfunction : write
-
-function void apb_master_collector::reg_access(apb_master_tx t);
-
-  
-
-endfunction : reg_access
 
 `endif
 

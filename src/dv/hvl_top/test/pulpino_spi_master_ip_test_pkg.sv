@@ -74,6 +74,7 @@ package pulpino_spi_master_ip_test_pkg;
   `include "pulpino_spi_master_ip_std_mode_write_0_cmd_32_addr_32_data_length_reg_test.sv"
   `include "pulpino_spi_master_ip_std_mode_write_32_cmd_32_addr_32_data_length_reg_test.sv"
   
+  `include "pulpino_spi_master_ip_rand_reg_test.sv"
 
   endpackage : pulpino_spi_master_ip_test_pkg
 

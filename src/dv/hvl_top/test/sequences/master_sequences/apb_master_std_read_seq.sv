@@ -138,7 +138,6 @@ task apb_master_std_read_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2020;
-                           // req.pwdata == 32'hABCD_0123;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 1;
                             req.pwrite == READ;}) begin : RXFIFO

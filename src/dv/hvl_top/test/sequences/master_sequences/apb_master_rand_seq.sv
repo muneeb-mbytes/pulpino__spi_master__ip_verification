@@ -143,15 +143,15 @@ task apb_master_rand_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2020;
-                          //  req.pwdata == 32'h0000_ff11;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 0;
-                            req.pwrite == WRITE;
+                            req.pwrite == READ;
                           }) begin                               : RXFIFO
     `uvm_fatal("APB","Rand failed");
   end
   `uvm_info(rx_fifo,$sformatf("rx_fifo_reg_seq= \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
+
 
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;

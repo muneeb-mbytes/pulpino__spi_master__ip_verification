@@ -12,6 +12,7 @@ class apb_master_collector extends uvm_component;
   uvm_analysis_imp#(apb_master_tx, apb_master_collector) apb_master_coll_imp_port;
 
   uvm_reg_map map;
+  uvm_reg rg;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -93,6 +94,9 @@ endfunction : start_of_simulation_phase
 //--------------------------------------------------------------------------------------------
 task apb_master_collector::run_phase(uvm_phase phase);
   
+  //forever begin
+  //pulpino_spi_master_tx_packet::conv_class();
+  //
 
 endtask : run_phase
 
@@ -104,7 +108,7 @@ endtask : run_phase
 //--------------------------------------------------------------------------------------------
 function void apb_master_collector::write(apb_master_tx t);
 
-  uvm_reg rg;
+  //uvm_reg rg;
   uvm_reg_data_t rg_data;
   uvm_status_e rg_status;
   //uvm_reg_bus_op rw;
@@ -117,11 +121,7 @@ function void apb_master_collector::write(apb_master_tx t);
   `uvm_info(get_type_name(), $sformatf("rg_data = %0h", rg.get()),UVM_HIGH)
   `uvm_info(get_type_name(), $sformatf("map_name = %0p", map.get_full_name()),UVM_HIGH)
   `uvm_info(get_type_name(), $sformatf("map_value = %0p", map),UVM_HIGH) 
-  
 
-  //if () begin
-  //end
-  
   `uvm_info(get_type_name(),$sformatf("Req print = %0s",t.sprint()),UVM_HIGH)
   apb_master_coll_analysis_port.write(t);
 

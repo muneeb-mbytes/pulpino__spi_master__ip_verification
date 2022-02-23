@@ -24,6 +24,7 @@ package pulpino_spi_master_ip_test_pkg;
   import pulpino_spi_master_ip_env_pkg::*;
   import spi_master_uvm_pkg::*;
   import spi_master_defines_pkg::*;
+  import spi_master_coverage_pkg::*;
   import apb_master_seq_pkg::*;
   import spi_slave_seq_pkg::*;
   import pulpino_spi_master_ip_virtual_seq_pkg::*;

@@ -47,6 +47,9 @@ package apb_reg_seq_pkg;
   `include "apb_master_std_mode_write_0_cmd_32_addr_32_data_length_reg_seq.sv"
   `include "apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq.sv"
 
+  `include "apb_master_spi_modes_clkdiv_dummy_cycles_cross_reg_seq.sv"
+  `include "apb_master_spi_modes_transfer_length_interupts_cross_reg_seq.sv"
+
   `include "apb_master_rand_reg_seq.sv"
 
 endpackage : apb_reg_seq_pkg

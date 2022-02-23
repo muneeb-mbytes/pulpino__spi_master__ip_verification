@@ -126,7 +126,7 @@ function void apb_master_collector::write(apb_master_tx t);
   `uvm_info(get_type_name(), $sformatf("rg_address = %0h", rg.get_address()),UVM_HIGH)
   `uvm_info(get_type_name(), $sformatf("rg_data = %0h", rg.get()),UVM_HIGH)
   `uvm_info(get_type_name(), $sformatf("map_name = %0p", map.get_full_name()),UVM_HIGH)
-  `uvm_info(get_type_name(), $sformatf("map_value = %0p", map),UVM_HIGH) 
+  //`uvm_info(get_type_name(), $sformatf("map_value = %0p", map),UVM_HIGH) 
 
   if(rg.get_name == "SPILEN") begin
     spi_length = rg.get();  
@@ -136,7 +136,7 @@ function void apb_master_collector::write(apb_master_tx t);
     mosi_data_len = spi_length[31:16];
   end
 
-  if(rg.get_name == "SPICMD") begin
+  if(rg.get_name == "SPICMD") begin : SPICMD
     
     bit [31:0]cmd_local;
 
@@ -149,8 +149,6 @@ function void apb_master_collector::write(apb_master_tx t);
     for(int i=0; i<spi_length[5:0]; i++) begin
       cmd[i] = cmd_local[i];
       data[j+i] = cmd_local[i];
-      //`uvm_info(get_type_name(), $sformatf("cmd[%0d] = %0h",i, cmd[i]),UVM_HIGH)
-      //`uvm_info(get_type_name(), $sformatf("cmd_local[%0d] = %0h",i, cmd_local[i]),UVM_HIGH)
     end
 
     flag = flag + 1;
@@ -159,7 +157,7 @@ function void apb_master_collector::write(apb_master_tx t);
   
   end
   
-  if(rg.get_name == "SPIADR") begin
+  if(rg.get_name == "SPIADR") begin : SPIADR
     
     bit [31:0]addr_local;
 
@@ -172,15 +170,13 @@ function void apb_master_collector::write(apb_master_tx t);
     for(int i=0; i<spi_length[13:8]; i++) begin
       addr[i] = addr_local[i];
       data[j+i] = addr_local[i];
-      //`uvm_info(get_type_name(), $sformatf("addr[%0d] = %0h",i, addr[i]),UVM_HIGH)
-      //`uvm_info(get_type_name(), $sformatf("addr_local[%0d] = %0h",i, addr_local[i]),UVM_HIGH)
     end
     //addr = rg.get();  
     flag = flag + 1;
     `uvm_info(get_type_name(), $sformatf("addr_data = %0h", addr),UVM_HIGH)
   end
 
-  if(rg.get_name == "TXFIFO") begin
+  if(rg.get_name == "TXFIFO") begin : TXFIFIO
 
     bit [31:0]mosi_data_local;
 
@@ -194,7 +190,6 @@ function void apb_master_collector::write(apb_master_tx t);
       mosi_data[i] = mosi_data_local[i];
       data[j+i] = mosi_data_local[i];
     end
-    //mosi_data = rg.get(); 
     flag = flag + 1;
     `uvm_info(get_type_name(), $sformatf("mosi_data = %0h", mosi_data),UVM_HIGH)
   end

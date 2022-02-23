@@ -182,8 +182,8 @@ task apb_master_std_mode_write_16_cmd_16_addr_32_data_length_reg_seq::body();
     bit [5:0] cmd_length;
     bit [5:0] addr_length;
     bit [15:0] data_length;
-    cmd_length  = 6'h10; //32 
-    addr_length = 6'h10;
+    cmd_length  = 16'h10; //32 
+    addr_length = 16'h10;
     data_length = 16'h20;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)

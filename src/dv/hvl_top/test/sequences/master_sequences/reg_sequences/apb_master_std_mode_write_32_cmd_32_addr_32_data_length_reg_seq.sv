@@ -77,7 +77,7 @@ task apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq::body();
   //-------------------------------------------------------
   begin
     bit [7:0] clkdiv_value;
-    clkdiv_value = 8'd0;
+    clkdiv_value = 8'd4;
     wdata = 0;
     wdata = (wdata & (~ `MASK_CLKDIV_CLKDIV)) | (clkdiv_value << `POS_CLKDIV_CLKDIV);
   end
@@ -182,8 +182,8 @@ task apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq::body();
     bit [5:0] cmd_length;
     bit [5:0] addr_length;
     bit [15:0] data_length;
-    cmd_length  = 6'h20; //32 
-    addr_length = 6'h20;
+    cmd_length  = 16'h20; //32 
+    addr_length = 16'h20;
     data_length = 16'h20;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
@@ -233,7 +233,7 @@ task apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq::body();
     bit [15:0] dummy_wr;
     bit [15:0] dummy_rd;
 
-    dummy_wr = 16'h0000;
+    dummy_wr = 16'h0001;
     dummy_rd = 16'h0000;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register dummy_wr  = %0h",dummy_wr) , UVM_LOW)

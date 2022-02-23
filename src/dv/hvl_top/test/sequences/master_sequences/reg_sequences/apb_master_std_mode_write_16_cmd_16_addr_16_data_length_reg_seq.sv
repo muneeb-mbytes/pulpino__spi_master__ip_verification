@@ -1,28 +1,28 @@
-`ifndef APB_MASTER_STD_MODE_WRITE_32_CMD_32_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDE_
-`define APB_MASTER_STD_MODE_WRITE_32_CMD_32_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDE_
+`ifndef APB_MASTER_STD_MODE_WRITE_16_CMD_16_ADDR_16_DATA_LENGTH_REG_SEQ_INCLUDE_
+`define APB_MASTER_STD_MODE_WRITE_16_CMD_16_ADDR_16_DATA_LENGTH_REG_SEQ_INCLUDE_
 
 //--------------------------------------------------------------------------------------------
-// Class: apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq
+// Class: apb_master_std_mode_write_16_cmd_16_addr_16_data_length_reg_seq
 // Extends the apb_master_base_seq and randomises the req item
 //--------------------------------------------------------------------------------------------
-class apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq extends apb_master_base_reg_seq;
-  `uvm_object_utils(apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq)
+class apb_master_std_mode_write_16_cmd_16_addr_16_data_length_reg_seq extends apb_master_base_reg_seq;
+  `uvm_object_utils(apb_master_std_mode_write_16_cmd_16_addr_16_data_length_reg_seq)
 
    
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
-  extern function new(string name ="apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq");
+  extern function new(string name ="apb_master_std_mode_write_16_cmd_16_addr_16_data_length_reg_seq");
   extern task body();
-  endclass : apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq
+  endclass : apb_master_std_mode_write_16_cmd_16_addr_16_data_length_reg_seq
 
 //--------------------------------------------------------------------------------------------
 // Construct: new
 //
 // Parameters:
-//  name - apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq
+//  name - apb_master_std_mode_write_16_cmd_16_addr_16_data_length_reg_seq
 //--------------------------------------------------------------------------------------------
-function apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq::new(string name="apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq");
+function apb_master_std_mode_write_16_cmd_16_addr_16_data_length_reg_seq::new(string name="apb_master_std_mode_write_16_cmd_16_addr_16_data_length_reg_seq");
   super.new(name);
 endfunction : new
 
@@ -30,7 +30,7 @@ endfunction : new
 // Task : body
 // Creates the req of type master transaction and randomises the req.
 //--------------------------------------------------------------------------------------------
-task apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq::body();
+task apb_master_std_mode_write_16_cmd_16_addr_16_data_length_reg_seq::body();
 
  spi_master_apb_if spi_master_reg_block;
   uvm_reg_map spi_reg_map;
@@ -182,9 +182,9 @@ task apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq::body();
     bit [5:0] cmd_length;
     bit [5:0] addr_length;
     bit [15:0] data_length;
-    cmd_length  = 16'h20; //32 
-    addr_length = 16'h20;
-    data_length = 16'h20;
+    cmd_length  = 16'h10; //32 
+    addr_length = 16'h10;
+    data_length = 16'h10;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register addr_length = %0h",addr_length), UVM_LOW)

@@ -61,9 +61,14 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
   `include "pulpino_spi_master_ip_virtual_std_mode_read_thtx_rhtx_cnttx_cntrx_value_2_seq.sv"
 
   `include "pulpino_spi_master_ip_virtual_std_mode_write_0_cmd_0_addr_32_data_length_reg_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_0_cmd_0_addr_16_data_length_reg_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_0_cmd_16_addr_16_data_length_reg_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_16_cmd_16_addr_16_data_length_reg_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_write_0_cmd_32_addr_32_data_length_reg_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq.sv"
 
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_16_cmd_16_addr_32_data_length_reg_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_8_cmd_32_addr_32_data_length_reg_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq.sv"
 

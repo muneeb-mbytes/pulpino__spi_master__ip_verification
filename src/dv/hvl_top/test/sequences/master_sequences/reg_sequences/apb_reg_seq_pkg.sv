@@ -52,6 +52,17 @@ package apb_reg_seq_pkg;
   `include "apb_master_std_mode_write_0_cmd_32_addr_32_data_length_reg_seq.sv"
   `include "apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq.sv"
 
+  `include "apb_master_std_mode_read_0_cmd_0_addr_32_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_read_0_cmd_0_addr_16_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_read_0_cmd_16_addr_16_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_read_16_cmd_16_addr_16_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_read_8_cmd_8_addr_32_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_read_8_cmd_16_addr_32_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_read_8_cmd_32_addr_32_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_read_16_cmd_16_addr_32_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_read_0_cmd_32_addr_32_data_length_reg_seq.sv"
+  `include "apb_master_std_mode_read_32_cmd_32_addr_32_data_length_reg_seq.sv"
+
   `include "apb_master_spi_modes_clkdiv_dummy_cycles_cross_reg_seq.sv"
   `include "apb_master_spi_modes_transfer_length_interupts_cross_reg_seq.sv"
 

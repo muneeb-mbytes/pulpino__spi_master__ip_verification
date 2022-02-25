@@ -53,8 +53,9 @@ task apb_master_rand_reg_seq::body();
     cs_value = SLAVE_0;
     `uvm_info(get_type_name(), $sformatf("Write :: Register cs_value = %0b",cs_value), UVM_LOW)
     
-    wdata  = $urandom();
-    //wdata = spi_master_reg_block.randomize(STATUS);
+    //wdata  = $urandom();
+    wdata = spi_master_reg_block.STATUS.randomize();
+    spi_master_reg_block.STATUS.update(status);
 
  //   // Setting a value 
  //   wdata = (wdata & (~ `MASK_STATUS_CS)) | (cs_value << `POS_STATUS_CS);
@@ -64,12 +65,12 @@ task apb_master_rand_reg_seq::body();
  //   wdata = wdata & (~`MASK_STATUS_QRD) & (~`MASK_STATUS_QWR) & (~`MASK_STATUS_RD) & (~ `MASK_STATUS_SRST);
   end
 
-  spi_master_reg_block.STATUS.write(.status(status)      ,
-                                    .value(wdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
+ // spi_master_reg_block.STATUS.write(.status(status)      ,
+ //                                   .value(wdata)        ,
+ //                                   .path(UVM_FRONTDOOR) ,
+ //                                   .map(spi_reg_map)    ,
+ //                                   .parent(this)
+ //                                 );                     
 
   `uvm_info("STATUS_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
   spi_master_reg_block.STATUS.get_full_name(),wdata),UVM_HIGH)
@@ -93,18 +94,21 @@ task apb_master_rand_reg_seq::body();
     bit [7:0] clkdiv_value;
     clkdiv_value = 8'd8;
     wdata = 0;
-    wdata  = $urandom();
+    //wdata  = $urandom();
+    wdata = spi_master_reg_block.CLKDIV.randomize();
+    spi_master_reg_block.CLKDIV.update(status);
+
     //wdata = spi_master_reg_block.randomize();
     //wdata = (wdata & (~ `MASK_CLKDIV_CLKDIV)) | (clkdiv_value << `POS_CLKDIV_CLKDIV);
   end
 
   //Writing into the Clockdiv Register
-  spi_master_reg_block.CLKDIV.write(.status(status)      ,
-                                    .value(wdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
+ // spi_master_reg_block.CLKDIV.write(.status(status)      ,
+ //                                   .value(wdata)        ,
+ //                                   .path(UVM_FRONTDOOR) ,
+ //                                   .map(spi_reg_map)    ,
+ //                                   .parent(this)
+ //                                 );                     
 
   `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
   spi_master_reg_block.CLKDIV.get_full_name(),wdata),UVM_HIGH)
@@ -129,18 +133,21 @@ task apb_master_rand_reg_seq::body();
     bit [31:0] spi_cmd;
     spi_cmd = 32'hffff_ffff;
     wdata = 0;
-    wdata  = $urandom();
+   // wdata  = $urandom();
+    wdata = spi_master_reg_block.SPICMD.randomize();
+    spi_master_reg_block.SPICMD.update(status);
+
     //wdata = spi_master_reg_block.randomize();
    // wdata = (wdata & (~ `MASK_SPICMD_SPICMD)) | (spi_cmd << `POS_SPICMD_SPICMD);
   end
 
   //Writing into the SPICMD Register
-  spi_master_reg_block.SPICMD.write(.status(status)      ,
-                                    .value(wdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
+//  spi_master_reg_block.SPICMD.write(.status(status)      ,
+//                                    .value(wdata)        ,
+//                                    .path(UVM_FRONTDOOR) ,
+//                                    .map(spi_reg_map)    ,
+//                                    .parent(this)
+//                                  );                     
 
   `uvm_info("SPI_CMD_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
   spi_master_reg_block.SPICMD.get_full_name(),wdata),UVM_HIGH)
@@ -164,18 +171,21 @@ task apb_master_rand_reg_seq::body();
     bit [31:0] spi_adr;
     spi_adr = 32'hffff_ffff;
     wdata = 0;
-    wdata  = $urandom();
+   // wdata  = $urandom();
+    wdata = spi_master_reg_block.SPIADR.randomize();
+    spi_master_reg_block.SPIADR.update(status);
+
     //wdata = spi_master_reg_block.randomize();
     //wdata = (wdata & (~ `MASK_SPIADR_SPIADR)) | (spi_adr << `POS_SPIADR_SPIADR);
   end
   
   //Writing into the SPI_ADDR Register
-  spi_master_reg_block.SPIADR.write(.status(status)      ,
-                                    .value(wdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
+ // spi_master_reg_block.SPIADR.write(.status(status)      ,
+ //                                   .value(wdata)        ,
+ //                                   .path(UVM_FRONTDOOR) ,
+ //                                   .map(spi_reg_map)    ,
+ //                                   .parent(this)
+ //                                 );                     
 
   `uvm_info("SPI_ADDR_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
   spi_master_reg_block.SPIADR.get_full_name(),wdata),UVM_HIGH)
@@ -206,7 +216,10 @@ task apb_master_rand_reg_seq::body();
     addr_length = 6'h1f;
     data_length = 16'hffff;
 
-    wdata  = $urandom();
+   // wdata  = $urandom();
+    wdata = spi_master_reg_block.SPILEN.randomize();
+    spi_master_reg_block.SPILEN.update(status);
+
     //wdata = spi_master_reg_block.randomize();
     `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register addr_length = %0h",addr_length), UVM_LOW)
@@ -224,12 +237,12 @@ task apb_master_rand_reg_seq::body();
   end
 
   //Writing into the SPI_LEN Register
-  spi_master_reg_block.SPILEN.write(.status(status)      ,
-                                    .value(wdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
+//  spi_master_reg_block.SPILEN.write(.status(status)      ,
+//                                    .value(wdata)        ,
+//                                    .path(UVM_FRONTDOOR) ,
+//                                    .map(spi_reg_map)    ,
+//                                    .parent(this)
+//                                  );                     
 
   `uvm_info("SPI_LEN_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
   spi_master_reg_block.SPILEN.get_full_name(),wdata),UVM_HIGH)
@@ -256,7 +269,10 @@ task apb_master_rand_reg_seq::body();
     bit [15:0]  dummy_rd;
 
     wdata = 0;
-    wdata  = $urandom();
+   // wdata  = $urandom();
+    wdata = spi_master_reg_block.SPIDUM.randomize();
+    spi_master_reg_block.SPIDUM.update(status);
+
     //wdata = spi_master_reg_block.randomize();
     dummy_wr = 16'hffff;
     dummy_rd = 16'hffff;
@@ -273,12 +289,12 @@ task apb_master_rand_reg_seq::body();
   end
 
  //Writing into the SPI_DUMMY Register
-  spi_master_reg_block.SPIDUM.write(.status(status)      ,
-                                    .value(wdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
+ // spi_master_reg_block.SPIDUM.write(.status(status)      ,
+ //                                   .value(wdata)        ,
+ //                                   .path(UVM_FRONTDOOR) ,
+ //                                   .map(spi_reg_map)    ,
+ //                                   .parent(this)
+ //                                 );                     
 
   `uvm_info("DUMMY_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
   spi_master_reg_block.SPIDUM.get_full_name(),wdata),UVM_HIGH)
@@ -304,7 +320,10 @@ task apb_master_rand_reg_seq::body();
     tx_fifo = 32'hffff_f01a;
 
     wdata = 0;
-    wdata  = $urandom();
+  //  wdata  = $urandom();
+    wdata = spi_master_reg_block.TXFIFO.randomize();
+    spi_master_reg_block.TXFIFO.update(status);
+
    // wdata = spi_master_reg_block.randomize();
     `uvm_info(get_type_name(), $sformatf("Write :: Register tx_fifo = %0h",tx_fifo) , UVM_LOW)
 
@@ -314,27 +333,29 @@ task apb_master_rand_reg_seq::body();
   end
 
   //Writing into the TX FIFO
-  spi_master_reg_block.TXFIFO.write(.status(status)      ,
-                                    .value(wdata)        ,
+ // spi_master_reg_block.TXFIFO.write(.status(status)      ,
+ //                                   .value(wdata)        ,
+ //                                   .path(UVM_FRONTDOOR) ,
+ //                                   .map(spi_reg_map)    ,
+ //                                   .parent(this)
+ //                                 );                     
+
+  `uvm_info("TX_FIFO_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
+  spi_master_reg_block.TXFIFO.get_full_name(),wdata),UVM_HIGH)
+
+  //-------------------------------------------------------
+  // RX FIFO
+  //-------------------------------------------------------
+  // Reading from the RX FIFO 
+  spi_master_reg_block.RXFIFO.read(.status(status)       ,
+                                    .value(rdata)        ,
                                     .path(UVM_FRONTDOOR) ,
                                     .map(spi_reg_map)    ,
                                     .parent(this)
                                   );                     
 
-  `uvm_info("TX_FIFO_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
-  spi_master_reg_block.TXFIFO.get_full_name(),wdata),UVM_HIGH)
-
-
-//  // Reading from the RX FIFO 
-//  spi_master_reg_block.RXFIFO.read(.status(status)       ,
-//                                    .value(rdata)        ,
-//                                    .path(UVM_FRONTDOOR) ,
-//                                    .map(spi_reg_map)    ,
-//                                    .parent(this)
-//                                  );                     
-//
-//  `uvm_info("RX_FIFO_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
-//  spi_master_reg_block.RXFIFO.get_full_name(),rdata),UVM_HIGH)
+  `uvm_info("RX_FIFO_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
+  spi_master_reg_block.RXFIFO.get_full_name(),rdata),UVM_HIGH)
  
 
   //-------------------------------------------------------
@@ -348,7 +369,10 @@ task apb_master_rand_reg_seq::body();
     bit [4:0] cnttx_value = 5'h4;
     bit [4:0] cntrx_value = 5'h4;
 
-    wdata  = $urandom();
+  //  wdata  = $urandom();
+    wdata = spi_master_reg_block.INTCFG.randomize();
+    spi_master_reg_block.INTCFG.update(status);
+
   //  wdata = spi_master_reg_block.randomize();
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register thtx_value = %0h",thtx_value), UVM_LOW)
@@ -370,12 +394,12 @@ task apb_master_rand_reg_seq::body();
   
   //Writing into the INTERUPT Register
   //wdata = 32'hDF1F_1F1F;
-  spi_master_reg_block.INTCFG.write(.status(status)      ,
-                                    .value(wdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
+//  spi_master_reg_block.INTCFG.write(.status(status)      ,
+//                                    .value(wdata)        ,
+//                                    .path(UVM_FRONTDOOR) ,
+//                                    .map(spi_reg_map)    ,
+//                                    .parent(this)
+//                                  );                     
 
   `uvm_info("INTERUPT_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s",
   spi_master_reg_block.INTCFG.get_full_name()),UVM_HIGH)

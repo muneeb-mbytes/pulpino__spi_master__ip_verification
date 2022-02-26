@@ -122,8 +122,11 @@ interface spi_slave_driver_bfm(input pclk, input areset,
           detect_sclk();
           if(end_of_transfer) break; 
           data_packet.master_out_slave_in[row_no][bit_no] = mosi0;
-          `uvm_info("DEBUG MOSI0 spi_slave_driver_bfm",$sformatf("mosi=\n %0p",mosi0),UVM_HIGH)
           data_packet.no_of_mosi_bits_transfer++;
+          `uvm_info("DEBUG MOSI0 spi_slave_driver_bfm",$sformatf("mosi=\n %0p",mosi0),UVM_HIGH)
+          `uvm_info("DEBUG MOSI TRANSFER COUNT spi_slave_driver_bfm",$sformatf("mosi count=\n %0p",
+          data_packet.no_of_mosi_bits_transfer),UVM_HIGH)
+
         end
         else begin : CPHA_IS_1
 

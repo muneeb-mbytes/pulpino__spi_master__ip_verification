@@ -44,40 +44,13 @@ task apb_master_std_mode_read_even_clkdiv_reg_seq::body();
 
   spi_reg_map = spi_master_reg_block.get_map_by_name("SPI_MASTER_MAP_ABP_IF");
 
-  //-------------------------------------------------------
-  // STATUS Register                                        
-  //-------------------------------------------------------
-
-  // Writing into the register
-  begin
-    bit [3:0] cs_value;
-    cs_value = SLAVE_0;
-    `uvm_info(get_type_name(), $sformatf("Write :: Register cs_value = %0b",cs_value), UVM_LOW)
-
-    // Setting a value 
-    wdata = (wdata & (~ `MASK_STATUS_CS)) | (cs_value << `POS_STATUS_CS);
-    // Setting the required bits
-    wdata = wdata | `MASK_STATUS_RD; 
-    // Clearing the required bits
-    wdata = wdata & (~`MASK_STATUS_WR) & (~`MASK_STATUS_QRD) & (~`MASK_STATUS_QWR);
-  end
-
-  spi_master_reg_block.STATUS.write(.status(status)      ,
-                                    .value(wdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
-
-  `uvm_info("STATUS_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
-  spi_master_reg_block.STATUS.get_full_name(),wdata),UVM_HIGH)
 
   //-------------------------------------------------------
   // CLKDIV Register                                        
   //-------------------------------------------------------
   begin
     bit [7:0] clkdiv_value;
-    clkdiv_value = 8'd6;
+    clkdiv_value = 8'd4;
     wdata = 0;
     wdata = (wdata & (~ `MASK_CLKDIV_CLKDIV)) | (clkdiv_value << `POS_CLKDIV_CLKDIV);
   end
@@ -222,6 +195,36 @@ task apb_master_std_mode_read_even_clkdiv_reg_seq::body();
 //
 //  `uvm_info("SPI_LEN_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
 //  spi_master_reg_block.SPILEN.get_full_name(),rdata),UVM_HIGH)
+
+
+  //-------------------------------------------------------
+  // STATUS Register                                        
+  //-------------------------------------------------------
+
+  // Writing into the register
+  begin
+    bit [3:0] cs_value;
+    cs_value = SLAVE_0;
+    `uvm_info(get_type_name(), $sformatf("Write :: Register cs_value = %0b",cs_value), UVM_LOW)
+
+    // Setting a value 
+    wdata = (wdata & (~ `MASK_STATUS_CS)) | (cs_value << `POS_STATUS_CS);
+    // Setting the required bits
+    wdata = wdata | `MASK_STATUS_RD; 
+    // Clearing the required bits
+    wdata = wdata & (~`MASK_STATUS_WR) & (~`MASK_STATUS_QRD) & (~`MASK_STATUS_QWR);
+  end
+
+  spi_master_reg_block.STATUS.write(.status(status)      ,
+                                    .value(wdata)        ,
+                                    .path(UVM_FRONTDOOR) ,
+                                    .map(spi_reg_map)    ,
+                                    .parent(this)
+                                  );                     
+
+  `uvm_info("STATUS_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
+  spi_master_reg_block.STATUS.get_full_name(),wdata),UVM_HIGH)
+
 
  //-------------------------------------------------------
  // DUMMY REGISTER

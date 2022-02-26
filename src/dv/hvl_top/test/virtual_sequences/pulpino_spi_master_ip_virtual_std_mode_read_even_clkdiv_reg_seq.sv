@@ -11,6 +11,8 @@ class pulpino_spi_master_ip_virtual_std_mode_read_even_clkdiv_reg_seq extends pu
   apb_master_std_mode_read_even_clkdiv_reg_seq apb_master_std_mode_read_even_clkdiv_reg_seq_h;
   spi_fd_basic_slave_seq spi_fd_basic_slave_seq_h;
 
+  semaphore write_seq;
+
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -26,6 +28,7 @@ endclass : pulpino_spi_master_ip_virtual_std_mode_read_even_clkdiv_reg_seq
 //--------------------------------------------------------------------------------------------
 function pulpino_spi_master_ip_virtual_std_mode_read_even_clkdiv_reg_seq::new(string name = "pulpino_spi_master_ip_virtual_std_mode_read_even_clkdiv_reg_seq");
   super.new(name);
+  write_seq = new(1);
 endfunction : new
 
 //--------------------------------------------------------------------------------------------
@@ -37,19 +40,23 @@ task pulpino_spi_master_ip_virtual_std_mode_read_even_clkdiv_reg_seq::body();
 
   fork
     forever begin : SLAVE_SEQ
+      write_seq.get(1);
       `uvm_info("slave_vseq",$sformatf("started slave vseq"),UVM_HIGH)
       spi_fd_basic_slave_seq_h = spi_fd_basic_slave_seq::type_id::create("spi_fd_basic_slave_seq_h");
       spi_fd_basic_slave_seq_h.start(p_sequencer.spi_slave_seqr_h);
+      write_seq.put(1);
       `uvm_info("slave_vseq",$sformatf("ended slave vseq"),UVM_HIGH)
     end
   join_none
 
   repeat(2) begin
    `uvm_info("master_vseq",$sformatf("started master vseq"),UVM_HIGH)
+   write_seq.get(1);
    apb_master_std_mode_read_even_clkdiv_reg_seq_h = apb_master_std_mode_read_even_clkdiv_reg_seq::type_id::create("apb_master_std_mode_read_even_clkdiv_reg_seq_h");
    apb_master_std_mode_read_even_clkdiv_reg_seq_h.model = p_sequencer.env_config_h.spi_master_reg_block;
    apb_master_std_mode_read_even_clkdiv_reg_seq_h.start(p_sequencer.apb_master_seqr_h);
    `uvm_info("master_vseq",$sformatf("ended master vseq"),UVM_HIGH)
+   write_seq.put(1);
  end
  endtask : body
 

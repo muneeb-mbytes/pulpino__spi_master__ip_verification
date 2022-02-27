@@ -58,6 +58,7 @@ task pulpino_spi_master_ip_virtual_basic_write_mask_reg_seq::body();
    `uvm_info("master_vseq",$sformatf("ended master vseq"),UVM_HIGH)
    wr_seq.put(1);
  end
+
  endtask : body
 
 

@@ -44,19 +44,7 @@ task apb_master_std_mode_write_0_dummy_write_seq::body();
   req=apb_master_tx::type_id::create("req");
   req.apb_master_agent_cfg_h = p_sequencer.apb_master_agent_cfg_h;
 
-  start_item(req);
-  if(!req.randomize() with {req.pselx == SLAVE_0;
-                            req.paddr == 32'h1A10_2000;
-                            req.pwdata == 32'h0000_0102;  
-                            req.transfer_size == BIT_32;
-                            req.cont_write_read == 0;
-                            req.pwrite == WRITE;}) begin : STATUS_REG
-    `uvm_fatal("APB","Rand failed");
-  end
-  `uvm_info(status_reg,$sformatf("status_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
-  finish_item(req);
-
-
+ 
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2004;
@@ -137,10 +125,9 @@ task apb_master_std_mode_write_0_dummy_write_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2020;
-                            req.pwdata == 32'h0000_ff11;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 0;
-                            req.pwrite == WRITE;}) begin : RXFIFO
+                            req.pwrite == READ;}) begin : RXFIFO
     `uvm_fatal("APB","Rand failed");
   end
   `uvm_info(rx_fifo,$sformatf("rx_fifo_reg_seq= \n %0p",req.sprint()),UVM_MEDIUM)
@@ -158,6 +145,19 @@ task apb_master_std_mode_write_0_dummy_write_seq::body();
   end
   `uvm_info(interupt_reg,$sformatf("interupt_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
+
+  start_item(req);
+  if(!req.randomize() with {req.pselx == SLAVE_0;
+                            req.paddr == 32'h1A10_2000;
+                            req.pwdata == 32'h0000_0102;  
+                            req.transfer_size == BIT_32;
+                            req.cont_write_read == 0;
+                            req.pwrite == WRITE;}) begin : STATUS_REG
+    `uvm_fatal("APB","Rand failed");
+  end
+  `uvm_info(status_reg,$sformatf("status_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
+  finish_item(req);
+
 
 endtask : body
 

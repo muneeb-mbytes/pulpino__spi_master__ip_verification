@@ -251,6 +251,9 @@ task spi_slave_monitor_proxy::run_phase(uvm_phase phase);
 
     spi_slave_mon_bfm_h.sample_data(struct_packet, struct_cfg);
 
+    `uvm_info(get_type_name(),$sformatf("Received struct from spi_slave MONITOR BFM : , \n %p",
+                                        struct_packet),UVM_HIGH)
+
     spi_slave_seq_item_converter::to_class(struct_packet, spi_slave_packet);
 
     `uvm_info(get_type_name(),$sformatf("Received packet from spi_slave MONITOR BFM : , \n %s",

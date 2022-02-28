@@ -161,6 +161,9 @@ interface spi_slave_monitor_bfm(input pclk, input areset,
 
           data_packet.master_out_slave_in[row_no][bit_no] = mosi0;
           data_packet.no_of_mosi_bits_transfer++;
+          `uvm_info("DEBUG MOSI spi_monitor_driver_bfm",$sformatf("mosi=\n %0p",mosi0),UVM_HIGH)
+          `uvm_info("DEBUG MOSI TRANSFER COUNT spi_monitor_driver_bfm",$sformatf("mosi count=\n %0d",
+          data_packet.no_of_mosi_bits_transfer),UVM_HIGH)
 
           data_packet.master_in_slave_out[row_no][bit_no] = miso0;
           data_packet.no_of_miso_bits_transfer++;

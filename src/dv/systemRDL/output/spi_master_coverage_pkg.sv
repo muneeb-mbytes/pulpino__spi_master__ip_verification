@@ -7,40 +7,35 @@ package spi_master_coverage_pkg;
     import uvm_pkg::*;
     import spi_master_uvm_pkg::*;
     
+    
+    
 //--------------------------------------------------------------------------------------------
 // Class: spi_master_coverage
 // <Description_here>
 //--------------------------------------------------------------------------------------------
-class spi_master_coverage_s extends spi_master_apb_if__status;
-
-  `uvm_object_utils(spi_master_coverage_s)
-             uvm_reg_field RESERVED12;
-        rand uvm_reg_field CS;
-             uvm_reg_field RESERVED5;
-        rand uvm_reg_field SRST;
-        rand uvm_reg_field QWR;
-        rand uvm_reg_field QRD;
-        rand uvm_reg_field WR;
-        rand uvm_reg_field RD;
-        
-        // Covergroup
-        covergroup cg_explicit;
-            CS : coverpoint CS.value[2];
-            SRST : coverpoint SRST.value[0];
-            QWR : coverpoint QWR.value[0];
-            QRD : coverpoint QRD.value[0];
-            WR : coverpoint WR.value[0];
-            RD : coverpoint RD.value[0];
+  covergroup cg_vals_1 (int a);
+            SPICMD : coverpoint a {bins spicmd_0[] = {[3:0]};
+                                   bins spicmd_1[] = {[31:4]};}
         endgroup
 
+    class spi_master_apb_if__spicmd_1 extends spi_master_apb_if__spicmd;
+        `uvm_object_utils(spi_master_apb_if__spicmd_1)
+      int a[5];
+        int i;
+        rand uvm_reg_field SPICMD;
+   
+         cg_vals_1 cov_cmd[5];
         // Function: new
-        function new(string name = "spi_master_coverage_s");
-        //    super.new(name, 32, build_coverage(UVM_CVR_FIELD_VALS));
-              super.new(name);
+        function new(string name = "spi_master_apb_if__spicmd_1");
+            //super.new(name, 32, build_coverage(UVM_CVR_FIELD_VALS));
+            super.new(name);
             add_coverage(build_coverage(UVM_CVR_FIELD_VALS));
             if(has_coverage(UVM_CVR_FIELD_VALS)) begin
-               cg_explicit = new();
-               cg_explicit.set_inst_name(name);
+                  //  cg_vals_1 = new();
+           //  cg_vals_1.set_inst_name(name);
+           foreach(a[i])
+             cov_cmd[i]=new(a[i]);
+             cov_cmd[i].set_inst_name(name);
             end
         endfunction : new
         
@@ -48,7 +43,8 @@ class spi_master_coverage_s extends spi_master_apb_if__status;
         virtual function void sample_values();
             super.sample_values();
             if (get_coverage(UVM_CVR_FIELD_VALS))
-               cg_explicit.sample();
+              // cg_vals_1.sample();
+               cov_cmd[i].sample();
         endfunction
 
         // Function: sample
@@ -66,8 +62,23 @@ class spi_master_coverage_s extends spi_master_apb_if__status;
                                     ((1 << m_fields[i].get_n_bits()) - 1));
          
             sample_values();
-          endfunction
-  endclass
+        endfunction
 
-endpackage: spi_master_coverage_pkg
+        // Function: build
+        virtual function void build();
+            this.SPICMD = uvm_reg_field::type_id::create("SPICMD");
+            this.SPICMD.configure( 
+                                  .parent(this),
+                                  .size(32),
+                                  .lsb_pos(0),
+                                  .access("RW"),
+                                  .volatile(0),
+                                  .reset(32'h0),
+                                  .has_reset(1),
+                                  .is_rand(1),
+                                  .individually_accessible(0));
+            
+        endfunction : build
+    endclass : spi_master_apb_if__spicmd_1
+  endpackage : spi_master_coverage_pkg
 `endif 

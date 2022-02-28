@@ -44,6 +44,9 @@ function void apb_reg_predictor::write(BUSTYPE tr);
   //$display("rw.kind = %0s", rw.kind.name());
 
   rg = map.get_reg_by_offset(rw.addr,(rw.kind == UVM_WRITE));
+  
+  `uvm_info("apb_reg_predictor", $sformatf("rg_data = %0p", rg),UVM_HIGH)
+  `uvm_info("apb_reg_predictor", $sformatf("rw_data = %0p", rw),UVM_HIGH)
 
   // Sampling the coverage
   rg.sample_values();

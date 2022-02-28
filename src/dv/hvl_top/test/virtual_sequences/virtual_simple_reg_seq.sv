@@ -48,6 +48,9 @@ task virtual_simple_reg_seq::body();
   apb_master_reg_seq_h = apb_simple_write_read_reg_seq::type_id::create("apb_master_reg_seq_h");
   apb_master_reg_seq_h.model = p_sequencer.env_config_h.spi_master_reg_block;
   apb_master_reg_seq_h.start(p_sequencer.apb_master_seqr_h);
+  // Wait for the slave thread to complete
+  // Additional time - maybe we can add this as drian time
+  #100us;
   `uvm_info("master_vseq",$sformatf("ended master vseq"),UVM_HIGH)
 
  endtask : body

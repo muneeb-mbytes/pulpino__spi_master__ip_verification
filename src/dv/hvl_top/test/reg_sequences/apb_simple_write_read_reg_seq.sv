@@ -43,40 +43,6 @@ task apb_simple_write_read_reg_seq::body();
   spi_reg_map = spi_master_reg_block.get_map_by_name("SPI_MASTER_MAP_ABP_IF");
 
   //-------------------------------------------------------
-  // STATUS Register                                        
-  //-------------------------------------------------------
-
-  // Writing into the register
-  begin
-    bit [3:0] cs_value;
-    cs_value = SLAVE_0;
-    `uvm_info(get_type_name(), $sformatf("Write :: Register cs_value = %0b",cs_value), UVM_LOW)
-
-    // Setting a value 
-    wdata = (wdata & (~ `MASK_STATUS_CS)) | (cs_value << `POS_STATUS_CS);
-    // Setting the required bits
-    wdata = wdata | `MASK_STATUS_RD | `MASK_STATUS_WR; 
-    // Clearing the required bits
-    wdata = wdata & (~`MASK_STATUS_QRD) & (~`MASK_STATUS_QWR);
-
-  end
-  // wdata = 32'h03; 
-  spi_master_reg_block.STATUS.write(.status(status), .value(wdata), .path(UVM_FRONTDOOR), 
-                                    .map(spi_reg_map), .parent(this));
-
-  `uvm_info(get_type_name(), $sformatf("Write :: Register = %0s Data = 32'h%0h",
-                                        spi_master_reg_block.STATUS.get_full_name(),
-                                        wdata), UVM_HIGH);                                   
-
-  // Reading into the register
-  spi_master_reg_block.STATUS.read(.status(status), .value(rdata), .path(UVM_FRONTDOOR), 
-                                   .map(spi_reg_map), .parent(this));
-
-  `uvm_info(get_type_name(), $sformatf("Read :: Register = %0s Data = 32'h%0h",
-                                        spi_master_reg_block.STATUS.get_full_name(),
-                                        rdata), UVM_HIGH);                                   
-
-  //-------------------------------------------------------
   // CLKDIV Register                                        
   //-------------------------------------------------------
   // Writing into the register
@@ -356,6 +322,42 @@ begin
 
   `uvm_info("INTERUPT_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s",
   spi_master_reg_block.INTCFG.get_full_name()),UVM_HIGH)
+
+  //-------------------------------------------------------
+  // STATUS Register                                        
+  //-------------------------------------------------------
+
+  // Writing into the register
+  begin
+    bit [3:0] cs_value;
+    cs_value = SLAVE_0;
+    `uvm_info(get_type_name(), $sformatf("Write :: Register cs_value = %0b",cs_value), UVM_LOW)
+
+    // Setting a value 
+    wdata = (wdata & (~ `MASK_STATUS_CS)) | (cs_value << `POS_STATUS_CS);
+    // Setting the required bits
+    //wdata = wdata | `MASK_STATUS_RD | `MASK_STATUS_WR; 
+    wdata = wdata | `MASK_STATUS_WR; 
+    wdata = wdata & (~`MASK_STATUS_RD); 
+    // Clearing the required bits
+    wdata = wdata & (~`MASK_STATUS_QRD) & (~`MASK_STATUS_QWR) & (~`MASK_STATUS_SRST);
+
+  end
+  // wdata = 32'h03; 
+  spi_master_reg_block.STATUS.write(.status(status), .value(wdata), .path(UVM_FRONTDOOR), 
+                                    .map(spi_reg_map), .parent(this));
+
+  `uvm_info(get_type_name(), $sformatf("Write :: Register = %0s Data = 32'h%0h",
+                                        spi_master_reg_block.STATUS.get_full_name(),
+                                        wdata), UVM_HIGH);                                   
+
+  // Reading into the register
+  spi_master_reg_block.STATUS.read(.status(status), .value(rdata), .path(UVM_FRONTDOOR), 
+                                   .map(spi_reg_map), .parent(this));
+
+  `uvm_info(get_type_name(), $sformatf("Read :: Register = %0s Data = 32'h%0h",
+                                        spi_master_reg_block.STATUS.get_full_name(),
+                                        rdata), UVM_HIGH);                                   
 
 //  `uvm_info("INTERUPT_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
 //  spi_master_reg_block.INTCFG.get_full_name(),wdata),UVM_HIGH)

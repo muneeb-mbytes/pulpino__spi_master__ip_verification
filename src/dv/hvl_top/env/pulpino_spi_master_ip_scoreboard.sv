@@ -91,6 +91,7 @@ task pulpino_spi_master_ip_scoreboard::run_phase(uvm_phase phase);
  
   forever begin
 
+  bit [96:0]spi_data;
   `uvm_info(get_type_name(),$sformatf("before calling master's analysis fifo get method"),UVM_HIGH)
   apb_master_analysis_fifo.get(apb_data);
   apb_master_tx_count++;
@@ -106,6 +107,11 @@ task pulpino_spi_master_ip_scoreboard::run_phase(uvm_phase phase);
   `uvm_info(get_type_name(),$sformatf("after calling slave's analysis fifo get method"),UVM_HIGH) 
   `uvm_info(get_type_name(),$sformatf("printing spi_slave_tx_h, \n %s",spi_slave_tx_h.sprint()),UVM_HIGH)
 
+
+  foreach(spi_slave_tx_h.master_out_slave_in[i]) begin
+    spi_data = {spi_data,spi_slave_tx_h.master_out_slave_in[i]};
+  end
+
    //-------------------------------------------------------
   //Data comparision for master
   //-------------------------------------------------------
@@ -115,7 +121,7 @@ task pulpino_spi_master_ip_scoreboard::run_phase(uvm_phase phase);
    //Verifying pwdata in master and slave 
    //foreach(spi_slave_tx_h.master_out_slave_in[i])
    //if(apb_master_tx_h.pwdata[i] == spi_slave_tx_h.master_out_slave_in[i]) begin
-   if(apb_data == spi_slave_tx_h.master_out_slave_in[0]) begin
+   if(apb_data == spi_data) begin
      `uvm_info(get_type_name(),$sformatf("apb_pwdata from apb_master and master_out_slave_in from spi_slave is equal"),UVM_HIGH);
      //`uvm_info("SB_PWDATA_MATCHED WITH MOSI0", $sformatf("Master PWDATA = 'h%0x and Slave
      //           master_out_slave_in['h%0x] = 'h%0x",apb_master_tx_h.pwdata,i,spi_slave_tx_h.master_out_slave_in[i]), UVM_HIGH); 

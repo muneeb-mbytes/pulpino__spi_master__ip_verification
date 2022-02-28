@@ -139,17 +139,28 @@ function void apb_master_collector::write(apb_master_tx t);
   if(rg.get_name == "SPICMD") begin : SPICMD
     
     bit [31:0]cmd_local;
+    int k;
 
-    j =  addr_len + mosi_data_len ;
+    j =  cmd_len + addr_len + mosi_data_len - 1;
 
     cmd_local = rg.get();
     `uvm_info(get_type_name(), $sformatf("cmd_local = %0h", cmd_local),UVM_HIGH)
 
     `uvm_info(get_type_name(), $sformatf("spi_len[5:0] = %0h", spi_length[5:0]),UVM_HIGH)
-    for(int i=0; i<spi_length[5:0]; i++) begin
-      cmd[i] = cmd_local[i];
-      data[j+i] = cmd_local[i];
+
+    foreach(cmd_local[i]) begin
+      if('d31 - spi_length[5:0] == i) begin
+        break;
+      end
+      else begin
+        cmd[i] = cmd_local[i];
+        //`uvm_info(get_type_name(), $sformatf("inside cmd_local[%0d] = %0h",i, cmd_local[i]),UVM_HIGH)
+        data[j-k] = cmd_local[i];
+        k=k+1;
+      end
     end
+        
+    `uvm_info(get_type_name(),$sformatf("final_data=%0h",data),UVM_HIGH)
 
     flag = flag + 1;
 
@@ -160,18 +171,29 @@ function void apb_master_collector::write(apb_master_tx t);
   if(rg.get_name == "SPIADR") begin : SPIADR
     
     bit [31:0]addr_local;
+    int k;
 
-    j =  mosi_data_len ;
+    j =  addr_len + mosi_data_len - 1 ;
 
     addr_local = rg.get();
     `uvm_info(get_type_name(), $sformatf("addr_local = %0h", addr_local),UVM_HIGH)
 
     `uvm_info(get_type_name(), $sformatf("spi_len[13:8] = %0h", spi_length[13:8]),UVM_HIGH)
-    for(int i=0; i<spi_length[13:8]; i++) begin
-      addr[i] = addr_local[i];
-      data[j+i] = addr_local[i];
+
+    foreach(addr_local[i]) begin
+      if('d31 - spi_length[13:8] == i) begin
+        break;
+      end
+      else begin
+        addr[i] = addr_local[i];
+        `uvm_info(get_type_name(), $sformatf("inside addr_local[%0d] = %0h",i, addr_local[i]),UVM_HIGH)
+        data[j-k] = addr_local[i];
+        k=k+1;
+      end
     end
-    //addr = rg.get();  
+    
+    `uvm_info(get_type_name(),$sformatf("final_data=%0h",data),UVM_HIGH)
+
     flag = flag + 1;
     `uvm_info(get_type_name(), $sformatf("addr_data = %0h", addr),UVM_HIGH)
   end
@@ -197,6 +219,7 @@ function void apb_master_collector::write(apb_master_tx t);
   if(flag == 'd3) begin
     `uvm_info(get_type_name(),$sformatf("final_data=%0h",data),UVM_HIGH)
     apb_master_coll_analysis_port.write(data);
+    flag = 0;
   end
 
   `uvm_info(get_type_name(),$sformatf("Req print = %0s",t.sprint()),UVM_HIGH)

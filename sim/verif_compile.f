@@ -11,6 +11,7 @@
 +incdir+../../src/dv/systemRDL/output
 ../../src/dv/globals/apb_master_global_pkg.sv
 ../../src/dv/globals/spi_slave_global_pkg.sv
+../../src/dv/globals/pulpino_spi_master_ip_global_pkg.sv
 ../../src/dv/hvl_top/apb_master_agent/apb_master_pkg.sv
 ../../src/dv/hvl_top/spi_slave_agent/spi_slave_pkg.sv
 ../../src/dv/systemRDL/output/spi_master_defines_pkg.svh

@@ -170,7 +170,7 @@ task spi_slave_driver_proxy::drive_to_bfm(inout spi_transfer_char_s packet, inpu
     `uvm_info("DEBUG_spi_slave_DRIVER_PROXY","MOSI AND MISO TRANSFER BITS SIZE IS SAME",UVM_HIGH)
   end
   else begin
-    `uvm_error("DEBUG_spi_slave_DRIVER_PROXY","MOSI AND MISO TRANSFER SIZE IS DIFFERENT")
+    `uvm_info("DEBUG_spi_slave_DRIVER_PROXY","MOSI AND MISO TRANSFER SIZE IS DIFFERENT",UVM_HIGH)
   end
 
 

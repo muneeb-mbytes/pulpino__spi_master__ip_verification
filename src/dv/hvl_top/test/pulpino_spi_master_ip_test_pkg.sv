@@ -57,7 +57,7 @@ package pulpino_spi_master_ip_test_pkg;
   //-------------------------------------------------------
   `include "apb_simple_reg_test.sv"
   
-  `include "pulpino_spi_master_ip_basic_write_mask_reg_test.sv"
+  `include "pulpino_spi_master_ip_basic_write_reg_test.sv"
   `include "pulpino_spi_master_ip_basic_write_read_reg_test.sv"
 
   `include "pulpino_spi_master_ip_std_mode_read_0_dummy_read_reg_test.sv"
@@ -79,6 +79,7 @@ package pulpino_spi_master_ip_test_pkg;
   `include "pulpino_spi_master_ip_std_mode_write_8_cmd_16_addr_32_data_length_reg_test.sv"
   `include "pulpino_spi_master_ip_std_mode_write_0_cmd_32_addr_32_data_length_reg_test.sv"
   `include "pulpino_spi_master_ip_std_mode_write_32_cmd_32_addr_32_data_length_reg_test.sv"
+  `include "pulpino_spi_master_ip_std_mode_write_even_clkdiv_reg_test.sv"
 
   `include "pulpino_spi_master_ip_std_mode_read_0_cmd_0_addr_16_data_length_reg_test.sv"
   `include "pulpino_spi_master_ip_std_mode_read_0_cmd_0_addr_32_data_length_reg_test.sv"
@@ -96,6 +97,8 @@ package pulpino_spi_master_ip_test_pkg;
   `include "pulpino_spi_master_ip_spi_modes_transfer_length_interupts_cross_reg_test.sv"
 
   `include "pulpino_spi_master_ip_rand_reg_test.sv"
+
+  `include "pulpino_spi_master_ip_negitive_reg_test.sv"
 
   endpackage : pulpino_spi_master_ip_test_pkg
 

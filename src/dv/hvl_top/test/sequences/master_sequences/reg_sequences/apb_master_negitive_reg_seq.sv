@@ -1,28 +1,28 @@
-`ifndef APB_MASTER_BASIC_WRITE_MASK_REG_SEQ_INCLUDE_
-`define APB_MASTER_BASIC_WRITE_MASK_REG_SEQ_INCLUDE_
+`ifndef APB_MASTER_NEGITIVE_REG_SEQ_INCLUDE_
+`define APB_MASTER_NEGITIVE_REG_SEQ_INCLUDE_
 
 //--------------------------------------------------------------------------------------------
-// Class: apb_master_basic_write_mask_reg_seq
+// Class: apb_master_negitive_reg_seq
 // Extends the apb_master_base_seq and randomises the req item
 //--------------------------------------------------------------------------------------------
-class apb_master_basic_write_mask_reg_seq extends apb_master_base_reg_seq;
-  `uvm_object_utils(apb_master_basic_write_mask_reg_seq)
+class apb_master_negitive_reg_seq extends apb_master_base_reg_seq;
+  `uvm_object_utils(apb_master_negitive_reg_seq)
 
     
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
-  extern function new(string name ="apb_master_basic_write_mask_reg_seq");
+  extern function new(string name ="apb_master_negitive_reg_seq");
   extern task body();
-  endclass : apb_master_basic_write_mask_reg_seq
+  endclass : apb_master_negitive_reg_seq
 
 //--------------------------------------------------------------------------------------------
 // Construct: new
 //
 // Parameters:
-//  name - apb_master_basic_write_mask_reg_seq
+//  name - apb_master_negitive_reg_seq
 //--------------------------------------------------------------------------------------------
-function apb_master_basic_write_mask_reg_seq::new(string name="apb_master_basic_write_mask_reg_seq");
+function apb_master_negitive_reg_seq::new(string name="apb_master_negitive_reg_seq");
   super.new(name);
 endfunction : new
 
@@ -30,7 +30,7 @@ endfunction : new
 // Task : body
 // Creates the req of type master transaction and randomises the req.
 //--------------------------------------------------------------------------------------------
-task apb_master_basic_write_mask_reg_seq::body();
+task apb_master_negitive_reg_seq::body();
  // super.body();
   spi_master_apb_if spi_master_reg_block;
   uvm_reg_map spi_reg_map;
@@ -53,8 +53,8 @@ task apb_master_basic_write_mask_reg_seq::body();
     bit [5:0] cmd_length;
     bit [5:0] addr_length;
     bit [15:0] data_length;
-    cmd_length  = 6'h08;
-    addr_length = 6'h08;
+    cmd_length  = 6'h40;
+    addr_length = 6'h40;
     data_length = 16'h20;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
@@ -159,12 +159,6 @@ task apb_master_basic_write_mask_reg_seq::body();
 //
 //  `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
 //  spi_master_reg_block.CLKDIV.get_full_name(),rdata),UVM_HIGH)
-
-
-  
-
- 
-
 
   //-------------------------------------------------------
   // SPIADDR
@@ -354,9 +348,9 @@ task apb_master_basic_write_mask_reg_seq::body();
     // Setting a value 
     wdata = (wdata & (~ `MASK_STATUS_CS)) | (cs_value << `POS_STATUS_CS);
     // Setting the required bits
-    wdata = wdata | `MASK_STATUS_WR; 
+    wdata = wdata | `MASK_STATUS_WR | `MASK_STATUS_QWR ; 
     // Clearing the required bits
-    wdata = wdata & (~`MASK_STATUS_QRD) & (~`MASK_STATUS_QWR) & (~`MASK_STATUS_RD) & (~ `MASK_STATUS_SRST);
+    wdata = wdata & (~`MASK_STATUS_QRD) & (~`MASK_STATUS_RD) & (~ `MASK_STATUS_SRST);
   end
 
   spi_master_reg_block.STATUS.write(.status(status)      ,
@@ -379,6 +373,39 @@ task apb_master_basic_write_mask_reg_seq::body();
 //
 //  `uvm_info("STATUS_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
 //  spi_master_reg_block.STATUS.get_full_name(),rdata),UVM_HIGH)
+
+  //-------------------------------------------------------
+  // CLKDIV Register                                        
+  //-------------------------------------------------------
+  begin
+    bit [7:0] clkdiv_value;
+    clkdiv_value = 8'd5;
+    wdata = 0;
+    wdata = (wdata & (~ `MASK_CLKDIV_CLKDIV)) | (clkdiv_value << `POS_CLKDIV_CLKDIV);
+  end
+
+  //Writing into the Clockdiv Register
+  spi_master_reg_block.CLKDIV.write(.status(status)      ,
+                                    .value(wdata)        ,
+                                    .path(UVM_FRONTDOOR) ,
+                                    .map(spi_reg_map)    ,
+                                    .parent(this)
+                                  );                     
+
+  `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
+  spi_master_reg_block.CLKDIV.get_full_name(),wdata),UVM_HIGH)
+
+//  // Reading from the Clockdiv Register
+//  spi_master_reg_block.CLKDIV.read(.status(status)       ,
+//                                    .value(rdata)        ,
+//                                    .path(UVM_FRONTDOOR) ,
+//                                    .map(spi_reg_map)    ,
+//                                    .parent(this)
+//                                  );                     
+//
+//  `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
+//  spi_master_reg_block.CLKDIV.get_full_name(),rdata),UVM_HIGH)
+
 
 endtask : body
 

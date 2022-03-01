@@ -54,7 +54,7 @@ task pulpino_spi_master_ip_virtual_std_mode_write_thtx_rhtx_cnttx_cntrx_value_4_
       `uvm_info("slave_vseq",$sformatf("started slave vseq"),UVM_HIGH)
       write_key.get(1);
       spi_fd_basic_slave_seq_h.start(p_sequencer.spi_slave_seqr_h);
-      write_key.get(1);
+      write_key.put(1);
       `uvm_info("slave_vseq",$sformatf("ended slave vseq"),UVM_HIGH)
     end
   join_none
@@ -64,7 +64,7 @@ task pulpino_spi_master_ip_virtual_std_mode_write_thtx_rhtx_cnttx_cntrx_value_4_
     `uvm_info("master_vseq",$sformatf("started master vseq"),UVM_HIGH)
     write_key.get(1);
     apb_master_std_mode_write_thtx_rhtx_cnttx_cntrx_value_4_seq_h.start(p_sequencer.apb_master_seqr_h);
-    write_key.get(1);
+    write_key.put(1);
     `uvm_info("master_vseq",$sformatf("ended master vseq"),UVM_HIGH)
   end
 

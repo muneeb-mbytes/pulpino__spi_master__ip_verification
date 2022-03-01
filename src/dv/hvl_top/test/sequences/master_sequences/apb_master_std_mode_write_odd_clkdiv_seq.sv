@@ -88,7 +88,7 @@ task apb_master_std_mode_write_odd_clkdiv_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2010;
-                            req.pwdata == 32'hffff_1f1f;  
+                            req.pwdata == 32'h0010_1010;
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 0;
                             req.pwrite == WRITE;}) begin : SPILEN

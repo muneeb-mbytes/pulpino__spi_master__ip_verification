@@ -154,7 +154,7 @@ task apb_master_std_mode_write_16_cmd_16_addr_16_data_length_reg_seq::body();
     bit [5:0] cmd_length;
     bit [5:0] addr_length;
     bit [15:0] data_length;
-    cmd_length  = 16'h10; //32 
+    cmd_length  = 16'h10; 
     addr_length = 16'h10;
     data_length = 16'h10;
 

@@ -19,7 +19,6 @@ pulpino_spi_master_ip_std_mode_write_thtx_rhtx_cnttx_cntrx_value_4_test
 #Register Access testcases
 
 apb_simple_reg_test 
-pulpino_spi_master_ip_basic_write_mask_reg_test 
 pulpino_spi_master_ip_basic_write_read_reg_test 
 pulpino_spi_master_ip_basic_write_reg_test 
 pulpino_spi_master_ip_rand_reg_test 

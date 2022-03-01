@@ -15,6 +15,7 @@
 ../../src/dv/hvl_top/env/pulpino_spi_master_ip_env_pkg.sv
 ../../src/dv/hvl_top/test/virtual_sequences/pulpino_spi_master_ip_virtual_seq_pkg.sv
 ../../src/dv/hvl_top/test/pulpino_spi_master_ip_base_test_pkg.sv
+../../src/dv/hdl_top/assertions/fifo_assertions.sv
 ../../src/dv/hdl_top/apb_if/apb_if.sv
 ../../src/dv/hdl_top/spi_if/spi_if.sv
 ../../src/dv/hdl_top/apb_master_agent_bfm/apb_master_agent_bfm.sv

@@ -45,23 +45,12 @@ task apb_master_basic_read_seq::body();
   req=apb_master_tx::type_id::create("req");
   req.apb_master_agent_cfg_h = p_sequencer.apb_master_agent_cfg_h;
 
-  start_item(req);
-  if(!req.randomize() with {req.pselx == SLAVE_0;
-                            req.paddr == 32'h1A10_2000;
-                            req.pwdata == 32'h0000_0101;  
-                            req.transfer_size == BIT_32;
-                            req.cont_write_read == 1;
-                            req.pwrite == WRITE;}) begin : STATUS_REG
-    `uvm_fatal("APB","Rand failed");
-  end
-  `uvm_info(status_reg,$sformatf("status_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
-  finish_item(req);
-
+ 
 
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2004;
-                            req.pwdata == 32'h0000_0000;  
+                            req.pwdata == 32'h0000_0001;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 1;
                             req.pwrite == WRITE;}) begin : CLOCK_DIV
@@ -74,7 +63,7 @@ task apb_master_basic_read_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2008;
-                            req.pwdata == 32'hffff_ffff;  
+                            req.pwdata == 32'habcd_1234;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 1;
                             req.pwrite == WRITE;}) begin : SPICMD
@@ -87,7 +76,7 @@ task apb_master_basic_read_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_200c;
-                            req.pwdata == 32'hffff_ffff;  
+                            req.pwdata == 32'hdeef_fa10;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 1;
                             req.pwrite == WRITE;}) begin : SPIADDR
@@ -100,7 +89,7 @@ task apb_master_basic_read_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2010;
-                            req.pwdata == 32'hffff_1f1f;  
+                            req.pwdata == 32'h0020_0808;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 1;
                             req.pwrite == WRITE;}) begin : SPILEN
@@ -126,7 +115,7 @@ task apb_master_basic_read_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2018;
-                            req.pwdata == 32'hffff_ffff;  
+                            req.pwdata == 32'haad1_ffff;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 1;
                             req.pwrite == WRITE;}) begin : TXFIFO
@@ -139,10 +128,10 @@ task apb_master_basic_read_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2020;
-                            req.pwdata == 32'hffff_ffff;  
+                            //req.pwdata == 32'hffff_ffff;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 1;
-                            req.pwrite == WRITE;}) begin : RXFIFO
+                            req.pwrite == READ;}) begin : RXFIFO
     `uvm_fatal("APB","Rand failed");
   end
   `uvm_info(rx_fifo,$sformatf("rx_fifo_reg_seq= \n %0p",req.sprint()),UVM_MEDIUM)
@@ -159,6 +148,18 @@ task apb_master_basic_read_seq::body();
     `uvm_fatal("APB","Rand failed");
   end
   `uvm_info(interupt_reg,$sformatf("interupt_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
+  finish_item(req);
+
+  start_item(req);
+  if(!req.randomize() with {req.pselx == SLAVE_0;
+                            req.paddr == 32'h1A10_2000;
+                            req.pwdata == 32'h0000_0101;  
+                            req.transfer_size == BIT_32;
+                            req.cont_write_read == 1;
+                            req.pwrite == WRITE;}) begin : STATUS_REG
+    `uvm_fatal("APB","Rand failed");
+  end
+  `uvm_info(status_reg,$sformatf("status_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
 endtask : body

@@ -133,16 +133,22 @@ interface spi_slave_driver_bfm(input pclk, input areset,
           // Driving MISO at posedge of sclk for CPOL=1 and CPHA=1
           miso0 <= data_packet.master_in_slave_out[row_no][bit_no];
           data_packet.no_of_miso_bits_transfer++;
+          `uvm_info("DEBUG MISO0 spi_slave_driver_bfm",$sformatf("miso=\n %0p",miso0),UVM_HIGH)
+          `uvm_info("DEBUG MISO TRANSFER COUNT spi_slave_driver_bfm",$sformatf("miso count=\n %0d",
+          data_packet.no_of_miso_bits_transfer),UVM_HIGH)
 
           detect_sclk();
           if(end_of_transfer) break; 
 
           // Sampling MOSI at posedge of sclk for CPOL=0 and CPHA=1  OR
           // Sampling MOSI at negedge of sclk for CPOL=1 and CPHA=1
-          detect_sclk();
-          if(end_of_transfer) break; 
           data_packet.master_out_slave_in[row_no][bit_no] = mosi0;
           data_packet.no_of_mosi_bits_transfer++;
+          `uvm_info("DEBUG MOSI spi_slave_driver_bfm",$sformatf("mosi=\n %0p",mosi0),UVM_HIGH)
+          `uvm_info("DEBUG MOSI TRANSFER COUNT spi_slave_driver_bfm",$sformatf("mosi count=\n %0d",
+          data_packet.no_of_mosi_bits_transfer),UVM_HIGH)
+          detect_sclk();
+          if(end_of_transfer) break; 
         
         end
 

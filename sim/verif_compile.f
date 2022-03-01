@@ -1,6 +1,6 @@
 +incdir+../../src/dv/hvl_top/test/sequences/master_sequences/
 +incdir+../../src/dv/hvl_top/test/sequences/slave_sequences/
-+incdir+../../src/dv/hvl_top/test/reg_sequences/
++incdir+../../src/dv/hvl_top/test/sequences/master_sequences/reg_sequences/
 +incdir+../../src/dv/hvl_top/test/virtual_sequences/
 +incdir+../../src/dv/hvl_top/apb_master_agent/
 +incdir+../../src/dv/hvl_top/spi_slave_agent/
@@ -16,7 +16,7 @@
 ../../src/dv/hvl_top/spi_slave_agent/spi_slave_pkg.sv
 ../../src/dv/systemRDL/output/spi_master_defines_pkg.svh
 ../../src/dv/systemRDL/output/spi_master_uvm_pkg.sv
-../../src/dv/hvl_top/test/reg_sequences/apb_reg_seq_pkg.sv
+../../src/dv/hvl_top/test/sequences/master_sequences/reg_sequences/apb_reg_seq_pkg.sv
 ../../src/dv/hvl_top/test/sequences/master_sequences/apb_master_seq_pkg.sv
 ../../src/dv/hvl_top/test/sequences/slave_sequences/spi_slave_seq_pkg.sv
 ../../src/dv/hvl_top/env/pulpino_spi_master_ip_env_pkg.sv

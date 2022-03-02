@@ -124,7 +124,6 @@ simulate:
 	vsim -vopt \
 	work.hvl_top \
 	work.hdl_top \
-	work.apb_spi_master \
 	-voptargs=+acc=npr \
 	-assertdebug \
 	+UVM_TESTNAME=$(test) \

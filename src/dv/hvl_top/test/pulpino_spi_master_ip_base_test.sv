@@ -93,7 +93,7 @@ function void pulpino_spi_master_ip_base_test::setup_pulpino_spi_master_ip_env_c
     spi_master_reg_block.build();
 
     // Enables sampling of coverage
-    spi_master_reg_block.set_coverage(UVM_CVR_ALL);
+    void'(spi_master_reg_block.set_coverage(UVM_CVR_ALL));
 
     spi_master_reg_block.lock_model();
   end
@@ -151,8 +151,8 @@ function void pulpino_spi_master_ip_base_test::setup_spi_slave_agent_config();
     pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i] = spi_slave_agent_config::type_id::create($sformatf("slave_agent_config[%0d]",i));
     pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].slave_id     = i;
     pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].is_active    = uvm_active_passive_enum'(UVM_ACTIVE);
-    pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].spi_mode     = operation_modes_e'(CPOL0_CPHA0);
-    pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].shift_dir    = shift_direction_e'(LSB_FIRST);
+    pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].spi_mode     = operation_modes_e'(CPOL0_CPHA1);
+    pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].shift_dir    = shift_direction_e'(MSB_FIRST);
     pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].has_coverage = 1;
     pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].spi_type     = SIMPLE_SPI;
 

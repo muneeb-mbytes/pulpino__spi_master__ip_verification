@@ -114,8 +114,8 @@ module hdl_top;
   bind spi_master_fifo fifo_assertions MAS_FIFO_ASSERT ( .clk_i(clk_i        ),
                                                         .rst_ni(rst_ni      ),
                                                         .clr_i(clr_i        ),
-                                                        .elements(elements  )
-                                                      );  
+                                                        .elements_o(elements_o )
+                                                        );  
 
   //-------------------------------------------------------
   // spi slave agent bfm Instantiation

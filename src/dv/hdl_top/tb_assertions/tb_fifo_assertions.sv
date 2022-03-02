@@ -72,7 +72,7 @@ module tb_fifo_assertions;
   fifo_assertions F_A (.clk_i(clk_i),
                        .rst_ni(rst_ni),
                        .clr_i(clr_i),
-                       .elements(elements)
+                       .elements_o(elements_o)
                       );  
 
 endmodule : tb_fifo_assertions

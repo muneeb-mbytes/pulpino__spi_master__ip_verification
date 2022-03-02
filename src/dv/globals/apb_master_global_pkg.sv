@@ -43,7 +43,7 @@ package apb_master_global_pkg;
   parameter int MEMORY_WIDTH = 8;
 
  //Parameter : buffer 
- parameter LOG_BUFFER_DEPTH = `log2(2);
+ parameter LOG_BUFFER_DEPTH = `log2(10);
 
   //-------------------------------------------------------
   // Enum : transfer_size_e

@@ -157,7 +157,7 @@ function void pulpino_spi_master_ip_env::connect_phase(uvm_phase phase);
   apb_master_agent_h.apb_master_mon_proxy_h.apb_master_analysis_port.connect( apb_reg_predictor_h.bus_in );
   
   apb_master_coll_h.map = pulpino_spi_master_ip_env_config_h.spi_master_reg_block.default_map;
-  spi_slave_coll_h.map = pulpino_spi_master_ip_env_config_h.spi_master_reg_block.default_map;
+  //spi_slave_coll_h.map = pulpino_spi_master_ip_env_config_h.spi_master_reg_block.default_map;
   
   endfunction : connect_phase
 

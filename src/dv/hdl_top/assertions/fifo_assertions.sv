@@ -34,7 +34,7 @@ interface fifo_assertions  (input clk_i,
   property software_reset_check;
      @(posedge clk_i) 
       
-     (rst_ni ==1 || clr_i ==1) |=> (elements_o==0);
+     (rst_ni ==1 && clr_i ==1) |=> (elements_o==0);
   endproperty : software_reset_check
   assert property(software_reset_check);
   

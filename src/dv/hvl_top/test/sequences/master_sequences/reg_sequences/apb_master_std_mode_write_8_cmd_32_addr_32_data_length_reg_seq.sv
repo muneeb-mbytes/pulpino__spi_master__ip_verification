@@ -205,7 +205,7 @@ task apb_master_std_mode_write_8_cmd_32_addr_32_data_length_reg_seq::body();
     bit [15:0] dummy_wr;
     bit [15:0] dummy_rd;
 
-    dummy_wr = 16'h0001;
+    dummy_wr = 16'h0008;
     dummy_rd = 16'h0000;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register dummy_wr  = %0h",dummy_wr) , UVM_LOW)
@@ -216,7 +216,8 @@ task apb_master_std_mode_write_8_cmd_32_addr_32_data_length_reg_seq::body();
 
     //setting the required feilds
     //wdata = wdata | (dummy_wr << `POS_SPIDUM_DUMMYWR);
-    wdata = 0;
+    wdata = {dummy_wr,dummy_rd};
+    `uvm_info(get_type_name(), $sformatf("Write :: DUMMY_WDATA = %0h",wdata)  , UVM_LOW)
 
   end
 

@@ -17,7 +17,7 @@ package pulpino_spi_master_ip_global_pkg;
     bit [15:0]dummy_wr_data;
     bit [31:0]mosi_data;
     bit [2:0]flag;
-    bit [96:0]data;
+    bit [150:0]data;
     int j;
   }collector_packet_s;
 

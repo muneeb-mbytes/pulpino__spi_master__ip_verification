@@ -144,7 +144,6 @@ function void apb_master_collector::write(apb_master_tx t);
     
     bit [31:0]dummy_local;
     bit [15:0]dummy_wr_local;
-    bit [150:0]data_local;
 
     coll_pkt.j =  coll_pkt.mosi_data_len - 'd1 ;
 
@@ -156,8 +155,8 @@ function void apb_master_collector::write(apb_master_tx t);
     `uvm_info(get_type_name(), $sformatf("dummy_wr_local = %h", dummy_wr_local),UVM_HIGH)
     `uvm_info(get_type_name(), $sformatf("dummy_local = %h", dummy_local),UVM_HIGH)
     
-    data_local = coll_pkt.data << coll_pkt.dummy_wr_data;
-    coll_pkt.data = data_local;
+    coll_pkt.data = coll_pkt.data << coll_pkt.dummy_wr_data;
+
     `uvm_info(get_type_name(),$sformatf("Inside DUMMY_WR--shifted_data=%h",coll_pkt.data),UVM_HIGH)
     
     `uvm_info(get_type_name(),$sformatf("Inside DUMMY_WR--final_data=%0h",coll_pkt.data),UVM_HIGH)
@@ -181,22 +180,11 @@ function void apb_master_collector::write(apb_master_tx t);
     `uvm_info(get_type_name(), $sformatf("mosi_data_local = %0h", mosi_data_local),UVM_HIGH)
 
     `uvm_info(get_type_name(), $sformatf("spi_len[16:31] = %0h", coll_pkt.spi_length[31:16]),UVM_HIGH)
+
     //for(int i=0; i<coll_pkt.spi_length[31:16]; i++) begin
     foreach(mosi_data_local[i]) begin
-      //if('d31 - coll_pkt.spi_length[31:16] == i) begin
-      //  break;
-      //end
-      //else begin
-      //  coll_pkt.mosi_data[i] = mosi_data_local[i];
-      //  if(k != 0) begin
-      //    coll_pkt.data[coll_pkt.j+i] = 0;
-      //    k--;
-      //  end
-      //  else begin
-          coll_pkt.data[coll_pkt.j+i] = mosi_data_local[i];
-      //  end
-      end
-    //end
+      coll_pkt.data[coll_pkt.j+i] = mosi_data_local[i];
+    end
     coll_pkt.flag = coll_pkt.flag + 1;
     `uvm_info(get_type_name(), $sformatf("mosi_data = %0h", coll_pkt.mosi_data),UVM_HIGH)
     `uvm_info(get_type_name(),$sformatf("Inside TX_FIFO -final_data=%0h",coll_pkt.data),UVM_HIGH)

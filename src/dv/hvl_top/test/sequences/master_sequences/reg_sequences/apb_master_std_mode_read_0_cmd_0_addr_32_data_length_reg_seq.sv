@@ -1,5 +1,5 @@
-`ifndef APB_MASTER_STD_MODE_READ_0_CMD_0_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDE_
-`define APB_MASTER_STD_MODE_READ_0_CMD_0_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDE_
+`ifndef APB_MASTER_STD_MODE_READ_0_CMD_0_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDED_
+`define APB_MASTER_STD_MODE_READ_0_CMD_0_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: apb_master_std_mode_read_0_cmd_0_addr_32_data_length_reg_seq
@@ -77,6 +77,57 @@ task apb_master_std_mode_read_0_cmd_0_addr_32_data_length_reg_seq::body();
 //  `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
 //  spi_master_reg_block.CLKDIV.get_full_name(),rdata),UVM_HIGH)
 
+  //-------------------------------------------------------
+  // SPI LEN Register                                        
+  //-------------------------------------------------------
+
+  // Writing into the register
+  begin
+
+    bit [5:0] cmd_length;
+    bit [5:0] addr_length;
+    bit [15:0] data_length;
+    cmd_length  = 6'h0;  
+    addr_length = 6'h0;
+    data_length = 16'h20;
+
+    `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
+    `uvm_info(get_type_name(), $sformatf("Write :: Register addr_length = %0h",addr_length), UVM_LOW)
+    `uvm_info(get_type_name(), $sformatf("Write :: Register data_length = %0h",data_length), UVM_LOW)
+
+    // Clearing and writing the required feilds
+    wdata = (wdata & (~`MASK_SPILEN_DATALEN)) | (data_length << `POS_SPILEN_DATALEN) ;
+    wdata = (wdata & (~`MASK_SPILEN_ADDRLEN)) | (addr_length << `POS_SPILEN_ADDRLEN);
+    wdata = (wdata & (~`MASK_SPILEN_CMDLEN))  | (cmd_length << `POS_SPILEN_CMDLEN)  ;
+
+    //setting the required feilds
+    //wdata = wdata | (data_length << `POS_SPILEN_CMDLEN) | (addr_length << `POS_SPILEN_ADDRLEN) |
+    //(cmd_length << `POS_SPILEN_CMDLEN);
+
+  end
+
+  //Writing into the SPI_LEN Register
+  spi_master_reg_block.SPILEN.write(.status(status)      ,
+                                    .value(wdata)        ,
+                                    .path(UVM_FRONTDOOR) ,
+                                    .map(spi_reg_map)    ,
+                                    .parent(this)
+                                  );                     
+
+  `uvm_info("SPI_LEN_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
+  spi_master_reg_block.SPILEN.get_full_name(),wdata),UVM_HIGH)
+
+//  // Reading from the SPI_LEN Register
+//  spi_master_reg_block.SPILEN.read(.status(status)       ,
+//                                    .value(rdata)        ,
+//                                    .path(UVM_FRONTDOOR) ,
+//                                    .map(spi_reg_map)    ,
+//                                    .parent(this)
+//                                  );                     
+//
+//  `uvm_info("SPI_LEN_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
+//  spi_master_reg_block.SPILEN.get_full_name(),rdata),UVM_HIGH)
+
 
   //-------------------------------------------------------
   // SPICMD
@@ -145,57 +196,7 @@ task apb_master_std_mode_read_0_cmd_0_addr_32_data_length_reg_seq::body();
 //  spi_master_reg_block.SPIADR.get_full_name(),rdata),UVM_HIGH)
 
 
-  //-------------------------------------------------------
-  // SPI LEN Register                                        
-  //-------------------------------------------------------
-
-  // Writing into the register
-  begin
-
-    bit [5:0] cmd_length;
-    bit [5:0] addr_length;
-    bit [15:0] data_length;
-    cmd_length  = 6'h0;  //16
-    addr_length = 6'h0;
-    data_length = 16'h20;
-
-    `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
-    `uvm_info(get_type_name(), $sformatf("Write :: Register addr_length = %0h",addr_length), UVM_LOW)
-    `uvm_info(get_type_name(), $sformatf("Write :: Register data_length = %0h",data_length), UVM_LOW)
-
-    // Clearing and writing the required feilds
-    wdata = (wdata & (~`MASK_SPILEN_DATALEN)) | (data_length << `POS_SPILEN_DATALEN) ;
-    wdata = (wdata & (~`MASK_SPILEN_ADDRLEN)) | (addr_length << `POS_SPILEN_ADDRLEN);
-    wdata = (wdata & (~`MASK_SPILEN_CMDLEN))  | (cmd_length << `POS_SPILEN_CMDLEN)  ;
-
-    //setting the required feilds
-    //wdata = wdata | (data_length << `POS_SPILEN_CMDLEN) | (addr_length << `POS_SPILEN_ADDRLEN) |
-    //(cmd_length << `POS_SPILEN_CMDLEN);
-
-  end
-
-  //Writing into the SPI_LEN Register
-  spi_master_reg_block.SPILEN.write(.status(status)      ,
-                                    .value(wdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
-
-  `uvm_info("SPI_LEN_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
-  spi_master_reg_block.SPILEN.get_full_name(),wdata),UVM_HIGH)
-
-//  // Reading from the SPI_LEN Register
-//  spi_master_reg_block.SPILEN.read(.status(status)       ,
-//                                    .value(rdata)        ,
-//                                    .path(UVM_FRONTDOOR) ,
-//                                    .map(spi_reg_map)    ,
-//                                    .parent(this)
-//                                  );                     
-//
-//  `uvm_info("SPI_LEN_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
-//  spi_master_reg_block.SPILEN.get_full_name(),rdata),UVM_HIGH)
-
+  
  //-------------------------------------------------------
  // DUMMY REGISTER
  //-------------------------------------------------------
@@ -245,18 +246,18 @@ task apb_master_std_mode_read_0_cmd_0_addr_32_data_length_reg_seq::body();
   //-------------------------------------------------------
   // TX FIFO
   //-------------------------------------------------------
- //  begin
+   begin
 
- //   bit [31:0] tx_fifo;
+    bit [31:0] tx_fifo;
 
- //   tx_fifo = 32'hffff_f01a;
+    tx_fifo = 32'hffff_f01a;
 
- //   `uvm_info(get_type_name(), $sformatf("Write :: Register tx_fifo = %0h",tx_fifo) , UVM_LOW)
+    `uvm_info(get_type_name(), $sformatf("Write :: Register tx_fifo = %0h",tx_fifo) , UVM_LOW)
 
- //   // Clearing the required bits
- //   wdata = (wdata & (~`MASK_TXFIFO_TX)) | (tx_fifo << `POS_TXFIFO_TX) ;
- // 
- // end
+    // Clearing the required bits
+    wdata = (wdata & (~`MASK_TXFIFO_TX)) | (tx_fifo << `POS_TXFIFO_TX) ;
+  
+  end
 
  // //Writing into the TX FIFO
   spi_master_reg_block.TXFIFO.write(.status(status)      ,

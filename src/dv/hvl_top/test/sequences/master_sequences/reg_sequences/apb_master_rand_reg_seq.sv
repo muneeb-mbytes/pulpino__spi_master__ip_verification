@@ -1,5 +1,5 @@
-`ifndef APB_MASTER_RAND_REG_SEQ_INCLUDE_
-`define APB_MASTER_RAND_REG_SEQ_INCLUDE_
+`ifndef APB_MASTER_RAND_REG_SEQ_INCLUDED_
+`define APB_MASTER_RAND_REG_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: apb_master_rand_reg_seq
@@ -44,7 +44,6 @@ task apb_master_rand_reg_seq::body();
   spi_reg_map = spi_master_reg_block.get_map_by_name("SPI_MASTER_MAP_ABP_IF");
 
    
-
   //-------------------------------------------------------
   // CLKDIV Register                                        
   //-------------------------------------------------------
@@ -81,6 +80,63 @@ task apb_master_rand_reg_seq::body();
 //
 //  `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
 //  spi_master_reg_block.CLKDIV.get_full_name(),rdata),UVM_HIGH)
+
+  //-------------------------------------------------------
+  // SPI LEN Register                                        
+  //-------------------------------------------------------
+
+  // Writing into the register
+  begin
+
+    bit [5:0] cmd_length;
+    bit [5:0] addr_length;
+    bit [15:0] data_length;
+    cmd_length  = 6'h1f;
+    addr_length = 6'h1f;
+    data_length = 16'hffff;
+
+   // wdata  = $urandom();
+    wdata = spi_master_reg_block.SPILEN.randomize();
+    spi_master_reg_block.SPILEN.update(status);
+
+    //wdata = spi_master_reg_block.randomize();
+    `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
+    `uvm_info(get_type_name(), $sformatf("Write :: Register addr_length = %0h",addr_length), UVM_LOW)
+    `uvm_info(get_type_name(), $sformatf("Write :: Register data_length = %0h",data_length), UVM_LOW)
+
+    // Clearing and writing the required feilds
+    //wdata = (wdata & (~`MASK_SPILEN_DATALEN)) | (data_length << `POS_SPILEN_DATALEN) ;
+    //wdata = (wdata & (~`MASK_SPILEN_ADDRLEN)) | (addr_length << `POS_SPILEN_ADDRLEN);
+    //wdata = (wdata & (~`MASK_SPILEN_CMDLEN))  | (cmd_length << `POS_SPILEN_CMDLEN)  ;
+
+    //setting the required feilds
+    //wdata = wdata | (data_length << `POS_SPILEN_CMDLEN) | (addr_length << `POS_SPILEN_ADDRLEN) |
+    //(cmd_length << `POS_SPILEN_CMDLEN);
+
+  end
+
+  //Writing into the SPI_LEN Register
+//  spi_master_reg_block.SPILEN.write(.status(status)      ,
+//                                    .value(wdata)        ,
+//                                    .path(UVM_FRONTDOOR) ,
+//                                    .map(spi_reg_map)    ,
+//                                    .parent(this)
+//                                  );                     
+
+  `uvm_info("SPI_LEN_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
+  spi_master_reg_block.SPILEN.get_full_name(),wdata),UVM_HIGH)
+
+//  // Reading from the SPI_LEN Register
+//  spi_master_reg_block.SPILEN.read(.status(status)       ,
+//                                    .value(rdata)        ,
+//                                    .path(UVM_FRONTDOOR) ,
+//                                    .map(spi_reg_map)    ,
+//                                    .parent(this)
+//                                  );                     
+//
+//  `uvm_info("SPI_LEN_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
+//  spi_master_reg_block.SPILEN.get_full_name(),rdata),UVM_HIGH)
+
 
 
   //-------------------------------------------------------
@@ -161,62 +217,6 @@ task apb_master_rand_reg_seq::body();
 
 
   //-------------------------------------------------------
-  // SPI LEN Register                                        
-  //-------------------------------------------------------
-
-  // Writing into the register
-  begin
-
-    bit [5:0] cmd_length;
-    bit [5:0] addr_length;
-    bit [15:0] data_length;
-    cmd_length  = 6'h1f;
-    addr_length = 6'h1f;
-    data_length = 16'hffff;
-
-   // wdata  = $urandom();
-    wdata = spi_master_reg_block.SPILEN.randomize();
-    spi_master_reg_block.SPILEN.update(status);
-
-    //wdata = spi_master_reg_block.randomize();
-    `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
-    `uvm_info(get_type_name(), $sformatf("Write :: Register addr_length = %0h",addr_length), UVM_LOW)
-    `uvm_info(get_type_name(), $sformatf("Write :: Register data_length = %0h",data_length), UVM_LOW)
-
-    // Clearing and writing the required feilds
-    //wdata = (wdata & (~`MASK_SPILEN_DATALEN)) | (data_length << `POS_SPILEN_DATALEN) ;
-    //wdata = (wdata & (~`MASK_SPILEN_ADDRLEN)) | (addr_length << `POS_SPILEN_ADDRLEN);
-    //wdata = (wdata & (~`MASK_SPILEN_CMDLEN))  | (cmd_length << `POS_SPILEN_CMDLEN)  ;
-
-    //setting the required feilds
-    //wdata = wdata | (data_length << `POS_SPILEN_CMDLEN) | (addr_length << `POS_SPILEN_ADDRLEN) |
-    //(cmd_length << `POS_SPILEN_CMDLEN);
-
-  end
-
-  //Writing into the SPI_LEN Register
-//  spi_master_reg_block.SPILEN.write(.status(status)      ,
-//                                    .value(wdata)        ,
-//                                    .path(UVM_FRONTDOOR) ,
-//                                    .map(spi_reg_map)    ,
-//                                    .parent(this)
-//                                  );                     
-
-  `uvm_info("SPI_LEN_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
-  spi_master_reg_block.SPILEN.get_full_name(),wdata),UVM_HIGH)
-
-//  // Reading from the SPI_LEN Register
-//  spi_master_reg_block.SPILEN.read(.status(status)       ,
-//                                    .value(rdata)        ,
-//                                    .path(UVM_FRONTDOOR) ,
-//                                    .map(spi_reg_map)    ,
-//                                    .parent(this)
-//                                  );                     
-//
-//  `uvm_info("SPI_LEN_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
-//  spi_master_reg_block.SPILEN.get_full_name(),rdata),UVM_HIGH)
-
- //-------------------------------------------------------
  // DUMMY REGISTER
  //-------------------------------------------------------
  //

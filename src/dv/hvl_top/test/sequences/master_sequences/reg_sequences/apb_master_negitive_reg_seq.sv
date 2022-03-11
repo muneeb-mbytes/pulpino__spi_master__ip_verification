@@ -95,6 +95,38 @@ task apb_master_negitive_reg_seq::body();
 //  spi_master_reg_block.SPILEN.get_full_name(),rdata),UVM_HIGH)
 
   //-------------------------------------------------------
+  // CLKDIV Register                                        
+  //-------------------------------------------------------
+  begin
+    bit [7:0] clkdiv_value;
+    clkdiv_value = 8'd1;
+    wdata = 0;
+    wdata = (wdata & (~ `MASK_CLKDIV_CLKDIV)) | (clkdiv_value << `POS_CLKDIV_CLKDIV);
+  end
+
+  //Writing into the Clockdiv Register
+  spi_master_reg_block.CLKDIV.write(.status(status)      ,
+                                    .value(wdata)        ,
+                                    .path(UVM_FRONTDOOR) ,
+                                    .map(spi_reg_map)    ,
+                                    .parent(this)
+                                  );                     
+
+  `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
+  spi_master_reg_block.CLKDIV.get_full_name(),wdata),UVM_HIGH)
+
+//  // Reading from the Clockdiv Register
+//  spi_master_reg_block.CLKDIV.read(.status(status)       ,
+//                                    .value(rdata)        ,
+//                                    .path(UVM_FRONTDOOR) ,
+//                                    .map(spi_reg_map)    ,
+//                                    .parent(this)
+//                                  );                     
+//
+//  `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
+//  spi_master_reg_block.CLKDIV.get_full_name(),rdata),UVM_HIGH)
+
+  //-------------------------------------------------------
   // SPICMD
   //-------------------------------------------------------
   
@@ -128,38 +160,7 @@ task apb_master_negitive_reg_seq::body();
 //  spi_master_reg_block.SPICMD.get_full_name(),rdata),UVM_HIGH)
 
 
-  //-------------------------------------------------------
-  // CLKDIV Register                                        
-  //-------------------------------------------------------
-  begin
-    bit [7:0] clkdiv_value;
-    clkdiv_value = 8'd1;
-    wdata = 0;
-    wdata = (wdata & (~ `MASK_CLKDIV_CLKDIV)) | (clkdiv_value << `POS_CLKDIV_CLKDIV);
-  end
-
-  //Writing into the Clockdiv Register
-  spi_master_reg_block.CLKDIV.write(.status(status)      ,
-                                    .value(wdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
-
-  `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
-  spi_master_reg_block.CLKDIV.get_full_name(),wdata),UVM_HIGH)
-
-//  // Reading from the Clockdiv Register
-//  spi_master_reg_block.CLKDIV.read(.status(status)       ,
-//                                    .value(rdata)        ,
-//                                    .path(UVM_FRONTDOOR) ,
-//                                    .map(spi_reg_map)    ,
-//                                    .parent(this)
-//                                  );                     
-//
-//  `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
-//  spi_master_reg_block.CLKDIV.get_full_name(),rdata),UVM_HIGH)
-
+ 
   //-------------------------------------------------------
   // SPIADDR
   //-------------------------------------------------------

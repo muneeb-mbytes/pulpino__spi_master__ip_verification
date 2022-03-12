@@ -39,6 +39,9 @@ class pulpino_spi_master_ip_scoreboard extends uvm_scoreboard;
   //Variable byte_data_cmp_failed_master_pwdata_slave_mosi_count
   //to keep track of number of byte wise compared failed master_tx_data
   int byte_data_cmp_failed_master_pwdata_slave_mosi_count = 0;
+  
+  int byte_data_cmp_verified_bit_count = 0;
+  int byte_data_cmp_failed_bit_count   = 0;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -89,13 +92,16 @@ task pulpino_spi_master_ip_scoreboard::run_phase(uvm_phase phase);
  
   forever begin
 
-    bit [96:0]apb_data;
+    bit [150:0]apb_data;
+    int        apb_data_width;
 
-    bit [96:0]spi_data;
+    bit [150:0]spi_data;
+    int        spi_data_width;
     
     `uvm_info(get_type_name(),$sformatf("before calling master's analysis fifo get method"),UVM_HIGH)
     apb_master_analysis_fifo.get(apb_data_packet);
     apb_data = apb_data_packet.data;
+    apb_data_width = apb_data_packet.data_width;
     apb_master_tx_count++;
 
 
@@ -112,6 +118,7 @@ task pulpino_spi_master_ip_scoreboard::run_phase(uvm_phase phase);
 
     foreach(spi_slave_tx_h.master_out_slave_in[i]) begin
       spi_data = {spi_data,spi_slave_tx_h.master_out_slave_in[i]};
+      spi_data_width = spi_data_width + CHAR_LENGTH;
     end
 
     `uvm_info(get_type_name(),$sformatf("--\n-----------------------------------------------SCOREBOARD COMPARISIONS--------------------------------------------------"),UVM_HIGH)
@@ -119,15 +126,26 @@ task pulpino_spi_master_ip_scoreboard::run_phase(uvm_phase phase);
     //Verifying pwdata in master and slave 
     if(apb_data == spi_data) begin
       `uvm_info(get_type_name(),$sformatf("apb_pwdata from apb_master and master_out_slave_in from spi_slave is equal"),UVM_HIGH);
-      `uvm_info("SB_PWDATA_MATCHED WITH MOSI0", $sformatf("Master APB_DATA = 'h%0x and Slave SPI_DATA = 'h%0x",apb_data,spi_data), UVM_HIGH); 
+      `uvm_info("SB_APB_DATA_MATCHED WITH MOSI0", $sformatf("Master APB_DATA = 'h%0x and Slave SPI_DATA = 'h%0x",apb_data,spi_data), UVM_HIGH); 
 
       byte_data_cmp_verified_master_pwdata_slave_mosi_count++;
     end
 
     else begin
       `uvm_info(get_type_name(),$sformatf("apb_pwdata from apb_master and master_out_slave_in from slave is not equal"),UVM_HIGH);
-      `uvm_info("SB_PWDATA_MATCHED WITH MOSI0", $sformatf("Master APB_DATA = 'h%0x and Slave SPI_DATA = 'h%0x",apb_data,spi_data), UVM_HIGH); 
+      `uvm_info("SB_APB_DATA_MATCHED WITH MOSI0", $sformatf("Master APB_DATA = 'h%0x and Slave SPI_DATA = 'h%0x",apb_data,spi_data), UVM_HIGH); 
       byte_data_cmp_failed_master_pwdata_slave_mosi_count++;
+    end
+
+    if(apb_data_width == spi_data_width) begin
+      `uvm_info(get_type_name(),$sformatf("Number of bits from apb packet and spi packet is equal"),UVM_HIGH);
+      `uvm_info("NUMBER_OF_BITS_MATCHED",$sformatf("apb_data_width=%0d,spi_data_width=%0d",apb_data_width,spi_data_width),UVM_HIGH);
+      byte_data_cmp_verified_bit_count++;
+    end
+    else begin
+      `uvm_info(get_type_name(),$sformatf("Number of bits from apb packet and spi packet is not equal"),UVM_HIGH);
+      `uvm_info("NUMBER_OF_BITS_NOT_MATCHED",$sformatf("apb_data_width=%0d,spi_data_width=%0d",apb_data_width,spi_data_width),UVM_HIGH);
+      byte_data_cmp_failed_bit_count++;
     end
 
     `uvm_info(get_type_name(),$sformatf("--\n-----------------------------------------END OF SCOREBOARD COMPARISIONS--------------------------------------------------"),UVM_HIGH)
@@ -163,6 +181,17 @@ function void pulpino_spi_master_ip_scoreboard::check_phase(uvm_phase phase);
     `uvm_error (get_type_name(), $sformatf ("comparisions of mosi not happened"));
   end
     
+  if (( byte_data_cmp_verified_bit_count!= 0)&&( byte_data_cmp_failed_bit_count== 0)) begin
+	  `uvm_info (get_type_name(), $sformatf ("all bit count comparisions are succesful"),UVM_HIGH);
+  end
+  else begin
+    `uvm_info (get_type_name(), $sformatf (" byte_data_cmp_verified_bit_count:%0d",
+                                             byte_data_cmp_verified_bit_count),UVM_HIGH);
+	  `uvm_info (get_type_name(), $sformatf (" byte_data_cmp_failed_bit_count: %0d", 
+                                             byte_data_cmp_failed_bit_count),UVM_HIGH);
+    `uvm_error (get_type_name(), $sformatf ("comparisions of mosi not happened"));
+  end
+
   //Check if apb master packets received are same as spi slave packets received
   // To Make sure that we have equal number of apb master and spi slave packets
   if (apb_master_tx_count == spi_slave_tx_count ) begin
@@ -223,6 +252,14 @@ function void pulpino_spi_master_ip_scoreboard::report_phase(uvm_phase phase);
   //Number of master_pwdata compariosn failed
   `uvm_info (get_type_name(),$sformatf("Total no. of byte_data_cmp_failed_master_pwdata_slave_mosi_count:%0d",
              byte_data_cmp_failed_master_pwdata_slave_mosi_count),UVM_HIGH);
+
+  //Number of master_bit_count comparisions passed
+  `uvm_info (get_type_name(),$sformatf("Total no. of byte_data_cmp_verified_bitcount:%0d",
+             byte_data_cmp_verified_bit_count),UVM_HIGH);
+
+  //Number of master_pwdata compariosn failed
+  `uvm_info (get_type_name(),$sformatf("Total no. of byte_data_cmp_failed_bit_count:%0d",
+             byte_data_cmp_failed_bit_count),UVM_HIGH);
 
   `uvm_info("scoreboard",$sformatf("--\n--------------------------------------------------END OF SCOREBOARD REPORT-----------------------------------------------"),UVM_HIGH);
 

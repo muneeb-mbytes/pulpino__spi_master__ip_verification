@@ -38,26 +38,29 @@ endfunction : new
 // Creates a master reqister sequence and slave normal sequence
 //--------------------------------------------------------------------------------------------
 task pulpino_spi_master_ip_virtual_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq::body();
+  event e1;
   super.body();
 
   fork
     forever begin : SLAVE_SEQ
       `uvm_info("slave_vseq",$sformatf("started slave vseq"),UVM_HIGH)
-      write_key.get(1);
+      //write_key.get(1);
       spi_fd_basic_slave_seq_h = spi_fd_basic_slave_seq::type_id::create("spi_fd_basic_slave_seq_h");
       spi_fd_basic_slave_seq_h.start(p_sequencer.spi_slave_seqr_h);
-      write_key.put(1);
+      //write_key.put(1);
       `uvm_info("slave_vseq",$sformatf("ended slave vseq"),UVM_HIGH)
+      ->e1;
     end
   join_none
 
   repeat(2) begin
    `uvm_info("master_vseq",$sformatf("started master vseq"),UVM_HIGH)
-   write_key.get(1);
+   //write_key.get(1);
    apb_master_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq_h = apb_master_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq::type_id::create("apb_master_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq_h");
    apb_master_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq_h.model = p_sequencer.env_config_h.spi_master_reg_block;
    apb_master_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq_h.start(p_sequencer.apb_master_seqr_h);
-   write_key.put(1);
+   //write_key.put(1);
+   wait(e1.triggered);
    `uvm_info("master_vseq",$sformatf("ended master vseq"),UVM_HIGH)
  end
  endtask : body

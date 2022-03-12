@@ -34,8 +34,8 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
   `include "pulpino_spi_master_ip_virtual_std_mode_write_8_cmd_8_addr_32_data_length_seq.sv"
 
   `include "pulpino_spi_master_ip_virtual_std_mode_write_0_dummy_write_seq.sv"
-  `include "pulpino_spi_master_ip_virtual_std_mode_write_1_dummy_write_seq.sv"
-  `include "pulpino_spi_master_ip_virtual_std_mode_write_2_dummy_write_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_8_dummy_write_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_16_dummy_write_seq.sv"
 
   `include "pulpino_spi_master_ip_virtual_std_mode_write_even_clkdiv_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_write_odd_clkdiv_seq.sv"

@@ -1,5 +1,5 @@
-`ifndef APB_MASTER_STD_MODE_WRITE_THTX_RHTX_CNTTX_CNTRX_VALUE_2_SEQ_INCLUDE_
-`define APB_MASTER_STD_MODE_WRITE_THTX_RHTX_CNTTX_CNTRX_VALUE_2_SEQ_INCLUDE_
+`ifndef APB_MASTER_STD_MODE_WRITE_THTX_RHTX_CNTTX_CNTRX_VALUE_2_SEQ_INCLUDED_
+`define APB_MASTER_STD_MODE_WRITE_THTX_RHTX_CNTTX_CNTRX_VALUE_2_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: apb_master_std_mode_write_thtx_rhtx_cnttx_cntrx_value_2_seq
@@ -58,6 +58,19 @@ task apb_master_std_mode_write_thtx_rhtx_cnttx_cntrx_value_2_seq::body();
   `uvm_info(clkdiv_reg,$sformatf("clkdiv_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
+  
+  start_item(req);
+  if(!req.randomize() with {req.pselx == SLAVE_0;
+                            req.paddr == 32'h1A10_2010;
+                            req.pwdata == 32'h0020_1008;
+                            req.transfer_size == BIT_32;
+                            req.cont_write_read == 0;
+                            req.pwrite == WRITE;}) begin : SPILEN
+    `uvm_fatal("APB","Rand failed");
+  end
+  `uvm_info(spi_len_reg,$sformatf("spi_len_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
+  finish_item(req);
+
 
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
@@ -84,18 +97,6 @@ task apb_master_std_mode_write_thtx_rhtx_cnttx_cntrx_value_2_seq::body();
   `uvm_info(spi_addr_reg,$sformatf("spi_addr_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
-
-  start_item(req);
-  if(!req.randomize() with {req.pselx == SLAVE_0;
-                            req.paddr == 32'h1A10_2010;
-                            req.pwdata == 32'h0020_1008;
-                            req.transfer_size == BIT_32;
-                            req.cont_write_read == 0;
-                            req.pwrite == WRITE;}) begin : SPILEN
-    `uvm_fatal("APB","Rand failed");
-  end
-  `uvm_info(spi_len_reg,$sformatf("spi_len_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
-  finish_item(req);
 
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;

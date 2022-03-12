@@ -1,5 +1,5 @@
-`ifndef APB_MASTER_STD_MODE_WRITE_8_CMD_8_ADDR_32_DATA_LENGTH_SEQ_INCLUDE_
-`define APB_MASTER_STD_MODE_WRITE_8_CMD_8_ADDR_32_DATA_LENGTH_SEQ_INCLUDE_
+`ifndef APB_MASTER_STD_MODE_WRITE_8_CMD_8_ADDR_32_DATA_LENGTH_SEQ_INCLUDED_
+`define APB_MASTER_STD_MODE_WRITE_8_CMD_8_ADDR_32_DATA_LENGTH_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: apb_master_std_mode_write_8_cmd_8_addr_32_data_length_seq
@@ -58,6 +58,18 @@ task apb_master_std_mode_write_8_cmd_8_addr_32_data_length_seq::body();
   `uvm_info(clkdiv_reg,$sformatf("clkdiv_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
+  start_item(req);
+  if(!req.randomize() with {req.pselx == SLAVE_0;
+                            req.paddr == 32'h1A10_2010;
+                            req.pwdata == 32'h0020_0808;  
+                            req.transfer_size == BIT_32;
+                            req.cont_write_read == 0;
+                            req.pwrite == WRITE;}) begin : SPILEN
+    `uvm_fatal("APB","Rand failed");
+  end
+  `uvm_info(spi_len_reg,$sformatf("spi_len_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
+  finish_item(req);
+
 
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
@@ -87,20 +99,8 @@ task apb_master_std_mode_write_8_cmd_8_addr_32_data_length_seq::body();
 
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
-                            req.paddr == 32'h1A10_2010;
-                            req.pwdata == 32'h0020_0808;  
-                            req.transfer_size == BIT_32;
-                            req.cont_write_read == 0;
-                            req.pwrite == WRITE;}) begin : SPILEN
-    `uvm_fatal("APB","Rand failed");
-  end
-  `uvm_info(spi_len_reg,$sformatf("spi_len_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
-  finish_item(req);
-
-  start_item(req);
-  if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2014;
-                            req.pwdata == 32'h0002_0000;  
+                            req.pwdata == 32'h0008_0000;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 0;
                             req.pwrite == WRITE;}) begin : SPIDUM
@@ -123,17 +123,17 @@ task apb_master_std_mode_write_8_cmd_8_addr_32_data_length_seq::body();
   finish_item(req);
 
 
-//  start_item(req);
-//  if(!req.randomize() with {req.pselx == SLAVE_0;
-//                            req.paddr == 32'h1A10_2020;
-//                            req.pwdata == 32'h0000_ff11;  
-//                            req.transfer_size == BIT_32;
-//                            req.cont_write_read == 0;
-//                            req.pwrite == WRITE;}) begin : RXFIFO
-//    `uvm_fatal("APB","Rand failed");
-//  end
-//  `uvm_info(rx_fifo,$sformatf("rx_fifo_reg_seq= \n %0p",req.sprint()),UVM_MEDIUM)
-//  finish_item(req);
+  start_item(req);
+  if(!req.randomize() with {req.pselx == SLAVE_0;
+                            req.paddr == 32'h1A10_2020;
+                            req.pwdata == 32'h0000_ff11;  
+                            req.transfer_size == BIT_32;
+                            req.cont_write_read == 0;
+                            req.pwrite == READ;}) begin : RXFIFO
+    `uvm_fatal("APB","Rand failed");
+  end
+  `uvm_info(rx_fifo,$sformatf("rx_fifo_reg_seq= \n %0p",req.sprint()),UVM_MEDIUM)
+  finish_item(req);
 
 
   start_item(req);

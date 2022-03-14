@@ -1,5 +1,5 @@
-`ifndef APB_MASTER_STD_MODE_WRITE_8_DUMMY_WRITE_REG_SEQ_INCLUDE_
-`define APB_MASTER_STD_MODE_WRITE_8_DUMMY_WRITE_REG_SEQ_INCLUDE_
+`ifndef APB_MASTER_STD_MODE_WRITE_8_DUMMY_WRITE_REG_SEQ_INCLUDED_
+`define APB_MASTER_STD_MODE_WRITE_8_DUMMY_WRITE_REG_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: apb_master_std_mode_write_8_dummy_write_reg_seq
@@ -87,9 +87,9 @@ task apb_master_std_mode_write_8_dummy_write_reg_seq::body();
     bit [5:0] cmd_length;
     bit [5:0] addr_length;
     bit [15:0] data_length;
-    cmd_length  = 6'h8;  //8
+    cmd_length  = 6'h8;  
     addr_length = 6'h8;
-    data_length = 16'h008;
+    data_length = 16'h8;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register addr_length = %0h",addr_length), UVM_LOW)
@@ -184,15 +184,15 @@ task apb_master_std_mode_write_8_dummy_write_reg_seq::body();
   spi_master_reg_block.SPIADR.get_full_name(),wdata),UVM_HIGH)
 
   // Reading from the SPI_ADDR Register
-  spi_master_reg_block.SPIADR.read(.status(status)       ,
-                                    .value(rdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
-
-  `uvm_info("SPI_ADDR_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
-  spi_master_reg_block.SPIADR.get_full_name(),rdata),UVM_HIGH)
+//  spi_master_reg_block.SPIADR.read(.status(status)       ,
+//                                    .value(rdata)        ,
+//                                    .path(UVM_FRONTDOOR) ,
+//                                    .map(spi_reg_map)    ,
+//                                    .parent(this)
+//                                  );                     
+//
+//  `uvm_info("SPI_ADDR_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
+//  spi_master_reg_block.SPIADR.get_full_name(),rdata),UVM_HIGH)
 
 
  
@@ -206,8 +206,8 @@ task apb_master_std_mode_write_8_dummy_write_reg_seq::body();
     bit [15:0] dummy_wr;
     bit [15:0]  dummy_rd;
 
-    dummy_wr = 16'hffff;
-    dummy_rd = 16'h0008;
+    dummy_wr = 16'h0008;
+    dummy_rd = 16'h0000;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register dummy_wr  = %0h",dummy_wr) , UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register dummy_rd = %0h",dummy_rd)  , UVM_LOW)
@@ -216,7 +216,7 @@ task apb_master_std_mode_write_8_dummy_write_reg_seq::body();
     wdata = wdata & (~`MASK_SPIDUM_DUMMYWR) & (~`MASK_SPIDUM_DUMMYRD) ;
 
     //setting the required feilds
-    wdata = wdata | (dummy_rd << `POS_SPIDUM_DUMMYWR);
+    wdata = wdata | (dummy_wr << `POS_SPIDUM_DUMMYWR);
 
   end
 

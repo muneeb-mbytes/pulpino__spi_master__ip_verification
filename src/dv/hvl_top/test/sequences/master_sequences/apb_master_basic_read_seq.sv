@@ -1,5 +1,5 @@
-`ifndef APB_MASTER_BASIC_READ_SEQ_INCLUDE_
-`define APB_MASTER_BASIC_READ_SEQ_INCLUDE_
+`ifndef APB_MASTER_BASIC_READ_SEQ_INCLUDED_
+`define APB_MASTER_BASIC_READ_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: apb_master_basic_read_seq
@@ -75,19 +75,6 @@ task apb_master_basic_read_seq::body();
 
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
-                            req.paddr == 32'h1A10_200c;
-                            req.pwdata == 32'hdeef_fa10;  
-                            req.transfer_size == BIT_32;
-                            req.cont_write_read == 1;
-                            req.pwrite == WRITE;}) begin : SPIADDR
-    `uvm_fatal("APB","Rand failed");
-  end
-  `uvm_info(spi_addr_reg,$sformatf("spi_addr_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
-  finish_item(req);
-
-
-  start_item(req);
-  if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2010;
                             req.pwdata == 32'h0020_0808;  
                             req.transfer_size == BIT_32;
@@ -96,6 +83,19 @@ task apb_master_basic_read_seq::body();
     `uvm_fatal("APB","Rand failed");
   end
   `uvm_info(spi_len_reg,$sformatf("spi_len_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
+  finish_item(req);
+
+
+  start_item(req);
+  if(!req.randomize() with {req.pselx == SLAVE_0;
+                            req.paddr == 32'h1A10_200c;
+                            req.pwdata == 32'hdeef_fa10;  
+                            req.transfer_size == BIT_32;
+                            req.cont_write_read == 1;
+                            req.pwrite == WRITE;}) begin : SPIADDR
+    `uvm_fatal("APB","Rand failed");
+  end
+  `uvm_info(spi_addr_reg,$sformatf("spi_addr_reg_seq = \n %0p",req.sprint()),UVM_MEDIUM)
   finish_item(req);
 
 

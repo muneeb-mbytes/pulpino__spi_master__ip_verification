@@ -1,5 +1,5 @@
-`ifndef APB_MASTER_STD_MODE_WRITE_8_CMD_16_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDE_
-`define APB_MASTER_STD_MODE_WRITE_8_CMD_16_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDE_
+`ifndef APB_MASTER_STD_MODE_WRITE_8_CMD_16_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDED_
+`define APB_MASTER_STD_MODE_WRITE_8_CMD_16_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: apb_master_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq
@@ -85,7 +85,7 @@ task apb_master_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq::body();
     bit [5:0] cmd_length;
     bit [5:0] addr_length;
     bit [15:0] data_length;
-    cmd_length  = 6'h8; //32 
+    cmd_length  = 6'h8;  
     addr_length = 6'h10;
     data_length = 16'h20;
 
@@ -191,7 +191,6 @@ task apb_master_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq::body();
 //
 //  `uvm_info("SPI_ADDR_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
 //  spi_master_reg_block.SPIADR.get_full_name(),rdata),UVM_HIGH)
-
 
 
  //-------------------------------------------------------

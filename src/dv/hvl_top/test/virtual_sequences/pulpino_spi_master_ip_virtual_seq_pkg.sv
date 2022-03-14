@@ -34,8 +34,8 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
   `include "pulpino_spi_master_ip_virtual_std_mode_write_8_cmd_8_addr_32_data_length_seq.sv"
 
   `include "pulpino_spi_master_ip_virtual_std_mode_write_0_dummy_write_seq.sv"
-  `include "pulpino_spi_master_ip_virtual_std_mode_write_1_dummy_write_seq.sv"
-  `include "pulpino_spi_master_ip_virtual_std_mode_write_2_dummy_write_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_8_dummy_write_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_16_dummy_write_seq.sv"
 
   `include "pulpino_spi_master_ip_virtual_std_mode_write_even_clkdiv_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_write_odd_clkdiv_seq.sv"
@@ -51,9 +51,8 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
   `include "pulpino_spi_master_ip_virtual_basic_write_read_reg_seq.sv"
 
   `include "pulpino_spi_master_ip_virtual_std_mode_read_0_dummy_read_reg_seq.sv"
-  `include "pulpino_spi_master_ip_virtual_std_mode_read_1_dummy_read_reg_seq.sv"
-  `include "pulpino_spi_master_ip_virtual_std_mode_read_2_dummy_read_reg_seq.sv"
-
+  `include "pulpino_spi_master_ip_virtual_std_mode_read_8_dummy_read_reg_seq.sv"
+ 
   `include "pulpino_spi_master_ip_virtual_std_mode_read_even_clkdiv_reg_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_read_odd_clkdiv_reg_seq.sv"
 
@@ -71,6 +70,10 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
   `include "pulpino_spi_master_ip_virtual_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_write_even_clkdiv_reg_seq.sv"
+
+
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_8_dummy_write_reg_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_tx_fifo_reg_seq.sv"
 
   `include "pulpino_spi_master_ip_virtual_std_mode_read_0_cmd_0_addr_16_data_length_reg_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_read_0_cmd_0_addr_32_data_length_reg_seq.sv"

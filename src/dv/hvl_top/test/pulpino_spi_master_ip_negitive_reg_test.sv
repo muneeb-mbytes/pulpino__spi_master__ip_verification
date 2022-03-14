@@ -16,6 +16,7 @@ class pulpino_spi_master_ip_negitive_reg_test extends pulpino_spi_master_ip_base
   extern virtual function void connect_phase(uvm_phase phase);
   extern virtual function void end_of_elaboration_phase(uvm_phase phase);
   extern virtual function void start_of_simulation_phase(uvm_phase phase);
+  extern virtual function void setup_spi_slave_agent_config();
   extern virtual task run_phase(uvm_phase phase);
 
 endclass : pulpino_spi_master_ip_negitive_reg_test
@@ -75,6 +76,24 @@ endfunction  : end_of_elaboration_phase
 function void pulpino_spi_master_ip_negitive_reg_test::start_of_simulation_phase(uvm_phase phase);
   super.start_of_simulation_phase(phase);
 endfunction : start_of_simulation_phase
+
+//--------------------------------------------------------------------------------------------
+// Function: setup_slave_agent_cfg
+// Setup the slave agent(s) configuration with the required values
+// and store the handle into the config_db
+//--------------------------------------------------------------------------------------------
+function void pulpino_spi_master_ip_negitive_reg_test::setup_spi_slave_agent_config();
+
+  // Configure the slave agent configuration
+  super.setup_spi_slave_agent_config();
+
+  // Setting the configuration for each slave
+  foreach(pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i]) begin
+    pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].spi_mode = operation_modes_e'(CPOL0_CPHA0);
+    pulpino_spi_master_ip_env_cfg_h.spi_slave_agent_cfg_h[i].shift_dir = shift_direction_e'(LSB_FIRST);
+  end
+
+endfunction: setup_spi_slave_agent_config
 
 //--------------------------------------------------------------------------------------------
 // Task: run_phase

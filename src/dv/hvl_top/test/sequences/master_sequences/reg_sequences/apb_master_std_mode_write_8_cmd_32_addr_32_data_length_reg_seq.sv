@@ -8,7 +8,6 @@
 class apb_master_std_mode_write_8_cmd_32_addr_32_data_length_reg_seq extends apb_master_base_reg_seq;
   `uvm_object_utils(apb_master_std_mode_write_8_cmd_32_addr_32_data_length_reg_seq)
 
-   
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -86,7 +85,7 @@ task apb_master_std_mode_write_8_cmd_32_addr_32_data_length_reg_seq::body();
     bit [5:0] cmd_length;
     bit [5:0] addr_length;
     bit [15:0] data_length;
-    cmd_length  = 6'h8; //32 
+    cmd_length  = 6'h8;  
     addr_length = 16'h20;
     data_length = 16'h20;
 
@@ -192,8 +191,6 @@ task apb_master_std_mode_write_8_cmd_32_addr_32_data_length_reg_seq::body();
 //
 //  `uvm_info("SPI_ADDR_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
 //  spi_master_reg_block.SPIADR.get_full_name(),rdata),UVM_HIGH)
-
-
 
  //-------------------------------------------------------
  // DUMMY REGISTER

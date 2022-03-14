@@ -1,5 +1,5 @@
-`ifndef APB_MASTER_NEGITIVE_REG_SEQ_INCLUDE_
-`define APB_MASTER_NEGITIVE_REG_SEQ_INCLUDE_
+`ifndef APB_MASTER_NEGITIVE_REG_SEQ_INCLUDED_
+`define APB_MASTER_NEGITIVE_REG_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: apb_master_negitive_reg_seq
@@ -7,7 +7,6 @@
 //--------------------------------------------------------------------------------------------
 class apb_master_negitive_reg_seq extends apb_master_base_reg_seq;
   `uvm_object_utils(apb_master_negitive_reg_seq)
-
     
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -43,6 +42,39 @@ task apb_master_negitive_reg_seq::body();
 
   spi_reg_map = spi_master_reg_block.get_map_by_name("SPI_MASTER_MAP_ABP_IF");
   
+  //-------------------------------------------------------
+  // CLKDIV Register                                        
+  //-------------------------------------------------------
+  begin
+    bit [7:0] clkdiv_value;
+    clkdiv_value = 8'd1;
+    wdata = 0;
+    wdata = (wdata & (~ `MASK_CLKDIV_CLKDIV)) | (clkdiv_value << `POS_CLKDIV_CLKDIV);
+  end
+
+  //Writing into the Clockdiv Register
+  spi_master_reg_block.CLKDIV.write(.status(status)      ,
+                                    .value(wdata)        ,
+                                    .path(UVM_FRONTDOOR) ,
+                                    .map(spi_reg_map)    ,
+                                    .parent(this)
+                                  );                     
+
+  `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("WRITE:: REGISTER : %0s, DATA = 32'h%0h",
+  spi_master_reg_block.CLKDIV.get_full_name(),wdata),UVM_HIGH)
+
+//  // Reading from the Clockdiv Register
+//  spi_master_reg_block.CLKDIV.read(.status(status)       ,
+//                                    .value(rdata)        ,
+//                                    .path(UVM_FRONTDOOR) ,
+//                                    .map(spi_reg_map)    ,
+//                                    .parent(this)
+//                                  );                     
+//
+//  `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
+//  spi_master_reg_block.CLKDIV.get_full_name(),rdata),UVM_HIGH)
+
+
   //-------------------------------------------------------
   // SPI LEN Register                                        
   //-------------------------------------------------------
@@ -162,6 +194,7 @@ task apb_master_negitive_reg_seq::body();
 
  
   //-------------------------------------------------------
+>>>>>>> development_branch_v1
   // SPIADDR
   //-------------------------------------------------------
   

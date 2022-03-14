@@ -51,7 +51,7 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
   `include "pulpino_spi_master_ip_virtual_basic_write_read_reg_seq.sv"
 
   `include "pulpino_spi_master_ip_virtual_std_mode_read_0_dummy_read_reg_seq.sv"
-  `include "pulpino_spi_master_ip_virtual_std_mode_read_1_dummy_read_reg_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_read_8_dummy_read_reg_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_read_2_dummy_read_reg_seq.sv"
 
   `include "pulpino_spi_master_ip_virtual_std_mode_read_even_clkdiv_reg_seq.sv"

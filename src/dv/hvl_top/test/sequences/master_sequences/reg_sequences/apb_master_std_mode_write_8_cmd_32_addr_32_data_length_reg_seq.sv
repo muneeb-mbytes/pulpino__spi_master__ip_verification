@@ -209,10 +209,12 @@ task apb_master_std_mode_write_8_cmd_32_addr_32_data_length_reg_seq::body();
     `uvm_info(get_type_name(), $sformatf("Write :: Register dummy_rd = %0h",dummy_rd)  , UVM_LOW)
 
     // Clearing the required bits
-    wdata = wdata & (~`MASK_SPIDUM_DUMMYWR) & (~`MASK_SPIDUM_DUMMYRD) ;
+    //wdata = wdata & (~`MASK_SPIDUM_DUMMYWR) & (~`MASK_SPIDUM_DUMMYRD) ;
 
     //setting the required feilds
-    wdata = wdata | (dummy_wr << `POS_SPIDUM_DUMMYWR);
+    //wdata = wdata | (dummy_wr << `POS_SPIDUM_DUMMYWR);
+    wdata = {dummy_wr,dummy_rd};
+    `uvm_info(get_type_name(), $sformatf("Write :: DUMMY_WDATA = %0h",wdata)  , UVM_LOW)
 
   end
 

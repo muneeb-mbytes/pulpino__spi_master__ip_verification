@@ -1,5 +1,5 @@
-`ifndef APB_MASTER_STD_MODE_READ_8_CMD_32_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDE_
-`define APB_MASTER_STD_MODE_READ_8_CMD_32_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDE_
+`ifndef APB_MASTER_STD_MODE_READ_8_CMD_32_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDED_
+`define APB_MASTER_STD_MODE_READ_8_CMD_32_ADDR_32_DATA_LENGTH_REG_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: apb_master_std_mode_read_8_cmd_32_addr_32_data_length_reg_seq

@@ -126,7 +126,6 @@ task apb_master_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq::body();
 //  `uvm_info("SPI_LEN_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
 //  spi_master_reg_block.SPILEN.get_full_name(),rdata),UVM_HIGH)
 
-
   //-------------------------------------------------------
   // SPICMD
   //-------------------------------------------------------

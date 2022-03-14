@@ -72,6 +72,10 @@ package pulpino_spi_master_ip_virtual_seq_pkg;
   `include "pulpino_spi_master_ip_virtual_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_write_even_clkdiv_reg_seq.sv"
 
+
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_8_dummy_write_reg_seq.sv"
+  `include "pulpino_spi_master_ip_virtual_std_mode_write_tx_fifo_reg_seq.sv"
+
   `include "pulpino_spi_master_ip_virtual_std_mode_read_0_cmd_0_addr_16_data_length_reg_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_read_0_cmd_0_addr_32_data_length_reg_seq.sv"
   `include "pulpino_spi_master_ip_virtual_std_mode_read_0_cmd_16_addr_16_data_length_reg_seq.sv"

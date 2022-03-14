@@ -366,7 +366,8 @@ task apb_master_std_mode_read_1_dummy_read_reg_seq::body();
     // Setting the required bits
     wdata = wdata | `MASK_STATUS_RD; 
     // Clearing the required bits
-    wdata = wdata & (~`MASK_STATUS_QWR) & (~`MASK_STATUS_WR) & (~`MASK_STATUS_QRD) & (~`MASK_STATUS_QWR);
+    wdata = wdata & (~`MASK_STATUS_QWR) & (~`MASK_STATUS_WR) & (~`MASK_STATUS_QRD) &
+    (~`MASK_STATUS_SRST);
   end
 
   spi_master_reg_block.STATUS.write(.status(status)      ,

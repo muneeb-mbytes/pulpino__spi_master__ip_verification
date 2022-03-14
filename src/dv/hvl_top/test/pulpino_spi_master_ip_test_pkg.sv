@@ -92,6 +92,8 @@ package pulpino_spi_master_ip_test_pkg;
   `include "pulpino_spi_master_ip_std_mode_read_8_cmd_32_addr_32_data_length_reg_test.sv"
   `include "pulpino_spi_master_ip_std_mode_read_8_cmd_8_addr_32_data_length_reg_test.sv"
   
+  `include "pulpino_spi_master_ip_std_mode_write_8_dummy_write_reg_test.sv"
+  `include "pulpino_spi_master_ip_std_mode_write_tx_fifo_reg_test.sv"
 
   `include "pulpino_spi_master_ip_spi_modes_clkdiv_dummy_cycles_cross_reg_test.sv"
   `include "pulpino_spi_master_ip_spi_modes_transfer_length_interupts_cross_reg_test.sv"

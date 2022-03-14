@@ -65,7 +65,6 @@ task pulpino_spi_master_ip_virtual_std_mode_write_8_cmd_16_addr_32_data_length_r
    apb_master_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq_h.model = p_sequencer.env_config_h.spi_master_reg_block;
    apb_master_std_mode_write_8_cmd_16_addr_32_data_length_reg_seq_h.start(p_sequencer.apb_master_seqr_h);
    //write_key.put(1);
-   wait(e1.triggered);
    `uvm_info("master_vseq",$sformatf("ended master vseq"),UVM_HIGH)
 
     wait(slv_e.triggered);

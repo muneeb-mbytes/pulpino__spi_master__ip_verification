@@ -62,7 +62,6 @@ package pulpino_spi_master_ip_test_pkg;
 
   `include "pulpino_spi_master_ip_std_mode_read_0_dummy_read_reg_test.sv"
   `include "pulpino_spi_master_ip_std_mode_read_8_dummy_read_reg_test.sv"
-  `include "pulpino_spi_master_ip_std_mode_read_2_dummy_read_reg_test.sv"
 
   `include "pulpino_spi_master_ip_std_mode_read_even_clkdiv_reg_test.sv"
   `include "pulpino_spi_master_ip_std_mode_read_odd_clkdiv_reg_test.sv"

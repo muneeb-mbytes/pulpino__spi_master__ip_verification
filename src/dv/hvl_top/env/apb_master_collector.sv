@@ -171,10 +171,10 @@ function void apb_master_collector::write(apb_master_tx t);
 
     bit [31:0]mosi_data_local;
 
-    int k;
+    //int k;
     coll_pkt.j = 0;
     
-    k = coll_pkt.dummy_wr_data;
+    //k = coll_pkt.dummy_wr_data;
 
     mosi_data_local = rg.get();
     `uvm_info(get_type_name(), $sformatf("mosi_data_local = %0h", mosi_data_local),UVM_HIGH)
@@ -194,6 +194,11 @@ function void apb_master_collector::write(apb_master_tx t);
 
   if(coll_pkt.flag == 'd4) begin
     `uvm_info(get_type_name(),$sformatf("final_data=%0h",coll_pkt.data),UVM_HIGH)
+
+    `uvm_info(get_type_name(),$sformatf("cmd=%0d, addr=%0d mosi_data_len=%0d dummy_wr_data=%0d",coll_pkt.cmd_len,coll_pkt.addr_len,coll_pkt.mosi_data_len,coll_pkt.dummy_wr_data),UVM_HIGH)
+    coll_pkt.data_width = coll_pkt.cmd_len + coll_pkt.addr_len + coll_pkt.mosi_data_len + coll_pkt.dummy_wr_data;
+    `uvm_info(get_type_name(),$sformatf("final_data_bits=%0d",coll_pkt.data_width),UVM_HIGH)
+    
     apb_master_coll_analysis_port.write(coll_pkt);
 
     //Restting the col;lector packet

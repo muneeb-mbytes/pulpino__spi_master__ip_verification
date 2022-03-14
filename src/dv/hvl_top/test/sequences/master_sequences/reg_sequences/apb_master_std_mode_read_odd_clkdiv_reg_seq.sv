@@ -1,5 +1,5 @@
-`ifndef APB_MASTER_STD_MODE_READ_ODD_CLKDIV_REG_SEQ_INCLUDE_
-`define APB_MASTER_STD_MODE_READ_ODD_CLKDIV_REG_SEQ_INCLUDE_
+`ifndef APB_MASTER_STD_MODE_READ_ODD_CLKDIV_REG_SEQ_INCLUDED_
+`define APB_MASTER_STD_MODE_READ_ODD_CLKDIV_REG_SEQ_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
 // Class: apb_master_std_mode_read_odd_clkdiv_reg_seq
@@ -154,9 +154,9 @@ task apb_master_std_mode_read_odd_clkdiv_reg_seq::body();
     bit [5:0] cmd_length;
     bit [5:0] addr_length;
     bit [15:0] data_length;
-    cmd_length  = 6'd00; 
-    addr_length = 6'd08;
-    data_length = 16'd24;
+    cmd_length  = 6'h0; 
+    addr_length = 6'h8;
+    data_length = 16'h0018;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register addr_length = %0h",addr_length), UVM_LOW)

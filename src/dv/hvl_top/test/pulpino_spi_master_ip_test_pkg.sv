@@ -41,6 +41,8 @@ package pulpino_spi_master_ip_test_pkg;
   `include "pulpino_spi_master_ip_std_mode_write_8_cmd_8_addr_32_data_length_test.sv"
 
   `include "pulpino_spi_master_ip_std_mode_write_0_dummy_write_test.sv"
+  `include "pulpino_spi_master_ip_std_mode_write_8_dummy_write_test.sv"
+  `include "pulpino_spi_master_ip_std_mode_write_16_dummy_write_test.sv"
 
   `include "pulpino_spi_master_ip_std_mode_write_even_clkdiv_test.sv"
   `include "pulpino_spi_master_ip_std_mode_write_odd_clkdiv_test.sv"
@@ -59,6 +61,7 @@ package pulpino_spi_master_ip_test_pkg;
   `include "pulpino_spi_master_ip_basic_write_read_reg_test.sv"
 
   `include "pulpino_spi_master_ip_std_mode_read_0_dummy_read_reg_test.sv"
+  `include "pulpino_spi_master_ip_std_mode_read_8_dummy_read_reg_test.sv"
 
   `include "pulpino_spi_master_ip_std_mode_read_even_clkdiv_reg_test.sv"
   `include "pulpino_spi_master_ip_std_mode_read_odd_clkdiv_reg_test.sv"
@@ -88,6 +91,8 @@ package pulpino_spi_master_ip_test_pkg;
   `include "pulpino_spi_master_ip_std_mode_read_8_cmd_32_addr_32_data_length_reg_test.sv"
   `include "pulpino_spi_master_ip_std_mode_read_8_cmd_8_addr_32_data_length_reg_test.sv"
   
+  `include "pulpino_spi_master_ip_std_mode_write_8_dummy_write_reg_test.sv"
+  `include "pulpino_spi_master_ip_std_mode_write_tx_fifo_reg_test.sv"
 
   `include "pulpino_spi_master_ip_spi_modes_clkdiv_dummy_cycles_cross_reg_test.sv"
   `include "pulpino_spi_master_ip_spi_modes_transfer_length_interupts_cross_reg_test.sv"

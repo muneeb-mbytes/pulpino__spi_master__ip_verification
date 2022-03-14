@@ -32,6 +32,8 @@ package apb_reg_seq_pkg;
   `include "apb_master_basic_write_reg_seq.sv"
 
   `include "apb_master_std_mode_read_0_dummy_read_reg_seq.sv"
+  `include "apb_master_std_mode_read_8_dummy_read_reg_seq.sv"
+  `include "apb_master_std_mode_read_2_dummy_read_reg_seq.sv"
 
   `include "apb_master_std_mode_read_even_clkdiv_reg_seq.sv"
   `include "apb_master_std_mode_read_odd_clkdiv_reg_seq.sv"
@@ -49,6 +51,8 @@ package apb_reg_seq_pkg;
   `include "apb_master_std_mode_write_0_cmd_32_addr_32_data_length_reg_seq.sv"
   `include "apb_master_std_mode_write_32_cmd_32_addr_32_data_length_reg_seq.sv"
   `include "apb_master_std_mode_write_even_clkdiv_reg_seq.sv"
+  `include "apb_master_std_mode_write_8_dummy_write_reg_seq.sv"
+  `include "apb_master_std_mode_write_tx_fifo_reg_seq.sv"
 
   `include "apb_master_std_mode_read_0_cmd_0_addr_32_data_length_reg_seq.sv"
   `include "apb_master_std_mode_read_0_cmd_0_addr_16_data_length_reg_seq.sv"

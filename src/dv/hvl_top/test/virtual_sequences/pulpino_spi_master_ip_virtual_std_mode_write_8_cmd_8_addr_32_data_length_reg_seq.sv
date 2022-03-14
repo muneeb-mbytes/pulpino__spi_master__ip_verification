@@ -61,6 +61,8 @@ task pulpino_spi_master_ip_virtual_std_mode_write_8_cmd_8_addr_32_data_length_re
    apb_master_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq_h.model = p_sequencer.env_config_h.spi_master_reg_block;
    apb_master_std_mode_write_8_cmd_8_addr_32_data_length_reg_seq_h.start(p_sequencer.apb_master_seqr_h);
    wait(wr_rd.triggered);
+
+   // Start your read RX_FIFO sequence 
  //  write_key.put(1);
    `uvm_info("master_vseq",$sformatf("ended master vseq"),UVM_HIGH)
  end

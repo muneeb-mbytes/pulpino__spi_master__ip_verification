@@ -33,7 +33,6 @@ package apb_reg_seq_pkg;
 
   `include "apb_master_std_mode_read_0_dummy_read_reg_seq.sv"
   `include "apb_master_std_mode_read_8_dummy_read_reg_seq.sv"
-  `include "apb_master_std_mode_read_2_dummy_read_reg_seq.sv"
 
   `include "apb_master_std_mode_read_even_clkdiv_reg_seq.sv"
   `include "apb_master_std_mode_read_odd_clkdiv_reg_seq.sv"

@@ -132,8 +132,8 @@ task pulpino_spi_master_ip_scoreboard::run_phase(uvm_phase phase);
     end
 
     else begin
-      `uvm_info(get_type_name(),$sformatf("apb_pwdata from apb_master and master_out_slave_in from slave is not equal"),UVM_HIGH);
-      `uvm_info("SB_APB_DATA_MATCHED WITH MOSI0", $sformatf("Master APB_DATA = 'h%0x and Slave SPI_DATA = 'h%0x",apb_data,spi_data), UVM_HIGH); 
+      `uvm_error(get_type_name(),$sformatf("apb_pwdata from apb_master and master_out_slave_in from slave is not equal"));
+      `uvm_error("SB_APB_DATA_MATCHED WITH MOSI0", $sformatf("Master APB_DATA = 'h%0x and Slave SPI_DATA = 'h%0x",apb_data,spi_data)); 
       byte_data_cmp_failed_master_pwdata_slave_mosi_count++;
     end
 
@@ -143,8 +143,8 @@ task pulpino_spi_master_ip_scoreboard::run_phase(uvm_phase phase);
       byte_data_cmp_verified_bit_count++;
     end
     else begin
-      `uvm_info(get_type_name(),$sformatf("Number of bits from apb packet and spi packet is not equal"),UVM_HIGH);
-      `uvm_info("NUMBER_OF_BITS_NOT_MATCHED",$sformatf("apb_data_width=%0d,spi_data_width=%0d",apb_data_width,spi_data_width),UVM_HIGH);
+      `uvm_error(get_type_name(),$sformatf("Number of bits from apb packet and spi packet is not equal"));
+      `uvm_error("NUMBER_OF_BITS_NOT_MATCHED",$sformatf("apb_data_width=%0d,spi_data_width=%0d",apb_data_width,spi_data_width));
       byte_data_cmp_failed_bit_count++;
     end
 

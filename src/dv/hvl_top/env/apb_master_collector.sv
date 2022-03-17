@@ -173,7 +173,7 @@ function void apb_master_collector::write(apb_master_tx t);
     bit [31:0]mosi_data_local;
     int mosi_data_len_local;
 
-    //int k;
+    int k;
     coll_pkt.j = 0;
     
     //k = coll_pkt.dummy_wr_data;

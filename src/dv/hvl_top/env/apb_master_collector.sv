@@ -8,11 +8,20 @@
 class apb_master_collector extends uvm_component;
   `uvm_component_utils(apb_master_collector)
 
+  //variable : apb_master_coll_analysis_port
+  //Used to send the data from the apb_master_collector
   uvm_analysis_port#(collector_packet_s) apb_master_coll_analysis_port;
+
+  //variable : apb_master_coll_imp_port
+  //Used to get the data from the apb_master_monitor_proxy
   uvm_analysis_imp#(apb_master_tx, apb_master_collector) apb_master_coll_imp_port;
 
+  //Variable : map
+  //Used to access the registers
   uvm_reg_map map;
 
+  //Variable : coll_pkt
+  //Used to store the register data values
   collector_packet_s coll_pkt;
 
   //-------------------------------------------------------

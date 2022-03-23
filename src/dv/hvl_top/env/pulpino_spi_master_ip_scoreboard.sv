@@ -115,10 +115,17 @@ task pulpino_spi_master_ip_scoreboard::run_phase(uvm_phase phase);
     `uvm_info(get_type_name(),$sformatf("after calling slave's analysis fifo get method"),UVM_HIGH) 
     `uvm_info(get_type_name(),$sformatf("printing spi_slave_tx_h, \n %s",spi_slave_tx_h.sprint()),UVM_HIGH)
 
-
-    foreach(spi_slave_tx_h.master_out_slave_in[i]) begin
-      spi_data = {spi_data,spi_slave_tx_h.master_out_slave_in[i]};
-      spi_data_width = spi_data_width + CHAR_LENGTH;
+    if(apb_data_packet.write == 1) begin
+      foreach(spi_slave_tx_h.master_out_slave_in[i]) begin
+        spi_data = {spi_data,spi_slave_tx_h.master_out_slave_in[i]};
+        spi_data_width = spi_data_width + CHAR_LENGTH;
+      end
+    end
+    else if(apb_data_packet.read == 1) begin
+      foreach(spi_slave_tx_h.master_in_slave_out[i]) begin
+        spi_data = {spi_data,spi_slave_tx_h.master_in_slave_out[i]};
+        spi_data_width = spi_data_width + CHAR_LENGTH;
+      end
     end
 
     `uvm_info(get_type_name(),$sformatf("--\n-----------------------------------------------SCOREBOARD COMPARISIONS--------------------------------------------------"),UVM_HIGH)

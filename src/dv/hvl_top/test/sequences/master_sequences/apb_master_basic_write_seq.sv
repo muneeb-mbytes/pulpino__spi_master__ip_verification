@@ -49,7 +49,7 @@ task apb_master_basic_write_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2004;
-                            req.pwdata == 32'h0000_0000;  
+                            req.pwdata == 32'h0000_0006;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 0;
                             req.pwrite == WRITE;}) begin : CLOCK_DIV
@@ -113,7 +113,7 @@ task apb_master_basic_write_seq::body();
   start_item(req);
   if(!req.randomize() with {req.pselx == SLAVE_0;
                             req.paddr == 32'h1A10_2018;
-                            req.pwdata == 32'h0000_f01A;  
+                            req.pwdata == 32'hf000_f01A;  
                             req.transfer_size == BIT_32;
                             req.cont_write_read == 0;
                             req.pwrite == WRITE;}) begin : TXFIFO

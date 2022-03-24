@@ -8,11 +8,20 @@
 class apb_master_collector extends uvm_component;
   `uvm_component_utils(apb_master_collector)
 
+  //variable : apb_master_coll_analysis_port
+  //Used to send the data from the apb_master_collector
   uvm_analysis_port#(collector_packet_s) apb_master_coll_analysis_port;
+
+  //variable : apb_master_coll_imp_port
+  //Used to get the data from the apb_master_monitor_proxy
   uvm_analysis_imp#(apb_master_tx, apb_master_collector) apb_master_coll_imp_port;
 
+  //Variable : map
+  //Used to access the registers
   uvm_reg_map map;
 
+  //Variable : coll_pkt
+  //Used to store the register data values
   collector_packet_s coll_pkt;
   collector_packet_s coll_pkt_empty;
 
@@ -156,6 +165,7 @@ function void apb_master_collector::write(apb_master_tx t);
     `uvm_info(get_type_name(), $sformatf("dummy_wr_local = %h", dummy_wr_local),UVM_HIGH)
     `uvm_info(get_type_name(), $sformatf("dummy_local = %h", dummy_local),UVM_HIGH)
     
+    `uvm_info(get_type_name(),$sformatf("Inside DUMMY_WR--before shifted_data=%h",coll_pkt.data),UVM_HIGH)
     coll_pkt.data = coll_pkt.data << coll_pkt.dummy_wr_data;
 
     `uvm_info(get_type_name(),$sformatf("Inside DUMMY_WR--shifted_data=%h",coll_pkt.data),UVM_HIGH)
@@ -174,6 +184,7 @@ function void apb_master_collector::write(apb_master_tx t);
     int mosi_data_len_local;
 
     int k;
+
     coll_pkt.j = 0;
     
     //k = coll_pkt.dummy_wr_data;
@@ -232,4 +243,5 @@ function void apb_master_collector::write(apb_master_tx t);
 endfunction : write
 
 `endif
+
 

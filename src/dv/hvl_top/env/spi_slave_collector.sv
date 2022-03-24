@@ -8,7 +8,12 @@
 class spi_slave_collector extends uvm_component;
   `uvm_component_utils(spi_slave_collector)
 
+  //variable : spi_slave_coll_analysis_port
+  //Used to send the data from the spi_slave_collector
   uvm_analysis_port#(spi_slave_tx) spi_slave_coll_analysis_port;
+
+  //variable : spi_slave_coll_imp_port
+  //Used to get the data from the spi_slave_monitor_proxy
   uvm_analysis_imp#(spi_slave_tx, spi_slave_collector) spi_slave_coll_imp_port;
 
   //-------------------------------------------------------

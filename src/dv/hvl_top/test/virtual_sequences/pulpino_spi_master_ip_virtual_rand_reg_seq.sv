@@ -48,7 +48,7 @@ task pulpino_spi_master_ip_virtual_rand_reg_seq::body();
       //write_key.get(1);
       spi_fd_basic_slave_seq_h = spi_fd_basic_slave_seq::type_id::create("spi_fd_basic_slave_seq_h");
       spi_fd_basic_slave_seq_h.start(p_sequencer.spi_slave_seqr_h);
-     // -> wr_rd;
+      -> wr_rd;
      // write_key.put(1);
       `uvm_info("slave_vseq",$sformatf("ended slave vseq"),UVM_HIGH)
     end
@@ -60,9 +60,9 @@ task pulpino_spi_master_ip_virtual_rand_reg_seq::body();
    apb_master_rand_reg_seq_h = apb_master_rand_reg_seq::type_id::create("apb_master_rand_reg_seq_h");
    apb_master_rand_reg_seq_h.model = p_sequencer.env_config_h.spi_master_reg_block;
    apb_master_rand_reg_seq_h.start(p_sequencer.apb_master_seqr_h);
-  // wait(wr_rd.triggered);
+   wait(wr_rd.triggered);
   // write_key.put(1);
-  #10us;
+  //#10us;
    `uvm_info("master_vseq",$sformatf("ended master vseq"),UVM_HIGH)
  end
  endtask : body

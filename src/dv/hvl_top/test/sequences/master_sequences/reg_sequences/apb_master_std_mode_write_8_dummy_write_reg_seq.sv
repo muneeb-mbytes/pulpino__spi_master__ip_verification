@@ -50,7 +50,7 @@ task apb_master_std_mode_write_8_dummy_write_reg_seq::body();
   //-------------------------------------------------------
   begin
     bit [7:0] clkdiv_value;
-    clkdiv_value = 8'd4;
+    clkdiv_value = 8'd16;
     wdata = 0;
     wdata = (wdata & (~ `MASK_CLKDIV_CLKDIV)) | (clkdiv_value << `POS_CLKDIV_CLKDIV);
   end
@@ -67,15 +67,15 @@ task apb_master_std_mode_write_8_dummy_write_reg_seq::body();
   spi_master_reg_block.CLKDIV.get_full_name(),wdata),UVM_HIGH)
 
   // Reading from the Clockdiv Register
-  spi_master_reg_block.CLKDIV.read(.status(status)       ,
-                                    .value(rdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
+ // spi_master_reg_block.CLKDIV.read(.status(status)       ,
+ //                                   .value(rdata)        ,
+ //                                   .path(UVM_FRONTDOOR) ,
+ //                                   .map(spi_reg_map)    ,
+ //                                   .parent(this)
+ //                                 );                     
 
-  `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
-  spi_master_reg_block.CLKDIV.get_full_name(),rdata),UVM_HIGH)
+ // `uvm_info("CLOCK_DIV_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
+ // spi_master_reg_block.CLKDIV.get_full_name(),rdata),UVM_HIGH)
 
   //-------------------------------------------------------
   // SPI LEN Register                                        
@@ -89,7 +89,7 @@ task apb_master_std_mode_write_8_dummy_write_reg_seq::body();
     bit [15:0] data_length;
     cmd_length  = 6'h8;  
     addr_length = 6'h8;
-    data_length = 16'h8;
+    data_length = 16'h0010;
 
     `uvm_info(get_type_name(), $sformatf("Write :: Register cmd_length  = %0h",cmd_length) , UVM_LOW)
     `uvm_info(get_type_name(), $sformatf("Write :: Register addr_length = %0h",addr_length), UVM_LOW)
@@ -151,15 +151,15 @@ task apb_master_std_mode_write_8_dummy_write_reg_seq::body();
   spi_master_reg_block.SPICMD.get_full_name(),wdata),UVM_HIGH)
 
   // Reading from the SPICMD Register
-  spi_master_reg_block.SPICMD.read(.status(status)       ,
-                                    .value(rdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
+ // spi_master_reg_block.SPICMD.read(.status(status)       ,
+ //                                   .value(rdata)        ,
+ //                                   .path(UVM_FRONTDOOR) ,
+ //                                   .map(spi_reg_map)    ,
+ //                                   .parent(this)
+ //                                 );                     
 
-  `uvm_info("SPI_CMD_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
-  spi_master_reg_block.SPICMD.get_full_name(),rdata),UVM_HIGH)
+ // `uvm_info("SPI_CMD_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
+ // spi_master_reg_block.SPICMD.get_full_name(),rdata),UVM_HIGH)
 
   //-------------------------------------------------------
   // SPIADDR
@@ -341,15 +341,15 @@ task apb_master_std_mode_write_8_dummy_write_reg_seq::body();
   spi_master_reg_block.INTCFG.get_full_name(),wdata),UVM_HIGH)
 
   // Reading from the INTERUPT Register
-  spi_master_reg_block.INTCFG.read(.status(status)       ,
-                                    .value(rdata)        ,
-                                    .path(UVM_FRONTDOOR) ,
-                                    .map(spi_reg_map)    ,
-                                    .parent(this)
-                                  );                     
+ // spi_master_reg_block.INTCFG.read(.status(status)       ,
+ //                                   .value(rdata)        ,
+ //                                   .path(UVM_FRONTDOOR) ,
+ //                                   .map(spi_reg_map)    ,
+ //                                   .parent(this)
+ //                                 );                     
 
-  `uvm_info("INTERUPT_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
-  spi_master_reg_block.INTCFG.get_full_name(),rdata),UVM_HIGH)
+ // `uvm_info("INTERUPT_REG_SEQ",$sformatf("READ:: REGISTER : %0s, DATA = 32'h%0h",
+ // spi_master_reg_block.INTCFG.get_full_name(),rdata),UVM_HIGH)
 
   //-------------------------------------------------------
   // STATUS Register                                        

@@ -23,6 +23,7 @@ class apb_master_collector extends uvm_component;
   //Variable : coll_pkt
   //Used to store the register data values
   collector_packet_s coll_pkt;
+  collector_packet_s coll_pkt_empty;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -98,7 +99,7 @@ function void apb_master_collector::write(apb_master_tx t);
     `uvm_info(get_type_name(), $sformatf("spi_len[5:0] = %0h", coll_pkt.spi_length[5:0]),UVM_HIGH)
 
     foreach(cmd_local[i]) begin
-      if('d31 - coll_pkt.spi_length[5:0] == i) begin
+      if('d31 - coll_pkt.cmd_len == i) begin
         break;
       end
       else begin
@@ -131,7 +132,7 @@ function void apb_master_collector::write(apb_master_tx t);
     `uvm_info(get_type_name(), $sformatf("spi_len[13:8] = %0h", coll_pkt.spi_length[13:8]),UVM_HIGH)
 
     foreach(addr_local[i]) begin
-      if('d31 - coll_pkt.spi_length[13:8] == i) begin
+      if('d31 - coll_pkt.addr_len == i) begin
         break;
       end
       else begin
@@ -180,24 +181,32 @@ function void apb_master_collector::write(apb_master_tx t);
   if(rg.get_name == "TXFIFO") begin : TXFIFIO
 
     bit [31:0]mosi_data_local;
+    int mosi_data_len_local;
 
     int k;
-    coll_pkt.j = coll_pkt.mosi_data_len - 'd1;
+
+    coll_pkt.j = 0;
     
     //k = coll_pkt.dummy_wr_data;
+    k = 32'd31;
 
     mosi_data_local = rg.get();
     `uvm_info(get_type_name(), $sformatf("mosi_data_local = %0h", mosi_data_local),UVM_HIGH)
 
     `uvm_info(get_type_name(), $sformatf("spi_len[16:31] = %0h", coll_pkt.spi_length[31:16]),UVM_HIGH)
 
-    //for(int i=0; i<coll_pkt.spi_length[31:16]; i++) begin
-    foreach(mosi_data_local[i]) begin
-      coll_pkt.data[coll_pkt.j-k] = mosi_data_local[i];
-  //    if( k == coll_pkt.spi_length[31:16]) begin
-  //      break;
-  //    end
-      k++;
+    mosi_data_len_local = coll_pkt.mosi_data_len;
+
+    for(int i=coll_pkt.mosi_data_len-1; i>=0; i--) begin
+    //`uvm_info(get_type_name(), $sformatf("spi_len[16:31] = %0h", coll_pkt.spi_length[31:16]),UVM_HIGH)
+    //foreach(mosi_data_local[i]) begin
+      if(mosi_data_len_local != 0 && mosi_data_len_local >0) begin
+        coll_pkt.mosi_data[i] = mosi_data_local[i];
+        //coll_pkt.data = coll_pkt.data << 1;
+        coll_pkt.data[i] = mosi_data_local[k];
+        mosi_data_len_local = mosi_data_len_local - 1;
+        k--;
+      end
     end
     coll_pkt.flag = coll_pkt.flag + 1;
     `uvm_info(get_type_name(), $sformatf("mosi_data = %0h", coll_pkt.mosi_data),UVM_HIGH)
@@ -216,16 +225,19 @@ function void apb_master_collector::write(apb_master_tx t);
     apb_master_coll_analysis_port.write(coll_pkt);
 
     //Restting the col;lector packet
-    coll_pkt.spi_length = 0;
-    coll_pkt.cmd_len = 0;
-    coll_pkt.addr_len = 0;
-    coll_pkt.mosi_data_len = 0;
-    coll_pkt.cmd = 0;
-    coll_pkt.addr = 0;
-    coll_pkt.mosi_data =0;
-    coll_pkt.flag = 0;
-    coll_pkt.data = 0;
-    coll_pkt.j = 0;
+    coll_pkt = coll_pkt_empty;
+
+    //Another way to reset the collector packet
+    //coll_pkt.spi_length = 0;
+    //coll_pkt.cmd_len = 0;
+    //coll_pkt.addr_len = 0;
+    //coll_pkt.mosi_data_len = 0;
+    //coll_pkt.cmd = 0;
+    //coll_pkt.addr = 0;
+    //coll_pkt.mosi_data =0;
+    //coll_pkt.flag = 0;
+    //coll_pkt.data = 0;
+    //coll_pkt.j = 0;
   end
 
 endfunction : write

@@ -31,6 +31,9 @@ class apb_master_collector extends uvm_component;
   extern function new(string name = "apb_master_collector", uvm_component parent = null);
   extern virtual function void build_phase(uvm_phase phase);
   extern virtual function void write(apb_master_tx t);
+  extern virtual function void reg_data_access(uvm_reg rg);
+  extern virtual function void tx_fifo_reg_access(uvm_reg rg);
+  extern virtual function void rx_fifo_reg_access(uvm_reg rg);
 
 endclass : apb_master_collector
 
@@ -77,6 +80,55 @@ function void apb_master_collector::write(apb_master_tx t);
   `uvm_info(get_type_name(), $sformatf("rg_data = %0h", rg.get()),UVM_HIGH)
   `uvm_info(get_type_name(), $sformatf("map_name = %0p", map.get_full_name()),UVM_HIGH)
   //`uvm_info(get_type_name(), $sformatf("map_value = %0p", map),UVM_HIGH) 
+
+  reg_data_access(rg);
+
+  if(coll_pkt.flag < 'd4 && coll_pkt.flag > 'd0) begin
+    if(t.pwrite == WRITE) begin
+      tx_fifo_reg_access(rg);
+      coll_pkt.write = 1;
+    end
+    else if(t.pwrite == READ) begin
+      rx_fifo_reg_access(rg);
+      coll_pkt.read = 1;
+    end
+  end
+
+
+  if(coll_pkt.flag == 'd4) begin
+    `uvm_info(get_type_name(),$sformatf("final_data=%0h",coll_pkt.data),UVM_HIGH)
+
+    `uvm_info(get_type_name(),$sformatf("cmd=%0d, addr=%0d mosi_data_len=%0d dummy_wr_data=%0d",coll_pkt.cmd_len,coll_pkt.addr_len,coll_pkt.mosi_data_len,coll_pkt.dummy_wr_data),UVM_HIGH)
+    coll_pkt.data_width = coll_pkt.cmd_len + coll_pkt.addr_len + coll_pkt.mosi_data_len + coll_pkt.dummy_wr_data;
+    `uvm_info(get_type_name(),$sformatf("final_data_bits=%0d",coll_pkt.data_width),UVM_HIGH)
+    
+    apb_master_coll_analysis_port.write(coll_pkt);
+
+    //Restting the col;lector packet
+    coll_pkt = coll_pkt_empty;
+
+    //Another way to reset the collector packet
+    //coll_pkt.spi_length = 0;
+    //coll_pkt.cmd_len = 0;
+    //coll_pkt.addr_len = 0;
+    //coll_pkt.mosi_data_len = 0;
+    //coll_pkt.cmd = 0;
+    //coll_pkt.addr = 0;
+    //coll_pkt.mosi_data =0;
+    //coll_pkt.flag = 0;
+    //coll_pkt.data = 0;
+    //coll_pkt.j = 0;
+  end
+
+endfunction : write
+
+
+//--------------------------------------------------------------------------------------------
+// Function : reg_data_access
+// Parameters : 
+// rg   - uvm_reg 
+//--------------------------------------------------------------------------------------------
+function void apb_master_collector::reg_data_access(uvm_reg rg);
 
   if(rg.get_name == "SPILEN") begin
     coll_pkt.spi_length = rg.get();  
@@ -178,6 +230,16 @@ function void apb_master_collector::write(apb_master_tx t);
     `uvm_info(get_type_name(),$sformatf("Inside DUMMY_WR -flag=%0h",coll_pkt.flag),UVM_HIGH)
   end
 
+endfunction : reg_data_access
+
+
+//--------------------------------------------------------------------------------------------
+// Function : tx_fifo_reg_access
+// Parameters : 
+// rg   - uvm_reg 
+//--------------------------------------------------------------------------------------------
+function void apb_master_collector::tx_fifo_reg_access(uvm_reg rg);
+
   if(rg.get_name == "TXFIFO") begin : TXFIFIO
 
     bit [31:0]mosi_data_local;
@@ -215,32 +277,52 @@ function void apb_master_collector::write(apb_master_tx t);
     `uvm_info(get_type_name(),$sformatf("Inside TX_FIFO--j=%0d",coll_pkt.j),UVM_HIGH)
   end
 
-  if(coll_pkt.flag == 'd4) begin
-    `uvm_info(get_type_name(),$sformatf("final_data=%0h",coll_pkt.data),UVM_HIGH)
+endfunction : tx_fifo_reg_access
 
-    `uvm_info(get_type_name(),$sformatf("cmd=%0d, addr=%0d mosi_data_len=%0d dummy_wr_data=%0d",coll_pkt.cmd_len,coll_pkt.addr_len,coll_pkt.mosi_data_len,coll_pkt.dummy_wr_data),UVM_HIGH)
-    coll_pkt.data_width = coll_pkt.cmd_len + coll_pkt.addr_len + coll_pkt.mosi_data_len + coll_pkt.dummy_wr_data;
-    `uvm_info(get_type_name(),$sformatf("final_data_bits=%0d",coll_pkt.data_width),UVM_HIGH)
+//--------------------------------------------------------------------------------------------
+// Function : rx_fifo_reg_access
+// Parameters : 
+// rg   - uvm_reg 
+//--------------------------------------------------------------------------------------------
+function void apb_master_collector::rx_fifo_reg_access(uvm_reg rg);
+
+  if(rg.get_name == "RXFIFO") begin : RXFIFIO
+
+    bit [31:0]miso_data_local;
+    int miso_data_len_local;
+
+    int k;
+    coll_pkt.j = 0;
     
-    apb_master_coll_analysis_port.write(coll_pkt);
+    //k = coll_pkt.dummy_wr_data;
+    k = 32'd31;
 
-    //Restting the col;lector packet
-    coll_pkt = coll_pkt_empty;
+    miso_data_local = rg.get();
+    `uvm_info(get_type_name(), $sformatf("miso_data_local = %0h", miso_data_local),UVM_HIGH)
 
-    //Another way to reset the collector packet
-    //coll_pkt.spi_length = 0;
-    //coll_pkt.cmd_len = 0;
-    //coll_pkt.addr_len = 0;
-    //coll_pkt.mosi_data_len = 0;
-    //coll_pkt.cmd = 0;
-    //coll_pkt.addr = 0;
-    //coll_pkt.mosi_data =0;
-    //coll_pkt.flag = 0;
-    //coll_pkt.data = 0;
-    //coll_pkt.j = 0;
+    `uvm_info(get_type_name(), $sformatf("spi_len[16:31] = %0h", coll_pkt.spi_length[31:16]),UVM_HIGH)
+
+    miso_data_len_local = coll_pkt.miso_data_len;
+
+    for(int i=coll_pkt.miso_data_len-1; i>=0; i--) begin
+    //`uvm_info(get_type_name(), $sformatf("spi_len[16:31] = %0h", coll_pkt.spi_length[31:16]),UVM_HIGH)
+    //foreach(miso_data_local[i]) begin
+      if(miso_data_len_local != 0 && miso_data_len_local >0) begin
+        coll_pkt.miso_data[i] = miso_data_local[i];
+        //coll_pkt.data = coll_pkt.data << 1;
+        coll_pkt.data[i] = miso_data_local[k];
+        miso_data_len_local = miso_data_len_local - 1;
+        k--;
+      end
+    end
+    coll_pkt.flag = coll_pkt.flag + 1;
+    `uvm_info(get_type_name(), $sformatf("miso_data = %0h", coll_pkt.miso_data),UVM_HIGH)
+    `uvm_info(get_type_name(),$sformatf("Inside TX_FIFO -final_data=%0h",coll_pkt.data),UVM_HIGH)
+    `uvm_info(get_type_name(),$sformatf("Inside TX_FIFO -flag=%0h",coll_pkt.flag),UVM_HIGH)
+    `uvm_info(get_type_name(),$sformatf("Inside TX_FIFO--j=%0d",coll_pkt.j),UVM_HIGH)
   end
 
-endfunction : write
+endfunction : rx_fifo_reg_access
 
 `endif
 
